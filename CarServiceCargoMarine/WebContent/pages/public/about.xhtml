@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/publicTemplate.xhtml">
+
+	
+
+	<ui:define name="content">
+<style>
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+     position: absolute; 
+    right: 0;
+    top: 0;
+    padding: 0px 3px;
+}
+
+
+.ui-selectonemenu.ui-state-hover, .ui-selectonemenu.ui-state-focus {
+     background-color: #00000021; 
+}
+
+.custom-select, select.hasCustomSelect {
+    width: 39%!important;
+}
+</style>
+
+
+<div class="center">
+<div class="clearfix"></div>
+<div class="container">
+</div>
+<div class="container">
+<div class="clearfix"></div>
+
+<div id="mm-vehicle-types">
+<table class="vehicle-types-table"><tr><td class=""><a href="car-finder/type-automobiles/make-acura.html">Acura</a></td><td class=""><a href="car-finder/type-automobiles/make-ford.html">Ford</a></td><td class=""><a href="car-finder/type-automobiles/make-kia.html">KIA</a></td><td class="last"><a href="car-finder/type-automobiles/make-pontiac.html">Pontiac</a></td></tr><tr><td class=""><a href="car-finder/type-automobiles/make-audi.html">Audi</a></td><td class=""><a href="car-finder/type-automobiles/make-fiat.html">Fiat</a></td><td class=""><a href="car-finder/type-automobiles/make-land%20rover.html">Land Rover</a></td><td class="last"><a href="car-finder/type-automobiles/make-subaru.html">Subaru</a></td></tr><tr><td class=""><a href="car-finder/type-automobiles/make-bmw.html">BMW</a></td><td class=""><a href="car-finder/type-automobiles/make-gmc.html">GMC</a></td><td class=""><a href="car-finder/type-automobiles/make-lexus.html">Lexus</a></td><td class="last"><a href="car-finder/type-automobiles/make-suzuki.html">Suzuki</a></td></tr><tr><td class=""><a href="car-finder/type-automobiles/make-cadillac.html">Cadillac</a></td><td class=""><a href="car-finder/type-automobiles/make-honda.html">Honda</a></td><td class=""><a href="car-finder/type-automobiles/make-mazda.html">Mazda</a></td><td class="last"><a href="car-finder/type-automobiles/make-toyota.html">Toyota</a></td></tr><tr><td class=""><a href="car-finder/type-automobiles/make-chevrolet.html">Chevrolet</a></td><td class=""><a href="car-finder/type-automobiles/make-hyundai.html">Hyundai</a></td><td class=""><a href="car-finder/type-automobiles/make-mercedes-benz.html">Mercedes-Benz</a></td><td class="last"><a href="car-finder/type-automobiles/make-volkswagen.html">Volkswagen</a></td></tr><tr><td class=""><a href="car-finder/type-automobiles/make-chrysler.html">Chrysler</a></td><td class=""><a href="car-finder/type-automobiles/make-infiniti.html">Infiniti</a></td><td class=""><a href="car-finder/type-automobiles/make-mitsubishi.html">Mitsubishi</a></td><td class="last"><a href="car-finder/type-automobiles/make-volvo.html">Volvo</a></td></tr><tr><td class=""><a href="car-finder/type-automobiles/make-dodge.html">Dodge</a></td><td class=""><a href="car-finder/type-automobiles/make-jeep.html">Jeep</a></td><td class=""><a href="car-finder/type-automobiles/make-nissan.html">Nissan</a></td><td class="last"><a href="car-finder/type-automobiles.html">All Makes</a></td></tr></table></div>
+<div id="mm-vehicle-types2">
+<table class="vehicle-types-table"><tr><td class=""><a href="car-finder/type-automobiles.html">Automobile</a></td><td class=""><a href="car-finder/type-trailers.html">Trailers</a></td><td class=""><a href="car-finder/type-heavy-equipment.html">Industrial equipment</a></td><td class="last"><a href="car-finder/type-homeowners.html">Homeowners</a></td></tr><tr><td class=""><a href="car-finder/type-motorcycles.html">Motorcycle</a></td><td class=""><a href="car-finder/type-heavy-duty-trucks.html">Heavy duty trucks</a></td><td class=""><a href="car-finder/type-trucks.html">Truck</a></td><td class="last"><a href="car-finder/type-snowmobiles.html">Snowmobile</a></td></tr><tr><td class=""><a href="car-finder/type-rv.html">Recreational vehicle (rv)</a></td><td class=""><a href="car-finder/type-boats.html">Boat</a></td><td class=""><a href="car-finder/type-jet-ski.html">Jet ski</a></td><td class="last"><a href="car-finder/type-dirt-bikes.html">Dirt bike</a></td></tr><tr><td class=""><a href="car-finder/type-medium-duty-box-trucks.html">Medium duty/box trucks</a></td><td class=""><a href="car-finder/type-atv.html">Atv</a></td><td class="td-empty ">&nbsp;</td><td class="td-empty last">&nbsp;</td></tr></table></div>
+<div class="row">
+<div class="col-md-12">
+</div>
+</div>
+<div id="content">
+
+
+						
+						
+
+<div class="row">
+
+<div class="col-md-9 ">
+							<div class="col-xs-12">
+							<img src="/resources/images/back1.jpg" style=" width: inherit;"></img>
+							
+								<section class="panel form-wizard" id="w4">
+								
+									
+									<div  style="font-size: large;text-align: -webkit-left;padding: 9%;padding-bottom: 0%;line-height: 38px;background: #ffffff;color: #6b6262;" >
+									
+									
+									<header >
+										
+						
+										
+<h1>About</h1>
+<p>
+FIRST INTERNATIONAL GROUP
+Cargo Marine
+</p>
+									</header>
+									
+									Cargo Marine® is RESELLER for online car auctions with more than 100,000+ 
+									vehicles on sale every day. WE HELP YOU TO Find and bid on clean title
+									 and salvage title cars, pickup trucks, electric cars, luxury cars, SUVs, ATVs,
+									  motorcycles and boats — all without the need for a dealer license.
+									   Cargo Marine® is a registered Copart Auto Auction broker. 
+									   That means you have access to the largest car auction inventory in USA, including used, repairable, theft recovery,
+									    fleet &amp; lease, repo, flood and hail damaged cars. We make the entire process hassle-free, fun and safe, guaranteed.
+									     We don’t just ensure a better bidding experience, though: We will deliver your purchased vehicle(s) anywhere in the world,
+									      and we are always here to answer any questions or concerns you might have.
+									 We’re committed to you — and to changing the car auction process for the better.
+									</div>
+									
+									
+									<div  style="font-size: large;text-align: -webkit-left;padding: 9%;padding-top: 1%;padding-bottom: 0%;line-height: 38px;background: #ffffff;color: #6b6262;" >
+									<h1>Contact Details</h1>
+									
+									If you have any questions about what we offer for consumers or for business, you can always email us or 
+									call us via this <a href="/pages/public/contactUs.jsf"> link</a>. We’ll reply within 24 hours.
+									</div>
+									
+									<div  style="font-size: large;text-align: -webkit-left;padding: 9%;line-height: 38px;background: #ffffff;color: #6b6262;" >
+									<h1>Our Contract</h1>
+									<a href="https://drive.google.com/file/d/1SMzkHDmh785qfVDnp8Qg631V-GGditii/view"> the contract link</a>
+									
+									
+									</div>
+									
+									
+								</section>
+							</div>
+						</div>
+						
+						
+
+<div class="col-md-3 hidden-sm hidden-xs" style="    margin-top: 1%;">
+<div class="searchBox">
+<div class="block_header">Contact Us</div>
+<div class="block_box">
+<table class="how_contacts_table">
+
+<tr>
+<td><div class="icon_email"></div></td>
+<td><a class="email_help" href="mailto:shipping@usa-fig.com">Email Us</a></td>
+</tr>
+
+<tr>
+<td><div class="icon_fb"></div></td>
+<td><a href="http://www.facebook.com/Cargo Marine">Facebook</a></td>
+</tr>
+
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  
+	
+	
+	
+	
+
+	</ui:define>
+	
+		
+	
+	<ui:define name="script">
+  			
+  			
+  			
+  			
+  			
+  			 	<!-- Vendor -->
+  		   
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery/jquery.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap/js/bootstrap.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/nanoscroller/nanoscroller.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/magnific-popup/magnific-popup.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-placeholder/jquery.placeholder.js"/>
+  			
+  			<script>
+  			   jQuery.noConflict();
+  			 </script>
+  			
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-validation/jquery.validate.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"/>
+  			<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  			
+  			
+  			<!-- Theme Base, Components and Settings -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.js"/>
+  			
+  			<!-- Theme Custom -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.custom.js"/>
+  			
+  			<!-- Theme Initialization Files -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
+  			
+  			<!-- Examples -->
+  			
+  	    	<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  	
+  	
+
+	
+	</ui:define>
+	
+</ui:composition>
+</html>
