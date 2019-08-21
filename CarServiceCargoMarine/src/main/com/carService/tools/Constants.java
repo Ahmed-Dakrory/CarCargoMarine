@@ -531,7 +531,7 @@ public class Constants {
 				"          </td>\r\n" + 
 				"	      </tr><!-- end tr -->\r\n" + 
 				"	      <tr>\r\n" + 
-				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://adainter.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
+				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://cargomarin.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
 				"          	<div class=\"overlay\"></div>\r\n" + 
 				"            <table>\r\n" + 
 				"            	<tbody><tr>\r\n" + 
@@ -598,7 +598,7 @@ public class Constants {
 				"                      <td style=\"text-align: left; padding-left: 5px; padding-right: 5px;\">\r\n" + 
 				"                      	<h3 class=\"heading\">Contact Info</h3>\r\n" + 
 				"                      	<ul>\r\n" + 
-				"					                <li><span class=\"text\">7999 Hansen rd#418, Houston Tx 77061</span></li>\r\n" + 
+				"					                <li><span class=\"text\">7998 Hansen rd #Suite 418 Houston Tx 77061</span></li>\r\n" + 
 				"					                <li><span class=\"text\"> (713)223-9000</span></li>\r\n" + 
 				"					              </ul>\r\n" + 
 				"                      </td>\r\n" + 
@@ -1130,7 +1130,7 @@ public class Constants {
 				"          </td>\r\n" + 
 				"	      </tr><!-- end tr -->\r\n" + 
 				"	      <tr>\r\n" + 
-				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://adainter.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
+				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://cargomarin.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
 				"          	<div class=\"overlay\"></div>\r\n" + 
 				"            <table>\r\n" + 
 				"            	<tbody><tr>\r\n" + 
@@ -1197,7 +1197,7 @@ public class Constants {
 				"                      <td style=\"text-align: left; padding-left: 5px; padding-right: 5px;\">\r\n" + 
 				"                      	<h3 class=\"heading\">Contact Info</h3>\r\n" + 
 				"                      	<ul>\r\n" + 
-				"					                <li><span class=\"text\">7999 Hansen rd#418, Houston Tx 77061</span></li>\r\n" + 
+				"					                <li><span class=\"text\">7998 Hansen rd #Suite 418 Houston Tx 77061</span></li>\r\n" + 
 				"					                <li><span class=\"text\"> (713)223-9000</span></li>\r\n" + 
 				"					              </ul>\r\n" + 
 				"                      </td>\r\n" + 
@@ -1727,7 +1727,7 @@ public class Constants {
 				"          </td>\r\n" + 
 				"	      </tr><!-- end tr -->\r\n" + 
 				"	      <tr>\r\n" + 
-				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://adainter.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
+				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://cargomarin.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
 				"          	<div class=\"overlay\"></div>\r\n" + 
 				"            <table>\r\n" + 
 				"            	<tbody><tr>\r\n" + 
@@ -1788,7 +1788,7 @@ public class Constants {
 				"                      <td style=\"text-align: left; padding-left: 5px; padding-right: 5px;\">\r\n" + 
 				"                      	<h3 class=\"heading\">Contact Info</h3>\r\n" + 
 				"                      	<ul>\r\n" + 
-				"					                <li><span class=\"text\">7999 Hansen rd#418, Houston Tx 77061</span></li>\r\n" + 
+				"					                <li><span class=\"text\">7998 Hansen rd #Suite 418 Houston Tx 77061</span></li>\r\n" + 
 				"					                <li><span class=\"text\"> (713)223-9000</span></li>\r\n" + 
 				"					              </ul>\r\n" + 
 				"                      </td>\r\n" + 
@@ -2307,7 +2307,7 @@ public class Constants {
 	        		"          </td>\r\n" + 
 	        		"	      </tr><!-- end tr -->\r\n" + 
 	        		"	      <tr>\r\n" + 
-	        		"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://adainter.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
+	        		"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://cargomarin.com/resources/images/public/img/emailBack.jpg);background-size: cover;height: 263px;\">\r\n" + 
 	        		"          	<div class=\"overlay\"></div>\r\n" + 
 	        		"            <table>\r\n" + 
 	        		"            	<tbody><tr>\r\n" + 
@@ -2335,7 +2335,7 @@ public class Constants {
 	        		"          <td class=\"bg_dark email-section\" style=\"text-align:center;\">\r\n" + 
 	        		"          	<div class=\"heading-section heading-section-white\">\r\n" + 
 	        		"          		<span class=\"subheading\">Welcome</span>\r\n" + 
-	        		"            	<h2>Cargo Marine INTERNATIONAL</h2>\r\n" + 
+	        		"            	<h2>Cargo Marine</h2>\r\n" + 
 	        		"            	\r\n" + 
 	        		"          	</div>\r\n" + 
 	        		"          </td>\r\n" + 
@@ -2368,7 +2368,7 @@ public class Constants {
 	        		"                      <td style=\"text-align: left; padding-left: 5px; padding-right: 5px;\">\r\n" + 
 	        		"                      	<h3 class=\"heading\">Contact Info</h3>\r\n" + 
 	        		"                      	<ul>\r\n" + 
-	        		"					                <li><span class=\"text\">7999 Hansen rd#418, Houston Tx 77061</span></li>\r\n" + 
+	        		"					                <li><span class=\"text\">7998 Hansen rd #Suite 418 Houston Tx 77061</span></li>\r\n" + 
 	        		"					                <li><span class=\"text\"> (713)223-9000</span></li>\r\n" + 
 	        		"					              </ul>\r\n" + 
 	        		"                      </td>\r\n" + 
@@ -2401,8 +2401,8 @@ public class Constants {
 			public void run() {
 				
 				
-				String from = "info@adainter.com";
-		        String pass = "T1234567t*";
+				String from = "shipping@cargomarin.com";
+		        String pass = "Aaa123456789";
 				
 				// TODO Auto-generated method stub
 				 Properties props = System.getProperties();
