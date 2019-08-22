@@ -5,12 +5,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition template="/templates/publicTemplate.xhtml">
 
-	
 
 	<ui:define name="content">
+	
 	
 
 <style>
@@ -41,43 +42,89 @@ position: relative;
     color: #615c5c;
     text-decoration: none;
 }
+
+ 
+ 
+ .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+  }
+  
+  .fontForBanner{
+  font-size: 50px;
+    font-family: initial;
+    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;
+  }
+  
 </style>
+
+
+   <!--  
+    <link rel="stylesheet" href="#{resource['css:public/jq-carousel-plugin.css']}" />
+     -->
+    
+		
 <div class="center">
 <div class="clearfix"></div>
-<div style="   background: url(/resources/images/logo.png) 100% no-repeat;background-size: 18%;border: 1px solid #d1d3d85c;border-bottom-right-radius: 151px 151px;width: 100%;height: 100%;background-color: #2e6990;padding-bottom: 0.1%;box-shadow: 0px 0px 8px #b7b7b7, 0px 0px 1px #a9a9a9, 0px 0px 42px #d2d2d2;">
-<div class="ab-banner__wrapper">
-<div class="ab-banner__container">
-<div class="ab-banner__content">
 
-<!-- 
-<h1 class="ab-banner__title hidden-xs hidden-sm">
 
-Cargo Marine 
- </h1>
- <h1 class="hidden-xs hidden-sm">
-<span style="    text-shadow: 1px 2px 1px #cac9c9, 0 0 38px white, 0 0 13px #cacaca;">
-FIRST INTERNATIONAL GROUP
-</span>
+ <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
-</h1>
- -->
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
 
-<h2 class="ab-banner__title hidden-lg hidden-md" style="    margin-left: 8%;">
+      <div class="item active">
+        <img src="/resources/images/roro.jpg" alt="Chania" style="    width: 100%;height:800px;" />
+        <div class="carousel-caption">
+          <h3 class="fontForBanner">Ro Ro Shipping</h3>
+        </div>
+      </div>
 
-Cargo Marine 
- </h2>
+      <div class="item">
+        <img src="/resources/images/container.jpg" alt="Chania"  style="    width: 100%;height:800px;"/>
+        <div class="carousel-caption">
+          <h3 class="fontForBanner">Container Shipping</h3>
+        </div>
+      </div>
+    
+      <div class="item">
+        <img src="/resources/images/carshipping.png" alt="Flower"  style="    width: 100%;height:800px;"/>
+        <div class="carousel-caption">
+          <h3 class="fontForBanner">Vehicle in Container</h3>
+        </div>
+      </div>
 
-</div>
+     
+  
+    </div>
 
-</div>
-</div>
-</div>
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+
+
+
 <div class="container">
 
 <div class="row  hidden-sm hidden-xs">
 <div class="col-md-12 ">
 <div class="main-title main-popular-title">
-<h2 class="main-title f-normal f-upper h2-like-h3">Buy it now vehicles</h2> </div>
+<h2 class="main-title f-normal f-upper h2-like-h3">SERVICES GALLERY</h2> </div>
 
 
 
@@ -85,16 +132,26 @@ Cargo Marine
     <div class="owl-stage-outer">
          <div class="owl-stage" style="transition: all 0s ease 0s; width: 5880px; transform: translate3d(-1102px, 0px, 0px);">
           
+          
+          
         <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingScroller}">
         
         	<div class="owl-item active center" >
             
              		<span href="en/25177299-2018-tesla-model_3.html" >
-					 <h:graphicImage value="/images/?file=#{data.mainImage}" alt="image#{var}" style="    width: 257px;" />
-					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
+					 <h:graphicImage value="/images/?file=#{data.mainImage}" alt="image#{var}" style="    width: 307px;" />
+					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;">
+					
+						<a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}
+							<br></br>#{data.model} 
+						<span>($#{data.currentBid})</span>
+						</a>
+					</div>
 					</span>
            
             </div>
+            
+            
             
         </ui:repeat>
             
@@ -247,77 +304,6 @@ function openCategories(n){
 </h:form>
 
 
-
-<div class="row  hidden-sm hidden-xs">
-<div class="col-md-12 ">
-<div class="main-title main-popular-title">
-<h2 class="main-title f-normal f-upper h2-like-h3"> Services Gallery</h2> </div>
-
-
-
-<div class=" loop owl-carousel owl-theme owl-loaded owl-drag">
-    <div class="owl-stage-outer">
-         <div class="owl-stage" style="transition: all 0s ease 0s; width: 5880px; transform: translate3d(-1102px, 0px, 0px);">
-          
-       
-        	<div class="owl-item active center" >
-            
-             		 <h:graphicImage value="/resources/images/s1.jpg" alt="s1" style="   width: 333px;height: 330px;" />
-					
-           
-            </div>
-            
-            <div class="owl-item active center" >
-            
-             		 <h:graphicImage value="/resources/images/s2.jpg" alt="s2" style="  width: 333px;height: 330px;" />
-					
-           
-            </div>
-            
-            
-            <div class="owl-item active center" >
-            
-             		 <h:graphicImage value="/resources/images/s3.jpg" alt="s3" style="    width: 333px;height: 330px;" />
-					
-           
-            </div>
-            
-            <div class="owl-item active center" >
-            
-             		 <h:graphicImage value="/resources/images/s4.jpg" alt="s4" style="    width: 333px;height: 330px;" />
-					
-           
-            </div>
-            
-            <div class="owl-item active center" >
-            
-             		 <h:graphicImage value="/resources/images/s5.jpg" alt="s5" style="    width: 333px;height: 330px;" />
-					
-           
-            </div>
-            
-            
-            
-            
-           
-            
-            </div>
-      </div>
-</div>
-          
-          
-          
-
-
-
-
-
-
- </div>
-
-</div>
-
-
 </div>
 </div>
 
@@ -326,10 +312,12 @@ function openCategories(n){
 	
 	
 	
-	<ui:define name="script">
-  	
-
-  	
+	<ui:define name="script2">
+   
+  	 
+		  <link rel="stylesheet" href="#{resource['css:public/bootstrapSlider.css']}" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  	 
   	</ui:define>
 	
 	
