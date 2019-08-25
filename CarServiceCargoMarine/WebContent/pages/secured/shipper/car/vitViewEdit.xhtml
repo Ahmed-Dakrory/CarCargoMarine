@@ -5778,6 +5778,7 @@
                                                                                                 <td>
                                                                                                 </td>
                                                                                             </tr>
+                                                                                            
                                                                                             <tr height="23">
                                                                                                 <td colspan="6" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
@@ -5879,6 +5880,112 @@
                                                                                                 <td>
                                                                                                 </td>
                                                                                             </tr>
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            <tr height="23">
+                                                                                                <td colspan="6" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('pdfdocDiv','pdfdocExpand')">
+                                                                                                            <img id="pdfdocExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" />
+                                                                                                            <b>PDF Documents:</b></a></div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
+                                                                                                    <div id="pdfdocDiv" style="display: inline; margin-left: 6px">
+                                                                                                     	<p:fileUpload id="pdfdocUploaded" fileUploadListener="#{carBean.previewFilePdf}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(pdf)$/"></p:fileUpload>
+        
+        
+        
+               <h:panelGroup id="pdfdocsPanel">
+                                     
+<table border="1" style="    border: unset;">
+   <tr>
+        <td colspan="2">
+            <table id="pdfctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
+	<tr>
+                
+                
+	
+		<ui:repeat var="var" value="#{carBean.pdfs}">
+			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <div>
+                                    <a href="#" onclick='ViewPDFById("#{var}")'>
+                                        <h:graphicImage value="/pdfs/?file=#{var}" alt="pdfs#{var}" style="border-width:0px; width:50px;" />
+                                        </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a style="color: Black;" href="#" onclick='ViewPDFById("#{var}")'>
+                                    <span id="pdfctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        </tr>
+                    </table>
+                </td>
+                
+                
+               
+		</ui:repeat>
+             
+             
+              <td style="border: black;padding: 14px;border-width: 1px;">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <div>
+                                    <label for="aspnetForm:pdfdocUploaded_input">
+                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
+                                    </label>
+                                        
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a style="color: Black;" href="#" onclick='ViewDocById(#{var})'>
+                                    <span id="pdfctl00_BodyHolder_imageList_picList_ctl00_docName">click to select File</span></a>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        </tr>
+                    </table>
+                </td>
+	   
+               
+	</tr>
+</table>
+
+</td>
+    </tr>
+    <tr>
+    </tr>
+        
+</table>
+
+</h:panelGroup>
+
+                                                                                                    </div>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                           
                                                                                             
                                                                                             
                                                                                             

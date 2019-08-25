@@ -32,6 +32,7 @@ public class DynamicImageServlet extends HttpServlet{
 	{
 		try {
 			String file = request.getParameter("file");
+			String typePdf = request.getParameter("Pdf");
 			if(file==null) {
 				file = "errorNotFound.png";
 			}
@@ -39,9 +40,13 @@ public class DynamicImageServlet extends HttpServlet{
 			if(file.equals("")) {
 				file="errorNotFound.png";
 			}
-			
-			String mainDirectory =System.getProperty("catalina.base")+"/images/";
-			
+			String mainDirectory="";
+			if(typePdf==null) {
+				mainDirectory =System.getProperty("catalina.base")+"/images/";
+			}else {
+				mainDirectory =System.getProperty("catalina.base")+"/pdf/";
+					
+			}
 			FileInputStream fileInputStream = new FileInputStream(mainDirectory + file);
 			BufferedInputStream in =new BufferedInputStream(fileInputStream);
 			byte[] bytes = new byte[in.available()];
