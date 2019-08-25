@@ -132,7 +132,6 @@ public class mainTwoBean implements Serializable{
 		if(isValid) {
 			boolean checkEmail = checkEmailIsExist(addNewmainTwo.getUserId().getEmail());
 			if(checkEmail) {
-		userNew.setActive(true);
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_MAIN2);
 		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));

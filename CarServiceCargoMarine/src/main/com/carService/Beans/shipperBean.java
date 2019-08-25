@@ -349,7 +349,6 @@ public class shipperBean implements Serializable{
 		if(isValid) {
 			boolean checkEmail = checkEmailIsExist(addNewshipper.getUserId().getEmail());
 			if(checkEmail) {
-		userNew.setActive(true);
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_SHIPPER);
 		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));

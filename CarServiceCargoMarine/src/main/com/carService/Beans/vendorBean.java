@@ -390,7 +390,6 @@ public class vendorBean implements Serializable{
 		if(isValid) {
 			boolean checkEmail = checkEmailIsExist(addNewvendor.getUserId().getEmail());
 			if(checkEmail) {
-		userNew.setActive(true);
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_VENDOR);
 		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
