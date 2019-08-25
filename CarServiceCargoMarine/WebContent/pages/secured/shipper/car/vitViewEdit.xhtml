@@ -5911,22 +5911,22 @@
                 
                 
 	
-		<ui:repeat var="var" value="#{carBean.pdfs}">
+		<ui:repeat var="var" varStatus="status" value="#{carBean.pdfs}">
 			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
                     <table>
                         <tr>
                             <td align="center">
                                 <div>
                                     <a href="#" onclick='ViewPDFById("#{var}")'>
-                                        <h:graphicImage value="/pdfs/?file=#{var}" alt="pdfs#{var}" style="border-width:0px; width:50px;" />
-                                        </a>
+                                     <h:graphicImage value="/resources/images/pdf.png" alt="pdfs#{var}" style="border-width:0px; width:50px;" />
+                                    </a>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style="text-align: center;">
                                 <a style="color: Black;" href="#" onclick='ViewPDFById("#{var}")'>
-                                    <span id="pdfctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
+                                    <span id="pdfctl00_BodyHolder_imageList_fileList_ctl00_docName">#{status.index+1}</span></a>
                                 
                             </td>
                         </tr>

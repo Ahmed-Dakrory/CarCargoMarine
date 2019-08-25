@@ -30,6 +30,7 @@ public class DynamicImageServlet extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
 	{
+		
 		try {
 			String file = request.getParameter("file");
 			String typePdf = request.getParameter("Pdf");
@@ -44,7 +45,7 @@ public class DynamicImageServlet extends HttpServlet{
 			if(typePdf==null) {
 				mainDirectory =System.getProperty("catalina.base")+"/images/";
 			}else {
-				mainDirectory =System.getProperty("catalina.base")+"/pdf/";
+				mainDirectory =System.getProperty("catalina.base")+"/pdfs/";
 					
 			}
 			FileInputStream fileInputStream = new FileInputStream(mainDirectory + file);
