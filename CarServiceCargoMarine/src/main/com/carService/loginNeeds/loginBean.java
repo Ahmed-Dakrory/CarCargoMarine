@@ -104,7 +104,7 @@ public class loginBean implements Serializable{
 
 			try {
 					FacesContext.getCurrentInstance()
-					   .getExternalContext().redirect("/pages/secured/userData/userProfile.jsf");
+					   .getExternalContext().redirect("/pages/secured/userData/userProfile.jsf?faces-redirect=true");
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

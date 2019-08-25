@@ -110,6 +110,30 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
     text-shadow: 0px 1px 0px #f5505a;
 }
 
+.billOfSale {
+	      -moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
+    box-shadow: inset 0px 1px 0px 0px #325765;
+    background: -moz-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -o-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -ms-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: linear-gradient(to bottom, #5245bd 4%, #1f6cbb 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa3a3', endColorstr='#ffa3a3',GradientType=0);
+    background-color: #4e2a2c;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #422aa5;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 80px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0px 1px 0px #3e46a7;
+}
+
 .documentCheck {
 	    -moz-box-shadow: inset 0px 1px 0px 0px #bcc21b;
     -webkit-box-shadow: inset 0px 1px 0px 0px #bcc21b;
@@ -555,6 +579,10 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 												
 												<h:panelGroup rendered="#{(data.titleRecieved==5)?'true':'false'}">
 												<div  class="paid">Paid</div>
+												</h:panelGroup>
+												
+												<h:panelGroup rendered="#{(data.titleRecieved==6)?'true':'false'}">
+												<div  class="billOfSale">Bill Of Sale</div>
 												</h:panelGroup>
 													
 											</td>
