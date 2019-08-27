@@ -91,6 +91,9 @@ public class invoice {
 	
 	@Column(name = "transferFees")
 	private Integer transferFees;
+	
+	@Column(name = "description_of_charges")
+	private String description_of_charges;
 
 
 	public Integer getId() {
@@ -180,6 +183,16 @@ public class invoice {
 
 	public void setTransferFees(Integer transferFees) {
 		this.transferFees = transferFees;
+	}
+
+
+	public String getDescription_of_charges() {
+		return description_of_charges;
+	}
+
+
+	public void setDescription_of_charges(String description_of_charges) {
+		this.description_of_charges = description_of_charges;
 	}
 	
 	
