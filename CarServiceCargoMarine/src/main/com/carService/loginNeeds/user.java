@@ -129,8 +129,6 @@ public class user {
 	private String zip;
 	
 
-	@Column(name = "phoneCode")
-	private String phoneCode;
 	
 	@Column(name = "phone")
 	private String phone;
@@ -393,16 +391,6 @@ public class user {
 
 
 
-	public String getPhoneCode() {
-		return phoneCode;
-	}
-
-
-
-
-	public void setPhoneCode(String phoneCode) {
-		this.phoneCode = phoneCode;
-	}
 
 
 
