@@ -1676,7 +1676,7 @@ public void updateCarForCustomer() {
 
 private void sendUpdateToAll(car selectedCar2) {
 		
-		shipper shipperObject =selectedCar.getShipperId();
+		shipper shipperObject =selectedCar2.getShipperId();
 		shipper shipperIdMail =null;
 		if(shipperObject!=null) {
 			Integer shipperId = shipperObject.getId();
@@ -1685,7 +1685,7 @@ private void sendUpdateToAll(car selectedCar2) {
 		
 		
 		
-		vendor vendorObject =selectedCar.getVendorId();
+		vendor vendorObject =selectedCar2.getVendorId();
 		vendor vendorIdMail =null;
 		if(vendorObject!=null) {
 			Integer vendorId = vendorObject.getId();
@@ -1693,7 +1693,7 @@ private void sendUpdateToAll(car selectedCar2) {
 		}
 		
 		
-		consignee consigneeObject=selectedCar.getConsigneeId();
+		consignee consigneeObject=selectedCar2.getConsigneeId();
 		consignee consigneeIdMail =null;
 		if(consigneeObject!=null) {
 			Integer consigneeId = consigneeObject.getId();
@@ -1702,7 +1702,7 @@ private void sendUpdateToAll(car selectedCar2) {
 		
 		
 		
-		customer customerObject=selectedCar.getCustomerId();
+		customer customerObject=selectedCar2.getCustomerId();
 		customer customerIdMail =null;
 		if(customerObject!=null) {
 			Integer customerId = customerObject.getId();
@@ -1711,7 +1711,7 @@ private void sendUpdateToAll(car selectedCar2) {
 		
 		
 		
-		mainTwo mainTwoObject = selectedCar.getMainTwoId();
+		mainTwo mainTwoObject = selectedCar2.getMainTwoId();
 		mainTwo mainTwoIdMail =null;
 		if(mainTwoObject!=null) {
 			Integer mainTwoId = mainTwoObject.getId();
@@ -1736,6 +1736,7 @@ private void sendUpdateToAll(car selectedCar2) {
 		if(customerIdMail!=null)
 			Constants.sendEmailUpdateFormatCar(selectedCar2,customerIdMail.getUserId().getFirstName(), customerIdMail.getUserId().getEmail(), customerIdMail.getUserId().getEmail());
 	}
+
 
 	public String getFormatedDate(Calendar c) {
 		String dateTime="";
