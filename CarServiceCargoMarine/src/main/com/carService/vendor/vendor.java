@@ -28,25 +28,25 @@ import main.com.carService.shipper.shipper;
 	
 	
 	@NamedQuery(name="vendor.getAll",
-		     query="SELECT c FROM vendor c"
+		     query="SELECT c FROM vendor c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="vendor.getById",
-	query = "from vendor d where d.id = :id"
+	query = "from vendor d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="vendor.getByUserId",
-	query = "from vendor d where d.userId = :id"
+	query = "from vendor d where d.userId = :id and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="vendor.getAllByParentId",
-	query = "from vendor d where d.parentId.id = :id"
+	query = "from vendor d where d.parentId.id = :id and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="vendor.getAllByParentIdForUser",
-	query = "from vendor d where d.parentId.parentId.id = :id"
+	query = "from vendor d where d.parentId.parentId.id = :id and d.deleted = false"
 			)
 	
 })
@@ -90,6 +90,23 @@ public class vendor {
 	private shipper parentId;
 
 
+	
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}

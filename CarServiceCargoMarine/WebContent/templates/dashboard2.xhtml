@@ -374,6 +374,14 @@
 										</li>
 										
 										<li  style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
+											<a href="/pages/secured/vendor/RequestAQuote.jsf?faces-redirect=true">
+												<i class="fa fa-plus-square" aria-hidden="true"></i>
+												<span>Add Quote </span>
+											</a>
+											
+										</li>
+										
+										<li  style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
 											<a href="/pages/secured/admin/car/AddNewInventory.jsf?faces-redirect=true">
 												<i class="fa fa-plus-square" aria-hidden="true"></i>
 												<span>Add Inventory</span>
@@ -581,9 +589,14 @@
 		
 		<!-- Theme Initialization Files -->
 		<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
-
-
 		
+		
+
+
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		
+		
+		<h:outputScript name="js/dashboard2/assets/deleteCheckScripts.js"/>
 		</h:body>
 
 </html>

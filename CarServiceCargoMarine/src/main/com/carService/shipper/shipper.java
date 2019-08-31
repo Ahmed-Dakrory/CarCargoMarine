@@ -27,19 +27,19 @@ import main.com.carService.loginNeeds.user;
 	
 	
 	@NamedQuery(name="shipper.getAll",
-		     query="SELECT c FROM shipper c"
+		     query="SELECT c FROM shipper c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="shipper.getById",
-	query = "from shipper d where d.id = :id"
+	query = "from shipper d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="shipper.getByUserId",
-	query = "from shipper d where d.userId = :id"
+	query = "from shipper d where d.userId = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="shipper.getAllByParentId",
-	query = "from shipper d where d.parentId.id = :id"
+	query = "from shipper d where d.parentId.id = :id and d.deleted = false"
 			)
 	
 	
@@ -83,6 +83,21 @@ public class shipper {
 	private user parentId;
 
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

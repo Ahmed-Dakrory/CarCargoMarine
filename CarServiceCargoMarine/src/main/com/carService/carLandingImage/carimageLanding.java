@@ -26,20 +26,20 @@ import main.com.carService.carLanding.carLanding;
 	
 	
 	@NamedQuery(name="carimageLanding.getAll",
-		     query="SELECT c FROM carimageLanding c"
+		     query="SELECT c FROM carimageLanding c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="carimageLanding.getById",
-	query = "from carimageLanding d where d.id = :id"
+	query = "from carimageLanding d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="carimageLanding.getAllByCarId",
-	query = "from carimageLanding d where d.carId.id = :id"
+	query = "from carimageLanding d where d.carId.id = :id and d.deleted = false"
 			)
 	,
 	
 	@NamedQuery(name="carimageLanding.getByUrl",
-	query = "from carimageLanding d where d.url = :url"
+	query = "from carimageLanding d where d.url = :url and d.deleted = false"
 			)
 	
 	
@@ -63,6 +63,21 @@ public class carimageLanding {
 	private carLanding carId;
 
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

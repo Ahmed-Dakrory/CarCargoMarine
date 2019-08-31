@@ -28,28 +28,28 @@ import main.com.carService.vendor.vendor;
 	
 	
 	@NamedQuery(name="customer.getAll",
-		     query="SELECT c FROM customer c"
+		     query="SELECT c FROM customer c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="customer.getById",
-	query = "from customer d where d.id = :id"
+	query = "from customer d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="customer.getByUserId",
-	query = "from customer d where d.userId = :id"
+	query = "from customer d where d.userId = :id and d.deleted = false"
 			)
 	,
 	
 	@NamedQuery(name="customer.getAllByParentId",
-	query = "from customer d where d.parentId.id = :id"
+	query = "from customer d where d.parentId.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="customer.getAllByShipperOfParentId",
-	query = "from customer d where d.parentId.parentId.id = :id"
+	query = "from customer d where d.parentId.parentId.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="customer.getAllByUserOfParentOfParentId",
-	query = "from customer d where d.parentId.parentId.parentId.id = :id"
+	query = "from customer d where d.parentId.parentId.parentId.id = :id and d.deleted = false"
 			)
 	
 })
@@ -92,6 +92,21 @@ public class customer {
 	private vendor parentId;
 
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

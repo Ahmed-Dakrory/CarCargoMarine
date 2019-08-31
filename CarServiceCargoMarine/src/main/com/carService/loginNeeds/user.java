@@ -25,31 +25,31 @@ import org.hibernate.annotations.NamedQuery;
 	
 	
 	@NamedQuery(name="user.getAll",
-		     query="SELECT c FROM user c"
+		     query="SELECT c FROM user c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="user.getById",
-	query = "from user d where d.id = :id"
+	query = "from user d where d.id = :id and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="user.getByEmail",
-	query = "from user d where d.email = :email"
+	query = "from user d where d.email = :email and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="user.getByEmailAndRole",
-	query = "from user d where d.email = :email and d.role = :role"
+	query = "from user d where d.email = :email and d.role = :role and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="user.getAllWithRole",
-	query = "from user d where d.role = :role"
+	query = "from user d where d.role = :role and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="user.getByMailAndPassword",
-	query = "from user d where d.email = :email and d.password = :password and active = :active"
+	query = "from user d where d.email = :email and d.password = :password and active = :active and d.deleted = false"
 			)
 	
 })
@@ -145,13 +145,20 @@ public class user {
 	private String fax;
 	
 	
+	@Column(name = "deleted")
+	private boolean deleted;
 	
 	
 	
 	
-	
-	
-	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -487,7 +494,7 @@ public class user {
 		}else if(role==ROLE_CUSTOMER) {
 			return "Customer";
 		}else if(role==ROLE_MAIN2) {
-			return "Main User";
+			return "Follower User";
 		}else{
 			return "Consignee";
 		}

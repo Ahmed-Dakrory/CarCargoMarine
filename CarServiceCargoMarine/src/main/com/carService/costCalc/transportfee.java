@@ -23,27 +23,27 @@ import org.hibernate.annotations.NamedQuery;
 	
 	
 	@NamedQuery(name="transportfee.getAll",
-		     query="SELECT c FROM transportfee c"
+		     query="SELECT c FROM transportfee c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="transportfee.getById",
-	query = "from transportfee d where d.id = :id"
+	query = "from transportfee d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="transportfee.getAllGroupsOfLocation",
-	query = "from transportfee d group by d.location"
+	query = "from transportfee d where d.deleted = false group by d.location"
 			)
 	,
 	@NamedQuery(name="transportfee.getAllGroupsOfCityWithLocation",
-	query = "from transportfee d where d.location = :location group by d.city"
+	query = "from transportfee d where d.location = :location and d.deleted = false group by d.city"
 			)
 	,
 	@NamedQuery(name="transportfee.getAllGroupsOfstateWithCity",
-	query = "from transportfee d where d.city = :city group by d.state"
+	query = "from transportfee d where d.city = :city and d.deleted = false group by d.state "
 			)
 	,
 	@NamedQuery(name="transportfee.getWithSpecs",
-	query = "from transportfee d where d.location = :location and d.city = :city and d.state = :state"
+	query = "from transportfee d where d.location = :location and d.city = :city and d.state = :state and d.deleted = false"
 			)
 	
 	
@@ -89,6 +89,21 @@ public class transportfee {
 	private Integer highCost;
 
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

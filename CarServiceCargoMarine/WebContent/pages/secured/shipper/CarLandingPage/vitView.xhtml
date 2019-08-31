@@ -701,6 +701,12 @@
 	
 		<ui:repeat var="var" value="#{carLandingBean.images}">
 			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
+			 <div class="containerDevCloseButtonNew">
+						<div class="devCloseButtonNew" onclick="deleteImageNum('#{var}')">
+	                                	<div href="#"  class="closeButtonNew">
+	                                	</div>
+	                    </div>
+					</div>
                     <table>
                         <tr>
                             <td align="center">
@@ -963,6 +969,8 @@
            
         
 					
+	                                	<p:remoteCommand name="deleteFile" action="#{carLandingBean.deleteFile()}"> 
+	                                	</p:remoteCommand>
 				
         </h:form>
         

@@ -29,25 +29,25 @@ import main.com.carService.loginNeeds.user;
 	
 	
 	@NamedQuery(name="invoice.getAll",
-		     query="SELECT c FROM invoice c"
+		     query="SELECT c FROM invoice c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="invoice.getById",
-	query = "from invoice d where d.id = :id"
+	query = "from invoice d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="invoice.getByUserIdCustomer",
-	query = "from invoice d where d.userIdCustomer.id = :id"
+	query = "from invoice d where d.userIdCustomer.id = :id and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="invoice.getAllByUserId",
-	query = "from invoice d where d.userIdIssuer.id = :id"
+	query = "from invoice d where d.userIdIssuer.id = :id and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="invoice.getAllByUserIdBetweenDates",
-	query = "from invoice d where d.userIdIssuer.id = :id and d.date > :dateLower and d.date < :dateHigher"
+	query = "from invoice d where d.userIdIssuer.id = :id and d.deleted = false and d.date > :dateLower and d.date < :dateHigher"
 			)
 
 })
@@ -96,6 +96,21 @@ public class invoice {
 	private String description_of_charges;
 
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

@@ -28,28 +28,28 @@ import main.com.carService.shipper.shipper;
 	
 	
 	@NamedQuery(name="consignee.getAll",
-		     query="SELECT c FROM consignee c"
+		     query="SELECT c FROM consignee c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="consignee.getById",
-	query = "from consignee d where d.id = :id"
+	query = "from consignee d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="consignee.getAllByUserId",
-	query = "from consignee d where d.userId = :id"
+	query = "from consignee d where d.userId = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="consignee.getAllByParentId",
-	query = "from consignee d where d.parentId.id = :id"
+	query = "from consignee d where d.parentId.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="consignee.getAllByParentIdAndUserId",
-	query = "from consignee d where d.parentId.id = :id and d.userId.id = :idUser"
+	query = "from consignee d where d.parentId.id = :id and d.userId.id = :idUser and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="consignee.getAllByParentOfParentId",
-	query = "from consignee d where d.parentId.parentId.id = :id group by d.userId"
+	query = "from consignee d where d.parentId.parentId.id = :id and d.deleted = false group by d.userId "
 			)
 	
 	
@@ -83,6 +83,22 @@ public class consignee {
 	private shipper parentId;
 
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}

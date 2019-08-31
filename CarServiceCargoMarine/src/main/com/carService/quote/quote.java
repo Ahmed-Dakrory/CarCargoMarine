@@ -29,25 +29,25 @@ import main.com.carService.shipper.shipper;
 	
 	
 	@NamedQuery(name="quote.getAll",
-		     query="SELECT c FROM quote c"
+		     query="SELECT c FROM quote c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="quote.getById",
-	query = "from quote d where d.id = :id"
+	query = "from quote d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="quote.getAllByShipperId",
-	query = "from quote d where d.shipperId.id = :id"
+	query = "from quote d where d.shipperId.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="quote.getAllByUserId",
-	query = "from quote d where d.shipperId.userId.id = :id"
+	query = "from quote d where d.shipperId.userId.id = :id and d.deleted = false"
 			)
 	
 
 	,
 	@NamedQuery(name="quote.getAllByUserOfShipperId",
-	query = "from quote d where d.shipperId.parentId.id = :id"
+	query = "from quote d where d.shipperId.parentId.id = :id and d.deleted = false"
 			)
 	
 })
@@ -141,7 +141,22 @@ public class quote {
 	@Column(name = "note")
 	private String note;
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
 
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}

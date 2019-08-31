@@ -28,15 +28,15 @@ import main.com.carService.invoice.invoice;
 	
 	
 	@NamedQuery(name="invoiceCar.getAll",
-		     query="SELECT c FROM invoiceCar c"
+		     query="SELECT c FROM invoiceCar c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="invoiceCar.getById",
-	query = "from invoiceCar d where d.id = :id"
+	query = "from invoiceCar d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="invoiceCar.getAllByinvoiceId",
-	query = "from invoiceCar d where d.invoiceId.id = :id"
+	query = "from invoiceCar d where d.invoiceId.id = :id and d.deleted = false"
 			)
 
 })
@@ -59,6 +59,22 @@ public class invoiceCar {
 	@JoinColumn(name = "invoiceId")
 	private invoice invoiceId;
 
+	
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

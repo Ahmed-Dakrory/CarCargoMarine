@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -37,6 +38,7 @@ import org.primefaces.event.FileUploadEvent;
 import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
+import main.com.carService.carImage.carimage;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
@@ -89,6 +91,7 @@ public class carLandingBean implements Serializable{
 	
 
 	private List<String> images;
+	private List<String> images_deleted;
 	
 	private carLanding selectedCarPage;
 	private List<carimageLanding> imagesOfSelectedCarLanding;
@@ -352,6 +355,7 @@ public void addCarForMain() {
 		saleDate="";
 		
 		images=new ArrayList<String>();
+		images_deleted=new ArrayList<String>();
 		
 		try {
 			FacesContext.getCurrentInstance()
@@ -361,7 +365,32 @@ public void addCarForMain() {
 			e.printStackTrace();
 		}
 	}
+public void deleteFile() {
+	 FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 Integer typeOfFile = Integer.valueOf((String) map.get("typeOfFile"));
+	 String fileURL = (String) map.get("fileURL");
+
+		if(typeOfFile==carimage.TYPE_PIC) {
+			
+			removeFileFromImages(fileURL);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanel");
+		PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Image Has Been Deleted\", \"success\");");
+	}
 	
+}
+
+private void removeFileFromImages(String fileURL) {
+	// TODO Auto-generated method stub
+	for(int i=0;i<images.size();i++) {
+		if(images.get(i).equalsIgnoreCase(fileURL)) {
+			images.remove(i);
+			images_deleted.add(fileURL);
+			return;
+		}
+	}
+}
+
 	public void selectCarForMain(int selectedCarId) {
 		
 		
@@ -370,6 +399,7 @@ public void addCarForMain() {
 		List<carimageLanding> imagesOfCar =carimageLandingFacade.getAllByCarId(selectedFreight.getId());
 
 		images=new ArrayList<String>();
+		images_deleted=new ArrayList<String>();
 		if(imagesOfCar!=null) {
 			for(int i=0;i<imagesOfCar.size();i++) {
 				images.add(imagesOfCar.get(i).getUrl());
@@ -404,6 +434,16 @@ public void addCarForMain() {
 	public void updateCarDataMain() {
 		selectedFreight.setSaleDate(setCalendarFromString(saleDate));
 		carLandingFacade.addcarLanding(selectedFreight);
+		
+		
+		
+		for(int i=0;i<images_deleted.size();i++) {
+			carimageLanding cImage=new carimageLanding();
+			cImage.setCarId(selectedFreight);
+			cImage.setUrl(images_deleted.get(i));
+			cImage.setDeleted(true);
+			carimageLandingFacade.addcarimageLanding(cImage);
+		}
 		
 		for(int i=0;i<images.size();i++) {
 			carimageLanding cImage=new carimageLanding();
@@ -586,6 +626,16 @@ public void addCarForMain() {
 
 	public void setSearchEndYear(String searchEndYear) {
 		this.searchEndYear = searchEndYear;
+	}
+
+
+	public List<String> getImages_deleted() {
+		return images_deleted;
+	}
+
+
+	public void setImages_deleted(List<String> images_deleted) {
+		this.images_deleted = images_deleted;
 	}
 
 

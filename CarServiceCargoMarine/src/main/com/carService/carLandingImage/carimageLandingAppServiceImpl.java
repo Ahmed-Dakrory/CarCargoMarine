@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 /**
  * @author Dakrory
  *
@@ -47,6 +48,8 @@ public class carimageLandingAppServiceImpl implements IcarimageLandingAppService
 				carimageLanding data2=carimageLandingDataRepository.addcarimageLanding(data);
 				return data2;
 			}else {
+				existData.setDeleted(data.isDeleted());
+				carimageLandingDataRepository.addcarimageLanding(existData);
 				return existData;
 			}
 			}

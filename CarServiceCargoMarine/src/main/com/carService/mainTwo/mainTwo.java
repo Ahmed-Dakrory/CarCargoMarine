@@ -27,19 +27,19 @@ import main.com.carService.loginNeeds.user;
 	
 	
 	@NamedQuery(name="mainTwo.getAll",
-		     query="SELECT c FROM mainTwo c"
+		     query="SELECT c FROM mainTwo c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="mainTwo.getById",
-	query = "from mainTwo d where d.id = :id"
+	query = "from mainTwo d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="mainTwo.getByUserId",
-	query = "from mainTwo d where d.userId = :id"
+	query = "from mainTwo d where d.userId = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="mainTwo.getAllByParentId",
-	query = "from mainTwo d where d.parentId.id = :id"
+	query = "from mainTwo d where d.parentId.id = :id and d.deleted = false"
 			)
 	
 	
@@ -81,6 +81,21 @@ public class mainTwo {
 	private user parentId;
 
 
+	@Column(name = "deleted")
+	private boolean deleted;
+	
+	
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
