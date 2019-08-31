@@ -43,33 +43,42 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		try {
 
-			user dao = userDataRepository.getByEmail(username);
-			System.out.println("Ahmed Dakrory: "+username);
+			user dao = userDataRepository.getByUserName(username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
+			System.out.println("Ahmed Dakrory333: "+username);
 			UserDetails user;
 			if(dao.getRole()==main.com.carService.loginNeeds.user.ROLE_MAIN) {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_MAIN"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}else if(dao.getRole()==main.com.carService.loginNeeds.user.ROLE_SHIPPER) {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_SHIPPER"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}else if(dao.getRole()==main.com.carService.loginNeeds.user.ROLE_VENDOR) {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_VENDOR"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}else if(dao.getRole()==main.com.carService.loginNeeds.user.ROLE_MAIN2) {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_MAINTWO"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}else  {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_CUSTOMER"));
-				user = new User(dao.getEmail(), dao.getPassword(), true,
+				user = new User(dao.getUserName(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
 			}
 			return user;

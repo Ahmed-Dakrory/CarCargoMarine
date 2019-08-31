@@ -93,14 +93,10 @@ public class userRepositoryImpl implements userRepository{
 	}
 	
 	@Override
-	public user getByEmailAndPassword(String email,String password) {
+	public user getByUserNameAndPassword(String userName,String password) {
 		// TODO Auto-generated method stub
-		System.out.println("Ahmed: "+email+password);
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByMailAndPassword").setString("email",email).setString("password", password).setInteger("active", 1);
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByUserNameAndPassword").setString("userName",userName).setString("password", password).setInteger("active", 1);
 
-		 System.out.println("Ahmed: "+query.getQueryString());
-		 System.out.println("Ahmed: "+query.getCacheRegion());
-		 System.out.println("Ahmed: "+query.getNamedParameters()[0]);
 		 @SuppressWarnings("unchecked")
 		List<user> results=query.list();
 		 if(results.size()!=0){
@@ -111,10 +107,10 @@ public class userRepositoryImpl implements userRepository{
 	}
 
 	@Override
-	public user getByEmailAndPasswordNotActivated(String email,
+	public user getByUserNameAndPasswordNotActivated(String userName,
 			String password) {
 		// TODO Auto-generated method stub
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByMailAndPassword").setString("email",email).setString("password", password).setInteger("active", 0);
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByUserNameAndPassword").setString("userName",userName).setString("password", password).setInteger("active", 0);
 
 		 @SuppressWarnings("unchecked")
 		List<user> results=query.list();
@@ -126,9 +122,9 @@ public class userRepositoryImpl implements userRepository{
 	}
 
 	@Override
-	public user getByEmail(String email) {
+	public user getByUserName(String userName) {
 		// TODO Auto-generated method stub
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByEmail").setString("email",email);
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByUserName").setString("userName",userName);
 
 		 @SuppressWarnings("unchecked")
 		List<user> results=query.list();
@@ -153,9 +149,9 @@ public class userRepositoryImpl implements userRepository{
 	}
 
 	@Override
-	public user getByEmailAndRole(String email, int role) {
+	public user getByUserNameAndRole(String userName, int role) {
 		// TODO Auto-generated method stub
-				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByEmailAndRole").setString("email",email).setInteger("role", role);
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByUserNameAndRole").setString("userName",userName).setInteger("role", role);
 
 				 @SuppressWarnings("unchecked")
 				List<user> results=query.list();

@@ -137,11 +137,13 @@ public class customerBean implements Serializable{
 		
 		boolean isValid=checkValidForUser(addNewcustomer);
 		if(isValid) {
-			boolean checkEmail = checkEmailIsExist(addNewcustomer.getUserId().getEmail());
-			if(checkEmail) {
+			boolean checkUserName = checkUserNameIsExist(addNewcustomer.getUserId().getUserName());
+			if(checkUserName) {
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_CUSTOMER);
-		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
+		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getUserName(),userNew.getUserName()));
+		userNew.setMainUserId(loginBean.getTheMainUserOfThisAccount());
+		
 		
 		loginBean.getUserDataFacede().adduser(userNew);
 		vendor vendor_of_this_account=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
@@ -153,7 +155,7 @@ public class customerBean implements Serializable{
 				"			text: 'Your customer has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
-		Constants.sendEmailNewAccount(addNewcustomer.getUserId().getFirstName(),addNewcustomer.getUserId().getEmail(),addNewcustomer.getUserId().getEmail());
+		Constants.sendEmailNewAccount(addNewcustomer.getUserId().getFirstName(),addNewcustomer.getUserId().getEmail(),addNewcustomer.getUserId().getUserName());
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/customer/customerList.jsf?faces-redirect=true");
@@ -164,7 +166,7 @@ public class customerBean implements Serializable{
 			}else {
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Check this ',\r\n" + 
-						"			text: 'This email is already Registered',\r\n" + 
+						"			text: 'This userName is already Registered',\r\n" + 
 						"			left:\"2%\"\r\n" + 
 						"		});");
 			}
@@ -177,10 +179,10 @@ public class customerBean implements Serializable{
 		}
 	}
 
-	private boolean checkEmailIsExist(String email) {
+	private boolean checkUserNameIsExist(String userName) {
 		// TODO Auto-generated method stub
 		
-		user the_user=loginBean.getUserDataFacede().getByEmail(email);
+		user the_user=loginBean.getUserDataFacede().getByUserName(userName);
 		if(the_user!=null) {
 			return false;
 		}
@@ -193,7 +195,7 @@ public class customerBean implements Serializable{
 			return false;
 		}
 		
-		if(addNewcustomer2.getUserId().getEmail().equals("")||addNewcustomer2.getUserId().getEmail()==null) {
+		if(addNewcustomer2.getUserId().getUserName().equals("")||addNewcustomer2.getUserId().getUserName()==null) {
 			return false;
 		}
 		
@@ -202,6 +204,10 @@ public class customerBean implements Serializable{
 		}
 		
 		if(addNewcustomer2.getUserId().getLastName().equals("")||addNewcustomer2.getUserId().getLastName()==null) {
+			return false;
+		}
+		
+		if(addNewcustomer2.getUserId().getEmail().equals("")||addNewcustomer2.getUserId().getEmail()==null) {
 			return false;
 		}
 		

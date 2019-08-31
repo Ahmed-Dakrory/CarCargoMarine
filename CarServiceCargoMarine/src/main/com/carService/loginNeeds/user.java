@@ -6,7 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.codec.binary.Base64;
@@ -33,13 +35,13 @@ import org.hibernate.annotations.NamedQuery;
 			)
 	
 	,
-	@NamedQuery(name="user.getByEmail",
-	query = "from user d where d.email = :email and d.deleted = false"
+	@NamedQuery(name="user.getByUserName",
+	query = "from user d where d.userName = :userName and d.deleted = false"
 			)
 	
 	,
-	@NamedQuery(name="user.getByEmailAndRole",
-	query = "from user d where d.email = :email and d.role = :role and d.deleted = false"
+	@NamedQuery(name="user.getByUserNameAndRole",
+	query = "from user d where d.userName = :userName and d.role = :role and d.deleted = false"
 			)
 	
 	,
@@ -48,8 +50,8 @@ import org.hibernate.annotations.NamedQuery;
 			)
 	
 	,
-	@NamedQuery(name="user.getByMailAndPassword",
-	query = "from user d where d.email = :email and d.password = :password and active = :active and d.deleted = false"
+	@NamedQuery(name="user.getByUserNameAndPassword",
+	query = "from user d where d.userName = :userName and d.password = :password and active = :active and d.deleted = false"
 			)
 	
 })
@@ -148,7 +150,10 @@ public class user {
 	@Column(name = "deleted")
 	private boolean deleted;
 	
-	
+
+	@ManyToOne
+	@JoinColumn(name = "mainUserId")
+	private user mainUserId;
 	
 	
 	public boolean isDeleted() {
@@ -468,6 +473,19 @@ public class user {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+
+
+
+
+	public user getMainUserId() {
+		return mainUserId;
+	}
+
+
+	public void setMainUserId(user mainUserId) {
+		this.mainUserId = mainUserId;
 	}
 
 

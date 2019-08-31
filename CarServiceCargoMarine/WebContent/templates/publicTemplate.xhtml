@@ -188,15 +188,15 @@
 <div class="form-group">
 <div class="form-row">
 <div>
-<label for="TopLoginForm_email">Email</label> 
-<p:inputText placeholder="example@gmail.com" style="width:351px" name="TopLoginForm[email]" type="email" id="Mail" class="form-control input-lg" value="#{loginBean.emailOfUserLoggedIn}"/>
+<label for="TopLoginForm_email">Username</label> 
+<p:inputText placeholder="your username" style="width:351px" name="email" type="text" id="Mail" class="form-control input-lg" value="#{loginBean.userNameOfUserLoggedIn}"/>
 									
 </div>
 </div>
 <div class="form-row">
 <div>
 <label for="TopLoginForm_password">Password</label>
-<p:inputText placeholder="********" style="width:351px" name="TopLoginForm[password]" type="password" id="Password" required="true" class="form-control input-lg" value="#{loginBean.passwordOfUserLoggedIn}"/>
+<p:inputText placeholder="********" style="width:351px" name="password" type="password" id="Password" required="true" class="form-control input-lg" value="#{loginBean.passwordOfUserLoggedIn}"/>
 									
  </div>
 </div>
@@ -342,7 +342,7 @@ function closeNav() {
 <h:form id="m-top-login-form" class="site-form"  >
  <input name="TopLoginMobileForm[topLoginForm]" id="TopLoginMobileForm_topLoginForm" type="hidden" value="1" />
 <div class="form-row">
-<p:inputText type="email" id="Mail_Mobile" placeholder="Email" style="width:100%" name="TopLoginMobileForm[email]" value="#{loginBean.emailOfUserLoggedIn}"/>
+<p:inputText type="text" id="Mail_Mobile" placeholder="Username" style="width:100%" name="TopLoginMobileForm[email]" value="#{loginBean.userNameOfUserLoggedIn}"/>
 									
 </div>
 <div class="form-row">

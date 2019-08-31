@@ -391,11 +391,13 @@ public class vendorBean implements Serializable{
 		
 		boolean isValid=checkValidForUser(addNewvendor);
 		if(isValid) {
-			boolean checkEmail = checkEmailIsExist(addNewvendor.getUserId().getEmail());
-			if(checkEmail) {
+			boolean checkUserName = checkUserNameIsExist(addNewvendor.getUserId().getUserName());
+			if(checkUserName) {
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_VENDOR);
-		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
+		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getUserName(),userNew.getUserName()));
+		userNew.setMainUserId(loginBean.getTheMainUserOfThisAccount());
+		
 		
 		loginBean.getUserDataFacede().adduser(userNew);
 		shipper shipper_of_this_account=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
@@ -407,7 +409,7 @@ public class vendorBean implements Serializable{
 				"			text: 'Your vendor has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
-		Constants.sendEmailNewAccount(addNewvendor.getUserId().getFirstName(),addNewvendor.getUserId().getEmail(),addNewvendor.getUserId().getEmail());
+		Constants.sendEmailNewAccount(addNewvendor.getUserId().getFirstName(),addNewvendor.getUserId().getEmail(),addNewvendor.getUserId().getUserName());
 		
 		try {
 			FacesContext.getCurrentInstance()
@@ -419,7 +421,7 @@ public class vendorBean implements Serializable{
 			}else {
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Check this ',\r\n" + 
-						"			text: 'This email is already Registered',\r\n" + 
+						"			text: 'This userName is already Registered',\r\n" + 
 						"			left:\"2%\"\r\n" + 
 						"		});");
 			}
@@ -432,10 +434,10 @@ public class vendorBean implements Serializable{
 		}
 	}
 
-	private boolean checkEmailIsExist(String email) {
+	private boolean checkUserNameIsExist(String userName) {
 		// TODO Auto-generated method stub
 		
-		user the_user=loginBean.getUserDataFacede().getByEmail(email);
+		user the_user=loginBean.getUserDataFacede().getByUserName(userName);
 		if(the_user!=null) {
 			return false;
 		}
@@ -448,7 +450,7 @@ public class vendorBean implements Serializable{
 			return false;
 		}
 		
-		if(addNewvendor2.getUserId().getEmail().equals("")||addNewvendor2.getUserId().getEmail()==null) {
+		if(addNewvendor2.getUserId().getUserName().equals("")||addNewvendor2.getUserId().getUserName()==null) {
 			return false;
 		}
 		
@@ -457,6 +459,10 @@ public class vendorBean implements Serializable{
 		}
 		
 		if(addNewvendor2.getUserId().getLastName().equals("")||addNewvendor2.getUserId().getLastName()==null) {
+			return false;
+		}
+		
+		if(addNewvendor2.getUserId().getEmail().equals("")||addNewvendor2.getUserId().getEmail()==null) {
 			return false;
 		}
 		

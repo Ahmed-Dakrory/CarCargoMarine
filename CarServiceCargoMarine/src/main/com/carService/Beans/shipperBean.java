@@ -349,11 +349,13 @@ public class shipperBean implements Serializable{
 		
 		boolean isValid=checkValidForUser(addNewshipper);
 		if(isValid) {
-			boolean checkEmail = checkEmailIsExist(addNewshipper.getUserId().getEmail());
-			if(checkEmail) {
+			boolean checkUserName = checkUserNameIsExist(addNewshipper.getUserId().getUserName());
+			if(checkUserName) {
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_SHIPPER);
-		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
+		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getUserName(),userNew.getUserName()));
+		userNew.setMainUserId(loginBean.getTheMainUserOfThisAccount());
+		
 		
 		loginBean.getUserDataFacede().adduser(userNew);
 		
@@ -364,7 +366,7 @@ public class shipperBean implements Serializable{
 				"			text: 'Your shipper has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
-		Constants.sendEmailNewAccount(addNewshipper.getUserId().getFirstName(),addNewshipper.getUserId().getEmail(),addNewshipper.getUserId().getEmail());
+		Constants.sendEmailNewAccount(addNewshipper.getUserId().getFirstName(),addNewshipper.getUserId().getEmail(),addNewshipper.getUserId().getUserName());
 		
 		try {
 			FacesContext.getCurrentInstance()
@@ -376,7 +378,7 @@ public class shipperBean implements Serializable{
 			}else {
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Check this ',\r\n" + 
-						"			text: 'This email is already Registered',\r\n" + 
+						"			text: 'This userName is already Registered',\r\n" + 
 						"			left:\"2%\"\r\n" + 
 						"		});");
 			}
@@ -389,10 +391,10 @@ public class shipperBean implements Serializable{
 		}
 	}
 
-	private boolean checkEmailIsExist(String email) {
+	private boolean checkUserNameIsExist(String userName) {
 		// TODO Auto-generated method stub
 		
-		user the_user=loginBean.getUserDataFacede().getByEmail(email);
+		user the_user=loginBean.getUserDataFacede().getByUserName(userName);
 		if(the_user!=null) {
 			return false;
 		}
@@ -405,7 +407,7 @@ public class shipperBean implements Serializable{
 			return false;
 		}
 		
-		if(addNewshipper2.getUserId().getEmail().equals("")||addNewshipper2.getUserId().getEmail()==null) {
+		if(addNewshipper2.getUserId().getUserName().equals("")||addNewshipper2.getUserId().getUserName()==null) {
 			return false;
 		}
 		
@@ -414,6 +416,10 @@ public class shipperBean implements Serializable{
 		}
 		
 		if(addNewshipper2.getUserId().getLastName().equals("")||addNewshipper2.getUserId().getLastName()==null) {
+			return false;
+		}
+		
+		if(addNewshipper2.getUserId().getEmail().equals("")||addNewshipper2.getUserId().getEmail()==null) {
 			return false;
 		}
 		

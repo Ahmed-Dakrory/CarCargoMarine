@@ -130,11 +130,13 @@ public class mainTwoBean implements Serializable{
 		
 		boolean isValid=checkValidForUser(addNewmainTwo);
 		if(isValid) {
-			boolean checkEmail = checkEmailIsExist(addNewmainTwo.getUserId().getEmail());
-			if(checkEmail) {
+			boolean checkUserName = checkUserNameIsExist(addNewmainTwo.getUserId().getUserName());
+			if(checkUserName) {
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_MAIN2);
-		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
+		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getUserName(),userNew.getUserName()));
+		userNew.setMainUserId(loginBean.getTheMainUserOfThisAccount());
+		
 		
 		loginBean.getUserDataFacede().adduser(userNew);
 		
@@ -145,7 +147,7 @@ public class mainTwoBean implements Serializable{
 				"			text: 'Your mainTwo has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
-		Constants.sendEmailNewAccount(addNewmainTwo.getUserId().getFirstName(),addNewmainTwo.getUserId().getEmail(),addNewmainTwo.getUserId().getEmail());
+		Constants.sendEmailNewAccount(addNewmainTwo.getUserId().getFirstName(),addNewmainTwo.getUserId().getEmail(),addNewmainTwo.getUserId().getUserName());
 		
 		try {
 			FacesContext.getCurrentInstance()
@@ -157,7 +159,7 @@ public class mainTwoBean implements Serializable{
 			}else {
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Check this ',\r\n" + 
-						"			text: 'This email is already Registered',\r\n" + 
+						"			text: 'This userName is already Registered',\r\n" + 
 						"			left:\"2%\"\r\n" + 
 						"		});");
 			}
@@ -170,10 +172,10 @@ public class mainTwoBean implements Serializable{
 		}
 	}
 
-	private boolean checkEmailIsExist(String email) {
+	private boolean checkUserNameIsExist(String userName) {
 		// TODO Auto-generated method stub
 		
-		user the_user=loginBean.getUserDataFacede().getByEmail(email);
+		user the_user=loginBean.getUserDataFacede().getByUserName(userName);
 		if(the_user!=null) {
 			return false;
 		}
@@ -186,7 +188,7 @@ public class mainTwoBean implements Serializable{
 			return false;
 		}
 		
-		if(addNewmainTwo2.getUserId().getEmail().equals("")||addNewmainTwo2.getUserId().getEmail()==null) {
+		if(addNewmainTwo2.getUserId().getUserName().equals("")||addNewmainTwo2.getUserId().getUserName()==null) {
 			return false;
 		}
 		
@@ -195,6 +197,10 @@ public class mainTwoBean implements Serializable{
 		}
 		
 		if(addNewmainTwo2.getUserId().getLastName().equals("")||addNewmainTwo2.getUserId().getLastName()==null) {
+			return false;
+		}
+		
+		if(addNewmainTwo2.getUserId().getEmail().equals("")||addNewmainTwo2.getUserId().getEmail()==null) {
 			return false;
 		}
 		

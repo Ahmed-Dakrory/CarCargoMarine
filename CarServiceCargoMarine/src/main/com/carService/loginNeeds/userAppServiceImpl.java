@@ -83,10 +83,10 @@ public class userAppServiceImpl implements IuserAppService{
 	}
 	
 	@Override
-	public user getByEmailAndPassword(String email,String password) {
+	public user getByUserNameAndPassword(String userName,String password) {
 		// TODO Auto-generated method stub
 		try{
-			user so=userDataRepository.getByEmailAndPassword(email,password);
+			user so=userDataRepository.getByUserNameAndPassword(userName,password);
 			
 			return so;
 			}
@@ -100,11 +100,11 @@ public class userAppServiceImpl implements IuserAppService{
 
 
 	@Override
-	public user getByEmailAndPasswordNotActivated(String email,
+	public user getByUserNameAndPasswordNotActivated(String userName,
 			String password) {
 		// TODO Auto-generated method stub
 				try{
-					user so=userDataRepository.getByEmailAndPasswordNotActivated(email,password);
+					user so=userDataRepository.getByUserNameAndPasswordNotActivated(userName,password);
 					
 					return so;
 					}
@@ -118,9 +118,9 @@ public class userAppServiceImpl implements IuserAppService{
 
 
 	@Override
-	public user getByEmail(String email) {
+	public user getByUserName(String userName) {
 		try{
-			user so=userDataRepository.getByEmail(email);
+			user so=userDataRepository.getByUserName(userName);
 			
 			return so;
 			}
@@ -150,10 +150,10 @@ public class userAppServiceImpl implements IuserAppService{
 
 
 	@Override
-	public user getByEmailAndRole(String email, int role) {
+	public user getByUserNameAndRole(String userName, int role) {
 		// TODO Auto-generated method stub
 				try{
-					user so=userDataRepository.getByEmailAndRole(email,role);
+					user so=userDataRepository.getByUserNameAndRole(userName,role);
 					
 					return so;
 					}

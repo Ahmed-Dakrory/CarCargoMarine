@@ -24,7 +24,7 @@ public class loginBean implements Serializable{
 	 */
 	private static final long serialVersionUID = -6715784400190397743L;
 	private boolean isLoggedIn;
-	private String emailOfUserLoggedIn;
+	private String userNameOfUserLoggedIn;
 	private String passwordOfUserLoggedIn;
 	private String passwordConfirm;
 	private user theUserOfThisAccount;
@@ -38,11 +38,12 @@ public class loginBean implements Serializable{
 	@ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationService authenticationService;
 	
-	
+	private user theMainUserOfThisAccount;
 	@PostConstruct
 	public void init() {
 		isLoggedIn=false;
 		theUserOfThisAccount=new user();
+		theMainUserOfThisAccount=new user();
 		
 		
 	}
@@ -69,7 +70,7 @@ public class loginBean implements Serializable{
 	
 	public String logOut(){
 
-		emailOfUserLoggedIn="";
+		userNameOfUserLoggedIn="";
 		passwordOfUserLoggedIn="";
 		authenticationService.logout();
 		theUserOfThisAccount=new user();
@@ -79,9 +80,9 @@ public class loginBean implements Serializable{
 	}
 	public void login(){
 
-		 String hashedPassword= new  Md5PasswordEncoder().encodePassword(passwordOfUserLoggedIn,emailOfUserLoggedIn);
+		 String hashedPassword= new  Md5PasswordEncoder().encodePassword(passwordOfUserLoggedIn,userNameOfUserLoggedIn);
 
-		theUserOfThisAccount = userDataFacede.getByEmailAndPassword(emailOfUserLoggedIn,hashedPassword);
+		theUserOfThisAccount = userDataFacede.getByUserNameAndPassword(userNameOfUserLoggedIn,hashedPassword);
 
 		if(theUserOfThisAccount!=null){
 			isLoggedIn=true;
@@ -95,7 +96,7 @@ public class loginBean implements Serializable{
 			
 
 			
-						boolean success = authenticationService.autoLogin(theUserOfThisAccount.getEmail(), passwordOfUserLoggedIn);
+						boolean success = authenticationService.autoLogin(theUserOfThisAccount.getUserName(), passwordOfUserLoggedIn);
 						if (success) {
 
 								FacesContext.getCurrentInstance().getExternalContext()
@@ -103,6 +104,7 @@ public class loginBean implements Serializable{
 									
 
 			try {
+					theMainUserOfThisAccount = userDataFacede.getById(theUserOfThisAccount.getMainUserId().getId());
 					FacesContext.getCurrentInstance()
 					   .getExternalContext().redirect("/pages/secured/userData/userProfile.jsf?faces-redirect=true");
 				
@@ -136,7 +138,7 @@ public void updateDataOfUser() {
 			
 			if(ok){
 				
-					theUserOfThisAccount.setPassword(new  Md5PasswordEncoder().encodePassword(passwordOfUserLoggedIn,theUserOfThisAccount.getEmail()));
+					theUserOfThisAccount.setPassword(new  Md5PasswordEncoder().encodePassword(passwordOfUserLoggedIn,theUserOfThisAccount.getUserName()));
 					userDataFacede.adduser(theUserOfThisAccount);
 					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 							"			title: 'Success',\r\n" + 
@@ -208,13 +210,7 @@ public void updateDataOfUser() {
 		this.isLoggedIn = isLoggedIn;
 	}
 
-	public String getEmailOfUserLoggedIn() {
-		return emailOfUserLoggedIn;
-	}
-
-	public void setEmailOfUserLoggedIn(String emailOfUserLoggedIn) {
-		this.emailOfUserLoggedIn = emailOfUserLoggedIn;
-	}
+	
 
 	public String getPasswordOfUserLoggedIn() {
 		return passwordOfUserLoggedIn;
@@ -266,6 +262,22 @@ public void updateDataOfUser() {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getUserNameOfUserLoggedIn() {
+		return userNameOfUserLoggedIn;
+	}
+
+	public void setUserNameOfUserLoggedIn(String userNameOfUserLoggedIn) {
+		this.userNameOfUserLoggedIn = userNameOfUserLoggedIn;
+	}
+
+	public user getTheMainUserOfThisAccount() {
+		return theMainUserOfThisAccount;
+	}
+
+	public void setTheMainUserOfThisAccount(user theMainUserOfThisAccount) {
+		this.theMainUserOfThisAccount = theMainUserOfThisAccount;
 	}
 	
 	

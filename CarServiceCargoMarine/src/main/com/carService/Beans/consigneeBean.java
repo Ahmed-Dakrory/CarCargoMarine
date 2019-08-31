@@ -120,21 +120,22 @@ public class consigneeBean implements Serializable{
 		
 		boolean isValid=checkValidForUser(addNewconsignee);
 		if(isValid) {
-			boolean checkEmail = checkEmailIsExist(addNewconsignee.getUserId().getEmail());
-			if(checkEmail) {
+			boolean checkUserName = checkUserNameIsExist(addNewconsignee.getUserId().getUserName());
+			if(checkUserName) {
 				
 				
 				
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_CONGSIGNEE);
-		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
+		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getUserName(),userNew.getUserName()));
+		userNew.setMainUserId(loginBean.getTheMainUserOfThisAccount());
 		
 		loginBean.getUserDataFacede().adduser(userNew);
 		shipper shipperOfThisAccount=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
 		
 		addNewconsignee.setParentId(shipperOfThisAccount);
 		consigneeFacade.addconsignee(addNewconsignee);
-		Constants.sendEmailNewAccount(addNewconsignee.getUserId().getFirstName(),addNewconsignee.getUserId().getEmail(),addNewconsignee.getUserId().getEmail());
+		Constants.sendEmailNewAccount(addNewconsignee.getUserId().getFirstName(),addNewconsignee.getUserId().getEmail(),addNewconsignee.getUserId().getUserName());
 		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
@@ -151,7 +152,7 @@ public class consigneeBean implements Serializable{
 		}
 			}else {
 
-				userNew=loginBean.getUserDataFacede().getByEmailAndRole(addNewconsignee.getUserId().getEmail(),user.ROLE_CONGSIGNEE);
+				userNew=loginBean.getUserDataFacede().getByUserNameAndRole(addNewconsignee.getUserId().getUserName(),user.ROLE_CONGSIGNEE);
 if(userNew!=null) {
 				shipper shipperOfThisAccount=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
 				if(!isTheConsigneeExistForThisShipperAndConsignee(shipperOfThisAccount,userNew)) {
@@ -162,8 +163,8 @@ if(userNew!=null) {
 		
 		addNewconsignee.setParentId(shipperOfThisAccount);
 		consigneeFacade.addconsignee(addNewconsignee);
-		//Not Need This Email Notification as the consignee is registered already
-		//Constants.sendEmailNewAccount(addNewconsignee.getUserId().getFirstName(),addNewconsignee.getUserId().getEmail(),addNewconsignee.getUserId().getEmail());
+		//Not Need This EmaUserNametification as the consignee is registered already
+		//Constants.sendEmailNewAccount(addNewconsignee.getUserId().getFirstName(),addNewconsignee.getUserId().getEmail(),addNewconsignee.getUserId().getUserName());
 		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
@@ -188,7 +189,7 @@ if(userNew!=null) {
 }else {
 	PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 			"			title: 'Check this ',\r\n" + 
-			"			text: 'This Email is for another Role and cannot be used',\r\n" + 
+			"			text: 'This UserName is for another Role and cannot be used',\r\n" + 
 			"			left:\"2%\"\r\n" + 
 			"		});");
 }
@@ -213,10 +214,10 @@ if(userNew!=null) {
 		return false;
 	}
 
-	private boolean checkEmailIsExist(String email) {
+	private boolean checkUserNameIsExist(String userName) {
 		// TODO Auto-generated method stub
 		
-		user the_user=loginBean.getUserDataFacede().getByEmail(email);
+		user the_user=loginBean.getUserDataFacede().getByUserName(userName);
 		if(the_user!=null) {
 			return false;
 		}
@@ -229,7 +230,7 @@ if(userNew!=null) {
 			return false;
 		}
 		
-		if(addNewconsignee2.getUserId().getEmail().equals("")||addNewconsignee2.getUserId().getEmail()==null) {
+		if(addNewconsignee2.getUserId().getUserName().equals("")||addNewconsignee2.getUserId().getUserName()==null) {
 			return false;
 		}
 		
@@ -238,6 +239,10 @@ if(userNew!=null) {
 		}
 		
 		if(addNewconsignee2.getUserId().getLastName().equals("")||addNewconsignee2.getUserId().getLastName()==null) {
+			return false;
+		}
+		
+		if(addNewconsignee2.getUserId().getEmail().equals("")||addNewconsignee2.getUserId().getEmail()==null) {
 			return false;
 		}
 		

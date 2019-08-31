@@ -15,9 +15,9 @@ public interface userRepository {
 	public List<user> getAllWithRole(int role);
 	public user adduser(user data);
 	public user getById(int id);
-	public user getByEmail(String email);
-	public user getByEmailAndRole(String email,int role);
-	public user getByEmailAndPassword(String email,String password);
-	public user getByEmailAndPasswordNotActivated(String email,String password);
+	public user getByUserName(String userName);
+	public user getByUserNameAndRole(String userName,int role);
+	public user getByUserNameAndPassword(String userName,String password);
+	public user getByUserNameAndPasswordNotActivated(String userName,String password);
 	public boolean delete(user data);
 }
