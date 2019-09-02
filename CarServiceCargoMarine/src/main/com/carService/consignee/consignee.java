@@ -70,6 +70,13 @@ public class consignee {
 	@Column(name = "other")
 	private String other;
 	
+	@Column(name = "idType")
+	private String idType;
+
+	@Column(name = "idNumber")
+	private String idNumber;
+	
+	
 	
 		
 	
@@ -147,6 +154,26 @@ public class consignee {
 
 	public void setParentId(shipper parentId) {
 		this.parentId = parentId;
+	}
+
+
+	public String getIdType() {
+		return idType;
+	}
+
+
+	public void setIdType(String idType) {
+		this.idType = idType;
+	}
+
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 
 

@@ -108,7 +108,7 @@ public class user {
 	
 
 	@Column(name = "country")
-	private Integer country;
+	private String country;
 
 
 	@Column(name = "address1")
@@ -319,14 +319,14 @@ public class user {
 
 
 
-	public Integer getCountry() {
+	public String getCountry() {
 		return country;
 	}
 
 
 
 
-	public void setCountry(Integer country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
