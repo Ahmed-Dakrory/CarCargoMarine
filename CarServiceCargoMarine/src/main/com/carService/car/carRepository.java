@@ -15,6 +15,15 @@ public interface carRepository {
 	public List<car> getAll();
 	public List<car> getAllWithAllowSendState(boolean state);
 	
+	
+	public List<car> getAllForMainUser(int userId);
+	public List<car> getAllForMainUserTwo(int mainTwoId);
+	public List<car> getAllForVendor(int vendorId);
+	public List<car> getAllForShipper(int shipperId);
+	public List<car> getAllForCustomer(int custmerId);
+	public List<car> getAllForConsignee(int consigneeId);
+	
+	
 	public List<car> getAllWareHouseForMainUser(int userId);
 	public List<car> getAllWareHouseForMainUserTwo(int mainTwoId);
 	public List<car> getAllWareHouseForVendor(int vendorId);

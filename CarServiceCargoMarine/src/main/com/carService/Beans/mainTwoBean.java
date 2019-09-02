@@ -87,8 +87,10 @@ public class mainTwoBean implements Serializable{
 	public String getFormatedDate(Calendar c) {
 		String dateTime="";
 		if(c!=null) {
+			String[] monthNames = {"Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Octo", "Nov", "Dec"};
+		    
 		dateTime = String.valueOf(c.get(Calendar.DAY_OF_MONTH)) +"/"+
-				   String.valueOf(c.get(Calendar.MONTH)+1) +"/"+
+				   String.valueOf(monthNames[c.get(Calendar.MONTH)]) +"/"+
 				   String.valueOf(c.get(Calendar.YEAR));
 		}
 		return dateTime;

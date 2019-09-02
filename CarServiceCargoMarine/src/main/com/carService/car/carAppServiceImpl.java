@@ -499,6 +499,102 @@ public class carAppServiceImpl implements IcarAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public List<car> getAllForMainUser(int userId) {
+		try{
+			List<car> course=carDataRepository.getAllForMainUser(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllForMainUserTwo(int mainTwoId) {
+		try{
+			List<car> course=carDataRepository.getAllForMainUserTwo(mainTwoId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllForVendor(int vendorId) {
+		try{
+			List<car> course=carDataRepository.getAllForVendor(vendorId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllForShipper(int shipperId) {
+		try{
+			List<car> course=carDataRepository.getAllForShipper(shipperId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllForCustomer(int custmerId) {
+		try{
+			List<car> course=carDataRepository.getAllForCustomer(custmerId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllForConsignee(int consigneeId) {
+		try{
+			List<car> course=carDataRepository.getAllForConsignee(consigneeId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }

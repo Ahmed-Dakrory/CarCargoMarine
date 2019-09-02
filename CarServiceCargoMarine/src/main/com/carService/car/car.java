@@ -35,7 +35,7 @@ import main.com.carService.vendor.vendor;
 	
 	
 	@NamedQuery(name="car.getAll",
-		     query="SELECT c FROM car c where c.deleted = false"
+		     query="SELECT c FROM car c where c.deleted = false order by c.cargoRecieved desc"
 		     )
 	,
 	@NamedQuery(name="car.getById",
@@ -46,105 +46,129 @@ import main.com.carService.vendor.vendor;
 	query = "from car d where d.uuid = :uuid and d.deleted = false"
 			)
 	,
+	@NamedQuery(name="car.getAllForMainUser",
+	query = "from car d where mainId = :userId and d.deleted = false order by d.cargoRecieved desc"
+			)
+	,
+	@NamedQuery(name="car.getAllForMainUserTwo",
+	query = "from car d where mainTwoId = :mainTwoId and d.deleted = false order by d.cargoRecieved desc"
+			)
+	,
+	@NamedQuery(name="car.getAllForVendor",
+	query = "from car d where vendorId = :vendorId and d.deleted = false order by d.cargoRecieved desc"
+			)
+	,
+	@NamedQuery(name="car.getAllForShipper",
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and shipperId = :shipperId and d.deleted = false order by d.cargoRecieved desc"
+			)
+	,
+	@NamedQuery(name="car.getAllForCustomer",
+	query = "from car d where customerId = :customerId and d.deleted = false order by d.cargoRecieved desc"
+			)
+	,
+	@NamedQuery(name="car.getAllForConsignee",
+	query = "from car d where consigneeId = :consigneeId and d.deleted = false order by d.cargoRecieved desc"
+			)
+	,
 	@NamedQuery(name="car.getAllWareHouseForMainUser",
-	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and mainId = :userId and d.deleted = false"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and mainId = :userId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForMainUserTwo",
-	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and mainTwoId = :mainTwoId and d.deleted = false"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and mainTwoId = :mainTwoId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForVendor",
-	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and vendorId = :vendorId and d.deleted = false"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and vendorId = :vendorId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForShipper",
-	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and shipperId = :shipperId and d.deleted = false"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and shipperId = :shipperId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForCustomer",
-	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and customerId = :customerId and d.deleted = false"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and customerId = :customerId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForConsignee",
-	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and consigneeId = :consigneeId and d.deleted = false"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and consigneeId = :consigneeId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForMainUser",
-	query = "from car d where (d.state = 4 or d.state = 5) and mainId = :userId and d.deleted = false"
+	query = "from car d where (d.state = 4 or d.state = 5) and mainId = :userId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForMainUserTwo",
-	query = "from car d where (d.state = 4 or d.state = 5) and mainTwoId = :mainTwoId and d.deleted = false"
+	query = "from car d where (d.state = 4 or d.state = 5) and mainTwoId = :mainTwoId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForVendor",
-	query = "from car d where (d.state = 4 or d.state = 5) and vendorId = :vendorId and d.deleted = false"
+	query = "from car d where (d.state = 4 or d.state = 5) and vendorId = :vendorId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForShipper",
-	query = "from car d where (d.state = 4 or d.state = 5) and shipperId = :shipperId and d.deleted = false"
+	query = "from car d where (d.state = 4 or d.state = 5) and shipperId = :shipperId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForCustomer",
-	query = "from car d where (d.state = 4 or d.state = 5) and customerId = :customerId and d.deleted = false"
+	query = "from car d where (d.state = 4 or d.state = 5) and customerId = :customerId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForConsignee",
-	query = "from car d where (d.state = 4 or d.state = 5) and consigneeId = :consigneeId and d.deleted = false"
+	query = "from car d where (d.state = 4 or d.state = 5) and consigneeId = :consigneeId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForMainUser",
-	query = "from car d where (d.state = 6 or d.state = 7) and mainId = :userId and d.deleted = false"
+	query = "from car d where (d.state = 6 or d.state = 7) and mainId = :userId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForMainUserTwo",
-	query = "from car d where (d.state = 6 or d.state = 7) and mainTwoId = :mainTwoId and d.deleted = false"
+	query = "from car d where (d.state = 6 or d.state = 7) and mainTwoId = :mainTwoId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForVendor",
-	query = "from car d where (d.state = 6 or d.state = 7) and vendorId = :vendorId and d.deleted = false"
+	query = "from car d where (d.state = 6 or d.state = 7) and vendorId = :vendorId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForShipper",
-	query = "from car d where (d.state = 6 or d.state = 7) and shipperId = :shipperId and d.deleted = false"
+	query = "from car d where (d.state = 6 or d.state = 7) and shipperId = :shipperId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForCustomer",
-	query = "from car d where (d.state = 6 or d.state = 7) and customerId = :customerId and d.deleted = false"
+	query = "from car d where (d.state = 6 or d.state = 7) and customerId = :customerId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForConsignee",
-	query = "from car d where (d.state = 6 or d.state = 7) and consigneeId = :consigneeId and d.deleted = false"
+	query = "from car d where (d.state = 6 or d.state = 7) and consigneeId = :consigneeId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUser",
-	query = "from car d where (d.state = 8) and mainId = :userId and d.deleted = false"
+	query = "from car d where (d.state = 8) and mainId = :userId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUserTwo",
-	query = "from car d where (d.state = 8) and mainTwoId = :mainTwoId and d.deleted = false"
+	query = "from car d where (d.state = 8) and mainTwoId = :mainTwoId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForVendor",
-	query = "from car d where (d.state = 8) and vendorId = :vendorId and d.deleted = false"
+	query = "from car d where (d.state = 8) and vendorId = :vendorId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForShipper",
-	query = "from car d where (d.state = 8) and shipperId = :shipperId and d.deleted = false"
+	query = "from car d where (d.state = 8) and shipperId = :shipperId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForCustomer",
-	query = "from car d where (d.state = 8) and customerId = :customerId and d.deleted = false"
+	query = "from car d where (d.state = 8) and customerId = :customerId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForConsignee",
-	query = "from car d where (d.state = 8) and consigneeId = :consigneeId and d.deleted = false"
+	query = "from car d where (d.state = 8) and consigneeId = :consigneeId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllWithAllowSendState",
-	query = "from car d where d.allowSendEmail = :state and d.deleted = false"
+	query = "from car d where d.allowSendEmail = :state and d.deleted = false order by d.cargoRecieved desc"
 			)
 	
 	

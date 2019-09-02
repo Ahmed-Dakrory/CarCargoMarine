@@ -392,21 +392,17 @@ public class carBean implements Serializable{
 			if(selectedCarState==0) {
 				//This for warehouse
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				allCars = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
 				
 				
 
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				allCars = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
 				
 			
 
@@ -414,11 +410,9 @@ public class carBean implements Serializable{
 				
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				allCars = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
 				
 				
 
@@ -426,33 +420,17 @@ public class carBean implements Serializable{
 				
 				// this for freight in transit
 
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				allCars = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
 				
 				
 
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
 				
 
 			}
@@ -461,66 +439,36 @@ public class carBean implements Serializable{
 			shipper shipperNewId=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
 			if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
+				allCars = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
 
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
 				
 				
 
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
+				allCars = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
 
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
 				
 				
 				
 			}else if(selectedCarState==2) {
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
+				allCars = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
 
 
 			}else if(selectedCarState==4) {
 				// this for freight sent for payment
 
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
+				allCars = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
 
 				
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
-				
-
 
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
+				allCars = carFacade.getAllForShipper(shipperNewId.getId());
 				
 
 			}
@@ -529,202 +477,90 @@ public class carBean implements Serializable{
 			mainTwo mainTwoId=mainTwoFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
 			if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
+				allCars = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
 
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
 				
-				
-
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
+				allCars = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
 
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
 				
 			}else if(selectedCarState==2) {
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
+				allCars = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
 
 				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-
 			}else if(selectedCarState==4) {
 				// this for freight sent for payment
 
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
+				allCars = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
 
 				
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
 				
-
-
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllForMainUserTwo(mainTwoId.getId());
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
-				
-
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_VENDOR) {
 
 			vendor vendorNewId=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
 			if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
+				allCars = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
 
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-
+			
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
+				allCars = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
 
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
-				
 			}else if(selectedCarState==2) {
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
+				allCars = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
 
 			}else if(selectedCarState==4) {
 				// this for freight Sent
 
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
-
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
+				allCars = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
 
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllForVendor(vendorNewId.getId());
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CUSTOMER) {
 
 			customer customerNewId=customerFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
 			if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
+				allCars = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
 
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
+				allCars = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
 
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
-				
 			}else if(selectedCarState==2) {
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
+				allCars = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
 
 			}else if(selectedCarState==4) {
 				// this for freight in transit
 
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
-
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
+				allCars = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
 
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllForCustomer(customerNewId.getId());
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CONGSIGNEE) {
 
@@ -732,67 +568,28 @@ public class carBean implements Serializable{
 			for(int i=0;i<consigneeNewId.size();i++ ) {
 			if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
+				allCars = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
 
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
+				allCars = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
 
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
-				
 			}else if(selectedCarState==2) {
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
+				allCars = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
 
 			}else if(selectedCarState==4) {
 				// this for freight Sent
 
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
-
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
+				allCars = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
 
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllForConsignee(consigneeNewId.get(i).getId());
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
 			}
 			
 		}
@@ -1938,8 +1735,10 @@ public void deleteCar() {
 	public String getFormatedDate(Calendar c) {
 		String dateTime="";
 		if(c!=null) {
+			String[] monthNames = {"Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Octo", "Nov", "Dec"};
+		    
 		dateTime = String.valueOf(c.get(Calendar.DAY_OF_MONTH)) +"/"+
-				   String.valueOf(c.get(Calendar.MONTH)+1) +"/"+
+				   String.valueOf(monthNames[c.get(Calendar.MONTH)]) +"/"+
 				   String.valueOf(c.get(Calendar.YEAR));
 		}
 		return dateTime;

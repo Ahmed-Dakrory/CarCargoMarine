@@ -463,7 +463,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
 											<th>State</th>
 											<th>UID</th>
-											<th>Description</th>
+											<th>Car_Type</th>
 											<th class="hidden-phone">Year</th>
 											<th class="hidden-phone">Shipper</th>
 											<th class="hidden-phone">Vendor</th>
@@ -478,11 +478,11 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<th class="hidden-phone">ETD</th>
 											<th class="hidden-phone">ETA</th>
 											<th class="hidden-phone">Consignee</th>
-											<th class="hidden-phone">Land Cost</th>
-											<th class="hidden-phone">Sea Cost</th>
-											<th class="hidden-phone">Fees Cost</th>
-											<th class="hidden-phone">Commision Cost</th>
-											<th class="hidden-phone">Total Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Land Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Sea Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Fees Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Commision Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Total Cost</th>
 											<th class="hidden-phone">Image</th>
 											<th class="hidden-phone">Docs</th>
 											
@@ -539,7 +539,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==4?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForCustomerOrConsignee(data.id)}"/>
 												</h:form>
 											</td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.description}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.make} #{data.model}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.shipperId.userId.firstName}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.vendorId.userId.firstName}</span></td>
@@ -593,11 +593,11 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											
 											<td class="center hidden-phone" style="background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.consigneeId.userId.firstName}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.landcost}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.seacost}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.fees}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.landcost}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.seacost}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.fees}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost}</span></td>
 											<td class="center hidden-phone"><img style="display:#{data.photoExist==true?'block':'none'} ;     box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d; border-radius: 15%;   width: 25px;" src = "/resources/images/img/no-photo.jpg"/></td>
 											<td class="center hidden-phone"><img style="display:#{data.docExist==true?'block':'none'} ;     width: 25px;" src = "/resources/images/public/img/membership-choice-step/membership-choice__premier-step-1.png"/></td>
 										</tr>

@@ -432,6 +432,84 @@ public class carRepositoryImpl implements carRepository{
 			 return null;
 		 }
 	}
+
+	@Override
+	public List<car> getAllForMainUser(int userId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForMainUser").setInteger("userId",userId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllForMainUserTwo(int mainTwoId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForMainUserTwo").setInteger("mainTwoId",mainTwoId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllForVendor(int vendorId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForVendor").setInteger("vendorId",vendorId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllForShipper(int shipperId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForShipper").setInteger("shipperId",shipperId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllForCustomer(int custmerId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForCustomer").setInteger("custmerId",custmerId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllForConsignee(int consigneeId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForConsignee").setInteger("consigneeId",consigneeId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
 	
 
 

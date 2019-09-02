@@ -45,15 +45,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 			user dao = userDataRepository.getByUserName(username);
 			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
-			System.out.println("Ahmed Dakrory333: "+username);
 			UserDetails user;
 			if(dao.getRole()==main.com.carService.loginNeeds.user.ROLE_MAIN) {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
