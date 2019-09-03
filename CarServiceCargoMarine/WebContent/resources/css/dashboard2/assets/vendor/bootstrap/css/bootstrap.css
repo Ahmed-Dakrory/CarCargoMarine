@@ -182,7 +182,7 @@ optgroup {
   font-weight: bold;
 }
 table {
-  /* border-collapse: collapse; */
+  border-collapse: collapse;
   /* border-spacing: 0; */
   /* border-radius: 11px; */
 }
@@ -2316,7 +2316,7 @@ legend {
 }
 label {
   display: inline-block;
-  max-width: 100%;
+  /* max-width: 100%; */
   margin-bottom: 5px;
   font-weight: bold;
 }

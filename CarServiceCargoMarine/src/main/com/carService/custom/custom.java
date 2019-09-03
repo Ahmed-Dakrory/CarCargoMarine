@@ -77,8 +77,8 @@ public class custom {
 	private user userId;
 	
 	@ManyToOne
-	@JoinColumn(name = "freightForwarderId")
-	private consignee freightForwarderId;
+	@JoinColumn(name = "freightForwardedId")
+	private consignee freightForwardedId;
 
 	@ManyToOne
 	@JoinColumn(name = "usppiId")
@@ -96,9 +96,6 @@ public class custom {
 	
 	
 
-	@ManyToOne
-	@JoinColumn(name = "freightForwardedId")
-	private consignee freightForwardedId;
 	
 
 	@ManyToOne
@@ -163,15 +160,7 @@ public class custom {
 	}
 
 
-	public consignee getFreightForwarderId() {
-		return freightForwarderId;
-	}
-
-
-	public void setFreightForwarderId(consignee freightForwarderId) {
-		this.freightForwarderId = freightForwarderId;
-	}
-
+	
 
 	public consignee getUsppiId() {
 		return usppiId;
