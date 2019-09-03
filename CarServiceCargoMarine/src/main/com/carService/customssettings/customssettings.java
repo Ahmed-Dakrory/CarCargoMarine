@@ -51,11 +51,7 @@ public class customssettings {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "srn")
-	private String srn;
 	
-	@Column(name = "bn")
-	private String bn;
 	
 	@Column(name = "st")
 	private String st;
@@ -75,11 +71,6 @@ public class customssettings {
 	@Column(name = "mot")
 	private String mot;
 	
-	@Column(name = "scac")
-	private String scac;
-	
-	@Column(name = "vn")
-	private String vn;
 	
 	@Column(name = "rcc")
 	private String rcc;
@@ -109,24 +100,8 @@ public class customssettings {
 	}
 
 
-	public String getSrn() {
-		return srn;
-	}
 
-
-	public void setSrn(String srn) {
-		this.srn = srn;
-	}
-
-
-	public String getBn() {
-		return bn;
-	}
-
-
-	public void setBn(String bn) {
-		this.bn = bn;
-	}
+	
 
 
 	public String getSt() {
@@ -187,26 +162,6 @@ public class customssettings {
 
 	public void setMot(String mot) {
 		this.mot = mot;
-	}
-
-
-	public String getScac() {
-		return scac;
-	}
-
-
-	public void setScac(String scac) {
-		this.scac = scac;
-	}
-
-
-	public String getVn() {
-		return vn;
-	}
-
-
-	public void setVn(String vn) {
-		this.vn = vn;
 	}
 
 

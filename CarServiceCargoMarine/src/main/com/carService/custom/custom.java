@@ -58,9 +58,19 @@ public class custom {
 	
 	@Column(name = "soldEnRoute")
 	private String soldEnRoute;
+
+	@Column(name = "srn")
+	private String srn;
 	
 	@Column(name = "eda")
 	private String eda;
+	
+
+	@Column(name = "scac")
+	private String scac;
+	
+	@Column(name = "vn")
+	private String vn;
 	
 	@ManyToOne
 	@JoinColumn(name = "userId")
@@ -95,6 +105,9 @@ public class custom {
 	@JoinColumn(name = "customsSettingsId")
 	private customssettings customsSettingsId;
 	
+
+	@Column(name = "bn")
+	private String bn;
 
 	@Column(name = "deleted")
 	private boolean deleted;
@@ -209,6 +222,17 @@ public class custom {
 		this.customsSettingsId = customsSettingsId;
 	}
 
+	
+
+	public String getSrn() {
+		return srn;
+	}
+
+
+	public void setSrn(String srn) {
+		this.srn = srn;
+	}
+
 
 	public boolean isDeleted() {
 		return deleted;
@@ -220,7 +244,35 @@ public class custom {
 	}
 
 
+	public String getScac() {
+		return scac;
+	}
+
+
+	public void setScac(String scac) {
+		this.scac = scac;
+	}
+
+
+	public String getVn() {
+		return vn;
+	}
+
+
+	public void setVn(String vn) {
+		this.vn = vn;
+	}
+
+
 	
+	public String getBn() {
+		return bn;
+	}
+
+
+	public void setBn(String bn) {
+		this.bn = bn;
+	}
 	
 	
 }
