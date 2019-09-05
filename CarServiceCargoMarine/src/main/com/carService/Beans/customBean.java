@@ -2,6 +2,11 @@ package main.com.carService.Beans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +18,19 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 
+import main.com.carService.consignee.consignee;
+import main.com.carService.consignee.consigneeAppServiceImpl;
 import main.com.carService.custom.custom;
 import main.com.carService.custom.customAppServiceImpl;
+import main.com.carService.customCommodity.commoditiy;
+import main.com.carService.customCommodity.commoditiyAppServiceImpl;
+import main.com.carService.customTransportation.customtransportation;
+import main.com.carService.customTransportation.customtransportationAppServiceImpl;
 import main.com.carService.customssettings.customssettings;
 import main.com.carService.customssettings.customssettingsAppServiceImpl;
 import main.com.carService.loginNeeds.user;
+import main.com.carService.shipper.shipper;
+import main.com.carService.shipper.shipperAppServiceImpl;
 
 
 @ManagedBean(name = "customBean")
@@ -52,20 +65,59 @@ public class customBean implements Serializable{
 	
 
 	private List<custom> customListForThisUser;
-	
+
 	@ManagedProperty(value = "#{customFacadeImpl}")
 	private customAppServiceImpl customFacade;
+	
+
+	@ManagedProperty(value = "#{consigneeFacadeImpl}")
+	private consigneeAppServiceImpl consigneeFacade;
+	
+
+	@ManagedProperty(value = "#{shipperFacadeImpl}")
+	private shipperAppServiceImpl shipperFacade;
+	
+
+	@ManagedProperty(value = "#{commoditiyFacadeImpl}")
+	private commoditiyAppServiceImpl commoditiyFacade;
+	
+
+	@ManagedProperty(value = "#{customtransportationFacadeImpl}")
+	private customtransportationAppServiceImpl customtransportationFacade;
 	
 	private user theUserOfThisAccount;
 	
 
 	private customssettings addedNewCustomSetting;
 	private customssettings selectedCustomSetting;
+	
+
+	private custom selectedCustomData;
 
 	private Map<Integer, String> ports;
 	private Map<Integer, String> modeTrans;
 	private Map<Integer, String> inbondTypes;
 	
+	private String edaString="";
+	
+
+	private List<consignee> listOfConsignees;
+	
+
+	private Integer usppiIdUsedForSelector;
+	private Integer ulConsigneeIdUsedForSelector;
+	private Integer interConsigneeIdUsedForSelector;
+	private Integer frightForwardedIdUsedForSelector;
+	private Integer customSettingsId;
+	
+	
+
+	private List<commoditiy> listOfCommodities;
+	private commoditiy addedNewCommoditiy;
+	
+
+	private List<customtransportation> listOfTransportations;
+	private customtransportation addedNewTransportations;
 	
 	@PostConstruct
 	public void init() {
@@ -83,7 +135,17 @@ public class customBean implements Serializable{
 	}
 	
 	
-
+	public String getFormatedDate(Calendar c) {
+		String dateTime="";
+		if(c!=null) {
+			String[] monthNames = {"Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Octo", "Nov", "Dec"};
+		    
+		dateTime = String.valueOf(c.get(Calendar.DAY_OF_MONTH)) +"/"+
+				   String.valueOf(monthNames[c.get(Calendar.MONTH)]) +"/"+
+				   String.valueOf(c.get(Calendar.YEAR));
+		}
+		return dateTime;
+	}
 
 
 	public String getPortValue(Integer i) {
@@ -115,6 +177,12 @@ public class customBean implements Serializable{
 		
 		customSettingsListForThisUser = customssettingsFacade.getAllByUserId(theUserOfThisAccount.getId());
 		customListForThisUser = customFacade.getAllByUserId(theUserOfThisAccount.getId());
+		
+		if(theUserOfThisAccount.getRole()==user.ROLE_SHIPPER) {
+			shipper shipperOfThisAccount = shipperFacade.getByUserId(theUserOfThisAccount.getId());
+			listOfConsignees = consigneeFacade.getAllByParentId(shipperOfThisAccount.getId());
+		}
+		
 	}
 
 
@@ -133,6 +201,9 @@ public class customBean implements Serializable{
 	}
 	
 	public void saveTheNewCustomSettings() {
+		
+		
+		
 		customssettingsFacade.addcustomssettings(addedNewCustomSetting);
 		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -150,6 +221,8 @@ public class customBean implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+
 	public void updateTheSelectedCustomSettings() {
 
 		customssettingsFacade.addcustomssettings(selectedCustomSetting);
@@ -169,6 +242,72 @@ public class customBean implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+
+	public void selectcustomsSettings(int id) {
+		
+		selectedCustomSetting = customssettingsFacade.getById(id);
+
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/admin/customs/customSettings/editCustomSetting.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateTheSelectedCustomsData() {
+
+		
+
+		consignee ultimConsignee = consigneeFacade.getById(ulConsigneeIdUsedForSelector);
+		consignee usppi = consigneeFacade.getById(usppiIdUsedForSelector);
+		consignee interConsignee = consigneeFacade.getById(interConsigneeIdUsedForSelector);
+		consignee frightForConsignee = consigneeFacade.getById(frightForwardedIdUsedForSelector);
+		
+		customssettings customSetting = customssettingsFacade.getById(customSettingsId);
+		
+		selectedCustomData.setEda(setCalendarFromString(edaString));
+		selectedCustomData.setCustomsSettingsId(customSetting);
+		selectedCustomData.setFreightForwardedId(frightForConsignee);
+		selectedCustomData.setUlConsigneeId(ultimConsignee);
+		selectedCustomData.setInterConsigneeId(interConsignee);
+		selectedCustomData.setUsppiId(usppi);
+		
+		selectedCustomData.setUserId(theUserOfThisAccount);
+		
+		customFacade.addcustom(selectedCustomData);
+		
+		
+		
+		for(int i=0;i<listOfCommodities.size();i++) {
+			listOfCommodities.get(i).setCustomId(selectedCustomData);
+			commoditiyFacade.addcommoditiy(listOfCommodities.get(i));
+		}
+		
+		for(int i=0;i<listOfTransportations.size();i++) {
+			listOfTransportations.get(i).setCustomId(selectedCustomData);
+			customtransportationFacade.addcustomtransportation(listOfTransportations.get(i));
+		}
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your Custom Updated.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/admin/customs/customRequest/customList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void cancel() {
 		try {
 			FacesContext.getCurrentInstance()
@@ -179,18 +318,154 @@ public class customBean implements Serializable{
 		}
 	}	
 	
-	public void selectcustomsSettings(int id) {
-		selectedCustomSetting = customssettingsFacade.getById(id);
+	
+	public void addTheNewcustomTransportation() {
+		listOfTransportations.add(addedNewTransportations);
+
+		addedNewTransportations =new customtransportation();
+		addedNewTransportations.setCustomId(selectedCustomData);
 		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your Transportation has been added.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs2");
+	}
+	
+	
+	public void addTheNewCommodity() {
+		listOfCommodities.add(addedNewCommoditiy);
+
+		addedNewCommoditiy =new commoditiy();
+		addedNewCommoditiy.setCustomId(selectedCustomData);
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your Commodity has been added.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs");
+	}
+	
+	public void goToAddNewCustomData() {
+		
+		selectedCustomData =new custom();
+		
+		edaString = "";
+		usppiIdUsedForSelector = -1;
+		interConsigneeIdUsedForSelector = -1;
+		ulConsigneeIdUsedForSelector = -1;
+		frightForwardedIdUsedForSelector = -1;
+		
+		listOfCommodities = new ArrayList<commoditiy>();
+		
+		
+
+		addedNewCommoditiy =new commoditiy();
+		addedNewCommoditiy.setCustomId(selectedCustomData);
+
+		int numberOfCommodities = listOfCommodities.size();
+		addedNewCommoditiy.setIsLine("Y");
+		addedNewCommoditiy.setLineNum(numberOfCommodities+1);
+		
+		
+		addedNewTransportations =new customtransportation();
+		addedNewTransportations.setCustomId(selectedCustomData);
+
+		int numberOfTransportations = listOfTransportations.size();
+		addedNewTransportations.setLineNum(numberOfTransportations+1);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/customs/customSettings/editCustomSetting.jsf?faces-redirect=true");
+			   .getExternalContext().redirect("/pages/secured/admin/customs/customRequest/editCustom.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	
+	public void selectcustom(int id) {
+		selectedCustomData = customFacade.getById(id);
+		
+		
+
+		
+		
+		edaString = getStringFromCalendar(selectedCustomData.getEda());
+		usppiIdUsedForSelector = selectedCustomData.getUsppiId().getId();
+		interConsigneeIdUsedForSelector = selectedCustomData.getInterConsigneeId().getId();
+		ulConsigneeIdUsedForSelector = selectedCustomData.getUlConsigneeId().getId();
+		frightForwardedIdUsedForSelector = selectedCustomData.getFreightForwardedId().getId();
+		customSettingsId = selectedCustomData.getCustomsSettingsId().getId();
+
+		listOfCommodities = commoditiyFacade.getAllByCustomId(id);
+		listOfTransportations = customtransportationFacade.getAllByCustomId(id);
+		
+		
+
+		addedNewCommoditiy =new commoditiy();
+		addedNewCommoditiy.setCustomId(selectedCustomData);
+
+		if(listOfCommodities==null) {
+			listOfCommodities = new ArrayList<commoditiy>();
+		}
+		
+		if(listOfTransportations==null) {
+			listOfTransportations = new ArrayList<customtransportation>();
+		}
+		
+		
+		int numberOfCommodities = listOfCommodities.size();
+		addedNewCommoditiy.setIsLine("Y");
+		addedNewCommoditiy.setLineNum(numberOfCommodities+1);
+		
+		
+		addedNewTransportations =new customtransportation();
+		addedNewTransportations.setCustomId(selectedCustomData);
+
+		int numberOfTransportations = listOfTransportations.size();
+		addedNewTransportations.setLineNum(numberOfTransportations+1);
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/admin/customs/customRequest/editCustom.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+
+	public String getStringFromCalendar(Calendar calendar) {
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss"); 
+		String returnedCalendarString="";
+		
+			if(calendar!=null) {
+				returnedCalendarString=formatter.format(calendar.getTime());
+			}
+		return returnedCalendarString;
+	}
+	
+	private Calendar setCalendarFromString(String dateTime) {
+
+		Calendar cal = null;
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss"); 
+		try {
+			if(!dateTime.equals("")) {
+				cal=Calendar.getInstance();
+				Date date=formatter.parse(dateTime);
+				cal.setTime(date);
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		return cal;
+	}
 	
 	/*
 	 * 
@@ -203,6 +478,106 @@ public class customBean implements Serializable{
 
 	public main.com.carService.loginNeeds.loginBean getLoginBean() {
 		return loginBean;
+	}
+
+
+	public customtransportationAppServiceImpl getCustomtransportationFacade() {
+		return customtransportationFacade;
+	}
+
+
+	public void setCustomtransportationFacade(customtransportationAppServiceImpl customtransportationFacade) {
+		this.customtransportationFacade = customtransportationFacade;
+	}
+
+
+	public List<customtransportation> getListOfTransportations() {
+		return listOfTransportations;
+	}
+
+
+	public void setListOfTransportations(List<customtransportation> listOfTransportations) {
+		this.listOfTransportations = listOfTransportations;
+	}
+
+
+	public customtransportation getAddedNewTransportations() {
+		return addedNewTransportations;
+	}
+
+
+	public void setAddedNewTransportations(customtransportation addedNewTransportations) {
+		this.addedNewTransportations = addedNewTransportations;
+	}
+
+
+	public commoditiyAppServiceImpl getCommoditiyFacade() {
+		return commoditiyFacade;
+	}
+
+
+	public void setCommoditiyFacade(commoditiyAppServiceImpl commoditiyFacade) {
+		this.commoditiyFacade = commoditiyFacade;
+	}
+
+
+	public List<commoditiy> getListOfCommodities() {
+		return listOfCommodities;
+	}
+
+
+	public void setListOfCommodities(List<commoditiy> listOfCommodities) {
+		this.listOfCommodities = listOfCommodities;
+	}
+
+
+	public Integer getUsppiIdUsedForSelector() {
+		return usppiIdUsedForSelector;
+	}
+
+
+	public void setUsppiIdUsedForSelector(Integer usppiIdUsedForSelector) {
+		this.usppiIdUsedForSelector = usppiIdUsedForSelector;
+	}
+
+
+	public Integer getUlConsigneeIdUsedForSelector() {
+		return ulConsigneeIdUsedForSelector;
+	}
+
+
+	public void setUlConsigneeIdUsedForSelector(Integer ulConsigneeIdUsedForSelector) {
+		this.ulConsigneeIdUsedForSelector = ulConsigneeIdUsedForSelector;
+	}
+
+
+	public Integer getInterConsigneeIdUsedForSelector() {
+		return interConsigneeIdUsedForSelector;
+	}
+
+
+	public void setInterConsigneeIdUsedForSelector(Integer interConsigneeIdUsedForSelector) {
+		this.interConsigneeIdUsedForSelector = interConsigneeIdUsedForSelector;
+	}
+
+
+	public Integer getFrightForwardedIdUsedForSelector() {
+		return frightForwardedIdUsedForSelector;
+	}
+
+
+	public void setFrightForwardedIdUsedForSelector(Integer frightForwardedIdUsedForSelector) {
+		this.frightForwardedIdUsedForSelector = frightForwardedIdUsedForSelector;
+	}
+
+
+	public String getEdaString() {
+		return edaString;
+	}
+
+
+	public void setEdaString(String edaString) {
+		this.edaString = edaString;
 	}
 
 
@@ -299,6 +674,37 @@ public Map<Integer, String> getModeTrans() {
 
 
 
+public commoditiy getAddedNewCommoditiy() {
+		return addedNewCommoditiy;
+	}
+
+
+	public void setAddedNewCommoditiy(commoditiy addedNewCommoditiy) {
+		this.addedNewCommoditiy = addedNewCommoditiy;
+	}
+
+
+
+	public Integer getCustomSettingsId() {
+		return customSettingsId;
+	}
+
+
+	public void setCustomSettingsId(Integer customSettingsId) {
+		this.customSettingsId = customSettingsId;
+	}
+
+
+	public custom getSelectedCustomData() {
+		return selectedCustomData;
+	}
+
+
+	public void setSelectedCustomData(custom selectedCustomData) {
+		this.selectedCustomData = selectedCustomData;
+	}
+
+
 public List<custom> getCustomListForThisUser() {
 		return customListForThisUser;
 	}
@@ -345,6 +751,36 @@ public Map<Integer, String> getInbondTypes() {
 
 
 
+
+
+public consigneeAppServiceImpl getConsigneeFacade() {
+		return consigneeFacade;
+	}
+
+
+	public void setConsigneeFacade(consigneeAppServiceImpl consigneeFacade) {
+		this.consigneeFacade = consigneeFacade;
+	}
+
+
+	public shipperAppServiceImpl getShipperFacade() {
+		return shipperFacade;
+	}
+
+
+	public void setShipperFacade(shipperAppServiceImpl shipperFacade) {
+		this.shipperFacade = shipperFacade;
+	}
+
+
+	public List<consignee> getListOfConsignees() {
+		return listOfConsignees;
+	}
+
+
+	public void setListOfConsignees(List<consignee> listOfConsignees) {
+		this.listOfConsignees = listOfConsignees;
+	}
 
 
 public void fillPorts1() {

@@ -52,7 +52,7 @@
                                                 <tr>
                                                     <td style="height: 22px">
                                                         &nbsp;
-                                  						 <h:commandButton name="ctl00$BodyHolder$cmdAddcustomsSettings" value="Add New Custom Details" id="ctl00_BodyHolder_cmdAddcustomsSettings" action="#{customBean.goToAddNewcustomsSettings()}" class="btn btn-default" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:190px;"></h:commandButton>
+                                  						 <h:commandButton name="ctl00$BodyHolder$cmdAddcustomsSettings" value="Add New Custom Details" id="ctl00_BodyHolder_cmdAddcustomsSettings" action="#{customBean.goToAddNewCustomData()}" class="btn btn-default" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:190px;"></h:commandButton>
 								                    </td>
                                                     
                                                 </tr>
@@ -73,47 +73,39 @@
 											<th class="hidden-phone">Ultimate Consignee</th>
 											<th class="hidden-phone">Intermediate Consignee</th>
 											<th class="hidden-phone">Freight Forwarder </th>
-											<th class="hidden-phone">Inbond type</th>
-											<th class="hidden-phone">route transaction?</th>
-											<th class="hidden-phone">contains hazardous material?</th>
+											<th class="hidden-phone">Estimated Arrival time</th>
 										</tr>
 									</thead>
 									<tbody>
 										
-											<ui:repeat var="var" value="#{customBean.customSettingsListForThisUser}">
+											<ui:repeat var="var" value="#{customBean.customListForThisUser}">
 											<tr align="left" class="gradeX">
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-												<h:commandLink value="#{var.id}/ #{var.userId.email}" action="#{customBean.selectcustomsSettings(var.id)}"/>
+												<h:commandLink value="#{var.id}" action="#{customBean.selectcustom(var.id)}"/>
 												</td>
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-													#{customBean.getModeTransValue(var.mot)}
+													#{var.usppiId.userId.company}
 												</td>
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-													#{customBean.getPortValue(var.pou)}
+													#{var.ulConsigneeId.userId.company}
 												</td>
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-												#{loginBean.getCountrysValue(var.cod)}
+													#{var.interConsigneeId.userId.company}
 												</td>
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-												#{customBean.getPortValue(var.poe)}
+													#{var.freightForwardedId.userId.company}
 												</td>
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-												#{customBean.getInbondTypesValue(var.ibt)}
+												#{customBean.getFormatedDate(var.eda)}
 												</td>
 												
-												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-													#{var.rt}
-												</td>
 												
-												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-													#{var.haz}
-												</td>
 												
 											</tr>
 											

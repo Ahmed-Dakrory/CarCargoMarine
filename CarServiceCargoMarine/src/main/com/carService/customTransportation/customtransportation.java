@@ -51,11 +51,12 @@ public class customtransportation {
 	@Column(name = "id")
 	private Integer id;
 
-	
+	@Column(name = "lineNum")
+	private Integer lineNum;
 	
 
-	@Column(name = "eq")
-	private String eq;
+	@Column(name = "eqNumber")
+	private String eqNumber;
 	
 
 	@Column(name = "sn")
@@ -71,6 +72,18 @@ public class customtransportation {
 	private boolean deleted;
 
 
+	
+	
+	public Integer getLineNum() {
+		return lineNum;
+	}
+
+
+	public void setLineNum(Integer lineNum) {
+		this.lineNum = lineNum;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -81,13 +94,15 @@ public class customtransportation {
 	}
 
 
-	public String getEq() {
-		return eq;
+	
+
+	public String getEqNumber() {
+		return eqNumber;
 	}
 
 
-	public void setEq(String eq) {
-		this.eq = eq;
+	public void setEqNumber(String eqNumber) {
+		this.eqNumber = eqNumber;
 	}
 
 

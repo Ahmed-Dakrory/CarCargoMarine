@@ -1,6 +1,8 @@
 package main.com.carService.custom;
 
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -63,7 +65,7 @@ public class custom {
 	private String srn;
 	
 	@Column(name = "eda")
-	private String eda;
+	private Calendar eda;
 	
 
 	@Column(name = "scac")
@@ -140,12 +142,12 @@ public class custom {
 	}
 
 
-	public String getEda() {
+	public Calendar getEda() {
 		return eda;
 	}
 
 
-	public void setEda(String eda) {
+	public void setEda(Calendar eda) {
 		this.eda = eda;
 	}
 

@@ -51,6 +51,11 @@ public class commoditiy {
 	@Column(name = "id")
 	private Integer id;
 
+	@Column(name = "lineNum")
+	private Integer lineNum;
+	
+	
+	
 	@Column(name = "isLine")
 	private String isLine;
 	
@@ -163,6 +168,18 @@ public class commoditiy {
 	}
 
 
+
+	public Integer getLineNum() {
+		return lineNum;
+	}
+
+
+	public void setLineNum(Integer lineNum) {
+		this.lineNum = lineNum;
+	}
+
+
+	
 	public String getIsLine() {
 		return isLine;
 	}
