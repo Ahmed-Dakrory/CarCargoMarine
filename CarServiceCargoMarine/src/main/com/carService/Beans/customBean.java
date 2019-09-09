@@ -318,6 +318,16 @@ public class customBean implements Serializable{
 		}
 	}	
 	
+	public void cancelCustom() {
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/admin/customs/customRequest/customList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
+	
 	
 	public void addTheNewcustomTransportation() {
 		listOfTransportations.add(addedNewTransportations);
@@ -437,11 +447,61 @@ public class customBean implements Serializable{
 		}
 	}
 	
+	public void submitDataOfForm() {
+
+		consignee ultimConsignee = consigneeFacade.getById(ulConsigneeIdUsedForSelector);
+		consignee usppi = consigneeFacade.getById(usppiIdUsedForSelector);
+		consignee interConsignee = consigneeFacade.getById(interConsigneeIdUsedForSelector);
+		consignee frightForConsignee = consigneeFacade.getById(frightForwardedIdUsedForSelector);
+		
+		customssettings customSetting = customssettingsFacade.getById(customSettingsId);
+		
+		selectedCustomData.setEda(setCalendarFromString(edaString));
+		selectedCustomData.setCustomsSettingsId(customSetting);
+		selectedCustomData.setFreightForwardedId(frightForConsignee);
+		selectedCustomData.setUlConsigneeId(ultimConsignee);
+		selectedCustomData.setInterConsigneeId(interConsignee);
+		selectedCustomData.setUsppiId(usppi);
+		
+		selectedCustomData.setUserId(theUserOfThisAccount);
+		
+		customFacade.addcustom(selectedCustomData);
+		
+		
+		
+		for(int i=0;i<listOfCommodities.size();i++) {
+			listOfCommodities.get(i).setCustomId(selectedCustomData);
+			commoditiyFacade.addcommoditiy(listOfCommodities.get(i));
+		}
+		
+		for(int i=0;i<listOfTransportations.size();i++) {
+			listOfTransportations.get(i).setCustomId(selectedCustomData);
+			customtransportationFacade.addcustomtransportation(listOfTransportations.get(i));
+		}
+
+		PrimeFaces.current().executeScript("doRefreshAndSubmit();");
+	}
 	
 	
+	
+	public String getTimeDateFormat(Calendar date) {
+		String dateTimeFormat = getStringFormatCalendar(date);
+		
+		return dateTimeFormat;
+	}
 
 	public String getStringFromCalendar(Calendar calendar) {
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss"); 
+		String returnedCalendarString="";
+		
+			if(calendar!=null) {
+				returnedCalendarString=formatter.format(calendar.getTime());
+			}
+		return returnedCalendarString;
+	}
+	
+	public String getStringFormatCalendar(Calendar calendar) {
+		SimpleDateFormat formatter=new SimpleDateFormat("yyMMdd"); 
 		String returnedCalendarString="";
 		
 			if(calendar!=null) {
@@ -480,6 +540,8 @@ public class customBean implements Serializable{
 		return loginBean;
 	}
 
+
+	
 
 	public customtransportationAppServiceImpl getCustomtransportationFacade() {
 		return customtransportationFacade;
