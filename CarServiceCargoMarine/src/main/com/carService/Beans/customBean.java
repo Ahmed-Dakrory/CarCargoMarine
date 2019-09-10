@@ -29,8 +29,6 @@ import main.com.carService.customTransportation.customtransportationAppServiceIm
 import main.com.carService.customssettings.customssettings;
 import main.com.carService.customssettings.customssettingsAppServiceImpl;
 import main.com.carService.loginNeeds.user;
-import main.com.carService.shipper.shipper;
-import main.com.carService.shipper.shipperAppServiceImpl;
 
 
 @ManagedBean(name = "customBean")
@@ -73,9 +71,6 @@ public class customBean implements Serializable{
 	@ManagedProperty(value = "#{consigneeFacadeImpl}")
 	private consigneeAppServiceImpl consigneeFacade;
 	
-
-	@ManagedProperty(value = "#{shipperFacadeImpl}")
-	private shipperAppServiceImpl shipperFacade;
 	
 
 	@ManagedProperty(value = "#{commoditiyFacadeImpl}")
@@ -178,9 +173,8 @@ public class customBean implements Serializable{
 		customSettingsListForThisUser = customssettingsFacade.getAllByUserId(theUserOfThisAccount.getId());
 		customListForThisUser = customFacade.getAllByUserId(theUserOfThisAccount.getId());
 		
-		if(theUserOfThisAccount.getRole()==user.ROLE_SHIPPER) {
-			shipper shipperOfThisAccount = shipperFacade.getByUserId(theUserOfThisAccount.getId());
-			listOfConsignees = consigneeFacade.getAllByParentId(shipperOfThisAccount.getId());
+		if(theUserOfThisAccount.getRole()==user.ROLE_MAIN) {
+			listOfConsignees = consigneeFacade.getAllByMainAccountIdOfParentShipper(theUserOfThisAccount.getId());
 		}
 		
 	}
@@ -825,14 +819,6 @@ public consigneeAppServiceImpl getConsigneeFacade() {
 	}
 
 
-	public shipperAppServiceImpl getShipperFacade() {
-		return shipperFacade;
-	}
-
-
-	public void setShipperFacade(shipperAppServiceImpl shipperFacade) {
-		this.shipperFacade = shipperFacade;
-	}
 
 
 	public List<consignee> getListOfConsignees() {

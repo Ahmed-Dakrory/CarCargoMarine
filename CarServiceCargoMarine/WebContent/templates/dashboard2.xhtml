@@ -55,9 +55,6 @@
     <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/font-awesome/css/font-awesome.css']}" />
     	
     
-    <!-- Head Libs -->
-		<h:outputScript name="js/dashboard/assets/vendor/modernizr/modernizr.js"/>
-		
 	
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="#{resource['css:dashboard/assets/stylesheets/theme.css']}" />
@@ -69,7 +66,8 @@
 	
 	
     	<!-- Head Libs -->
-		<h:outputScript name="js/dashboard2/assets/vendor/modernizr/modernizr.js"/>
+    	
+		<h:outputScript name="css/dashboard2/assets/vendor/modernizr/modernizr3.js"/>
 		
 	
 	
@@ -89,7 +87,12 @@
 		</h:head>
 
    		<h:body> 
+<style>
 
+.nano-content{
+margin-right: 0!important;
+}
+</style>
 		
 		
 		<section class="body">
@@ -430,14 +433,14 @@
 										</li>
 										
 										
-										<li class="nav-parent" style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
+										<li class="nav-parent" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
 											<a >
 												<i class="fa fa-child" aria-hidden="true"></i>
 												<span>Customs</span>
 											</a>
 											
 											<ul class="nav nav-children">
-												<li style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
+												<li style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
 													<a href="/pages/secured/admin/customs/customSettings/customSettingsList.jsf?faces-redirect=true">
 														 Customs Shipment List
 													</a>
@@ -447,7 +450,7 @@
 											</ul>
 											
 											<ul class="nav nav-children">
-												<li style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
+												<li style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
 													<a href="/pages/secured/admin/customs/customRequest/customList.jsf?faces-redirect=true">
 														 Customs List
 													</a>
