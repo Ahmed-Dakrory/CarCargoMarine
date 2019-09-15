@@ -328,6 +328,7 @@ public class customBean implements Serializable{
 
 		addedNewTransportations =new customtransportation();
 		addedNewTransportations.setCustomId(selectedCustomData);
+		addedNewTransportations.setLineNum(listOfTransportations.size()+1);
 		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
@@ -344,6 +345,7 @@ public class customBean implements Serializable{
 
 		addedNewCommoditiy =new commoditiy();
 		addedNewCommoditiy.setCustomId(selectedCustomData);
+		addedNewCommoditiy.setLineNum(listOfCommodities.size()+1);
 		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
@@ -364,7 +366,9 @@ public class customBean implements Serializable{
 		ulConsigneeIdUsedForSelector = -1;
 		frightForwardedIdUsedForSelector = -1;
 		
-		listOfCommodities = new ArrayList<commoditiy>();
+			listOfCommodities = new ArrayList<commoditiy>();
+			listOfTransportations = new ArrayList<customtransportation>();
+		
 		
 		
 
@@ -378,7 +382,7 @@ public class customBean implements Serializable{
 		
 		addedNewTransportations =new customtransportation();
 		addedNewTransportations.setCustomId(selectedCustomData);
-
+		
 		int numberOfTransportations = listOfTransportations.size();
 		addedNewTransportations.setLineNum(numberOfTransportations+1);
 		try {
@@ -392,6 +396,14 @@ public class customBean implements Serializable{
 	
 	
 	public void selectcustom(int id) {
+		
+		edaString = "";
+		usppiIdUsedForSelector = -1;
+		interConsigneeIdUsedForSelector = -1;
+		ulConsigneeIdUsedForSelector = -1;
+		frightForwardedIdUsedForSelector = -1;
+		customSettingsId = -1;
+		
 		selectedCustomData = customFacade.getById(id);
 		
 		
@@ -399,11 +411,31 @@ public class customBean implements Serializable{
 		
 		
 		edaString = getStringFromCalendar(selectedCustomData.getEda());
-		usppiIdUsedForSelector = selectedCustomData.getUsppiId().getId();
-		interConsigneeIdUsedForSelector = selectedCustomData.getInterConsigneeId().getId();
-		ulConsigneeIdUsedForSelector = selectedCustomData.getUlConsigneeId().getId();
-		frightForwardedIdUsedForSelector = selectedCustomData.getFreightForwardedId().getId();
-		customSettingsId = selectedCustomData.getCustomsSettingsId().getId();
+		
+		
+		if(selectedCustomData.getUsppiId()!=null) {
+			usppiIdUsedForSelector = selectedCustomData.getUsppiId().getId();
+		}
+		
+		if(selectedCustomData.getInterConsigneeId()!=null) {
+			interConsigneeIdUsedForSelector = selectedCustomData.getInterConsigneeId().getId();
+		}
+		
+		if(selectedCustomData.getUlConsigneeId()!=null) {
+			ulConsigneeIdUsedForSelector = selectedCustomData.getUlConsigneeId().getId();
+		}
+		
+		if(selectedCustomData.getFreightForwardedId()!=null) {
+			frightForwardedIdUsedForSelector = selectedCustomData.getFreightForwardedId().getId();
+		}
+		
+		if(selectedCustomData.getCustomsSettingsId()!=null) {
+			customSettingsId = selectedCustomData.getCustomsSettingsId().getId();
+		}
+		
+		 
+		
+		
 
 		listOfCommodities = commoditiyFacade.getAllByCustomId(id);
 		listOfTransportations = customtransportationFacade.getAllByCustomId(id);
