@@ -59,7 +59,7 @@ import main.com.carService.vendor.vendor;
 			)
 	,
 	@NamedQuery(name="car.getAllForShipper",
-	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and shipperId = :shipperId and d.deleted = false order by d.cargoRecieved desc"
+	query = "from car d where shipperId = :shipperId and d.deleted = false order by d.cargoRecieved desc"
 			)
 	,
 	@NamedQuery(name="car.getAllForCustomer",

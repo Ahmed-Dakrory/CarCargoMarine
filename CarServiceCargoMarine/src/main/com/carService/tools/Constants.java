@@ -2401,13 +2401,13 @@ public class Constants {
 			public void run() {
 				
 				
-				String from = "shipping@cargomarin.com";
-		        String pass = "Aaa123456789";
+				String from = "carmarshipping@gmail.com";
+		        String pass = "ziad2005$";
 				
 				// TODO Auto-generated method stub
 				 Properties props = System.getProperties();
 
-			        String host = "smtp.office365.com";
+			        String host = "smtp.gmail.com";
 			        props.put("mail.smtp.starttls.enable", "true");
 			        props.put("mail.smtp.host", host);
 			        props.put("mail.smtp.user", from);

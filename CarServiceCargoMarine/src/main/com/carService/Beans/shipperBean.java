@@ -176,18 +176,11 @@ public class shipperBean implements Serializable{
 		carsForInvoice=new ArrayList<car>();
 		
 		//Get all cars for the main account to be used in the invoice
-		List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
-		List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
-		List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
-
-		if(wareHouseMain!=null)
-			carsForthisAccount.addAll(wareHouseMain);
+		List<car> allMain = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
 		
-		if(dryCargoMain!=null)
-			carsForthisAccount.addAll(dryCargoMain);
+		if(allMain!=null)
+			carsForthisAccount.addAll(allMain);
 		
-		if(transitMain!=null)
-			carsForthisAccount.addAll(transitMain);
 		
 	}
 	

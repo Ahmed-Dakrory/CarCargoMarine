@@ -18,6 +18,8 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 
+import main.com.carService.car.car;
+import main.com.carService.car.carAppServiceImpl;
 import main.com.carService.consignee.consignee;
 import main.com.carService.consignee.consigneeAppServiceImpl;
 import main.com.carService.custom.custom;
@@ -113,6 +115,13 @@ public class customBean implements Serializable{
 
 	private List<customtransportation> listOfTransportations;
 	private customtransportation addedNewTransportations;
+	
+	
+
+	@ManagedProperty(value = "#{carFacadeImpl}")
+	private carAppServiceImpl carFacade;
+	
+	private Integer selectedCarIdToBeAddedInCommodities;
 	
 	@PostConstruct
 	public void init() {
@@ -250,6 +259,18 @@ public class customBean implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public void addCarToCommodities() {
+		car selectedCarToBeAddedInInvoice= carFacade.getById(selectedCarIdToBeAddedInCommodities);
+		addedNewCommoditiy.setIt_15("Y");
+		addedNewCommoditiy.setIt_17(selectedCarToBeAddedInInvoice.getUuid());
+		
+
+		
+	}
+	
 	
 	public void updateTheSelectedCustomsData() {
 

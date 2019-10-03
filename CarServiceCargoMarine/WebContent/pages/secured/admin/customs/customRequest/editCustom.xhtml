@@ -524,6 +524,24 @@ body .ui-datatable .ui-datatable-data > tr > td {
 												        
 												        <p:tab id="addedNewCommodiy" title="Add New Commodity">
 												            <h:panelGrid  columns="3" cellpadding="10">
+												            <h:panelGroup>
+                                                    			 <h:form>
+                                                                                    
+																					 <p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"  name="ctl00$BodyHolder$ddlCountry"  value="#{customBean.selectedCarIdToBeAddedInCommodities}" id="ctl00_BodyHolder_ddlCountry" style="width:230px;border-top-width: thin;border-right-width: thin;">
+																							
+	 																					<f:selectItems value="#{shipperBean.carsForthisAccount}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
+
+																					</p:selectOneMenu>
+																					
+																					<p:commandButton action="#{customBean.addCarToCommodities()}" style="width: 29px;height: 31px;background: #ffffff;margin-left: 6px;padding: 9px;" value=""  class="fa fa-level-down"/>
+                                                                                </h:form>
+                                                    			</h:panelGroup> 
+                                                    			
+                                                    			<h:panelGroup>
+                                                    			
+                                                    			</h:panelGroup>
+												            	
+												            	
 												            	<h:panelGroup>
 													            	<div><span style="font-size: 19px; font-weight: 500;">Line Number</span></div>
 													            	<h:inputText disabled="true" value="#{customBean.addedNewCommoditiy.lineNum}" style="font-size: 14px;    height: 27px;    width: 249px;    border-radius: 6px;    padding-left: 1%;"/>
@@ -614,7 +632,8 @@ body .ui-datatable .ui-datatable-data > tr > td {
 												            	
 												            	<h:panelGroup>
 													           	    <p:commandButton action="#{customBean.addTheNewCommodity()}" class="btn btn-default" name="addNewCommodity" value="Save" id="addNewCommodity" style="font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
-                                                    			</h:panelGroup>   
+                                                    			</h:panelGroup>  
+                                                    			
 												               
 												            </h:panelGrid>
 												        </p:tab>
