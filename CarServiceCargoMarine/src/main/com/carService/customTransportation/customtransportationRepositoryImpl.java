@@ -104,6 +104,19 @@ public class customtransportationRepositoryImpl implements customtransportationR
 		 }
 	}
 
+	@Override
+	public List<customtransportation> getAllByDocReceiptId(int id) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("customtransportation.getAllByDocReceiptId").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		 List<customtransportation> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
 	
 
 

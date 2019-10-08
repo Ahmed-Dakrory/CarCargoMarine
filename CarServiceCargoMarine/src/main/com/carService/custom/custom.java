@@ -15,7 +15,7 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import main.com.carService.consignee.consignee;
-import main.com.carService.customssettings.customssettings;
+import main.com.carService.docreciept.docreciept;
 import main.com.carService.loginNeeds.user;
 
 
@@ -36,6 +36,11 @@ import main.com.carService.loginNeeds.user;
 	,
 	@NamedQuery(name="custom.getById",
 	query = "from custom d where d.id = :id and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="custom.getByDocReceiptId",
+	query = "from custom d where d.doReceiptId = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="custom.getAllByUserId",
@@ -88,6 +93,11 @@ public class custom {
 	
 
 	@ManyToOne
+	@JoinColumn(name = "doReceiptId")
+	private docreciept doReceiptId;
+	
+
+	@ManyToOne
 	@JoinColumn(name = "ulConsigneeId")
 	private consignee ulConsigneeId;
 	
@@ -99,15 +109,42 @@ public class custom {
 	
 
 	
-
-	@ManyToOne
-	@JoinColumn(name = "customsSettingsId")
-	private customssettings customsSettingsId;
 	
 
 	@Column(name = "bn")
 	private String bn;
 
+	
+
+	@Column(name = "st")
+	private String st;
+	
+	@Column(name = "ibt")
+	private String ibt;
+	
+	@Column(name = "poe")
+	private String poe;
+
+	@Column(name = "cod")
+	private String cod;
+	
+	@Column(name = "pou")
+	private String pou;
+	
+	@Column(name = "mot")
+	private String mot;
+	
+	
+	@Column(name = "rcc")
+	private String rcc;
+	
+	@Column(name = "haz")
+	private String haz;
+	
+	@Column(name = "rt")
+	private String rt;
+	
+	
 	@Column(name = "deleted")
 	private boolean deleted;
 
@@ -204,15 +241,6 @@ public class custom {
 	}
 
 
-	public customssettings getCustomsSettingsId() {
-		return customsSettingsId;
-	}
-
-
-	public void setCustomsSettingsId(customssettings customsSettingsId) {
-		this.customsSettingsId = customsSettingsId;
-	}
-
 	
 
 	public String getSrn() {
@@ -264,6 +292,107 @@ public class custom {
 	public void setBn(String bn) {
 		this.bn = bn;
 	}
+
+
+	public docreciept getDoReceiptId() {
+		return doReceiptId;
+	}
+
+
+	public void setDoReceiptId(docreciept doReceiptId) {
+		this.doReceiptId = doReceiptId;
+	}
+
+
+	public String getSt() {
+		return st;
+	}
+
+
+	public void setSt(String st) {
+		this.st = st;
+	}
+
+
+	public String getIbt() {
+		return ibt;
+	}
+
+
+	public void setIbt(String ibt) {
+		this.ibt = ibt;
+	}
+
+
+	public String getPoe() {
+		return poe;
+	}
+
+
+	public void setPoe(String poe) {
+		this.poe = poe;
+	}
+
+
+	public String getCod() {
+		return cod;
+	}
+
+
+	public void setCod(String cod) {
+		this.cod = cod;
+	}
+
+
+	public String getPou() {
+		return pou;
+	}
+
+
+	public void setPou(String pou) {
+		this.pou = pou;
+	}
+
+
+	public String getMot() {
+		return mot;
+	}
+
+
+	public void setMot(String mot) {
+		this.mot = mot;
+	}
+
+
+	public String getRcc() {
+		return rcc;
+	}
+
+
+	public void setRcc(String rcc) {
+		this.rcc = rcc;
+	}
+
+
+	public String getHaz() {
+		return haz;
+	}
+
+
+	public void setHaz(String haz) {
+		this.haz = haz;
+	}
+
+
+	public String getRt() {
+		return rt;
+	}
+
+
+	public void setRt(String rt) {
+		this.rt = rt;
+	}
+	
 	
 	
 }

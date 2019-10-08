@@ -14,8 +14,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.primefaces.PrimeFaces;
 
 import main.com.carService.car.car;
@@ -28,8 +31,9 @@ import main.com.carService.customCommodity.commoditiy;
 import main.com.carService.customCommodity.commoditiyAppServiceImpl;
 import main.com.carService.customTransportation.customtransportation;
 import main.com.carService.customTransportation.customtransportationAppServiceImpl;
-import main.com.carService.customssettings.customssettings;
-import main.com.carService.customssettings.customssettingsAppServiceImpl;
+import main.com.carService.docreciept.ReportFileGeneration;
+import main.com.carService.docreciept.docreciept;
+import main.com.carService.docreciept.docrecieptAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 
 
@@ -58,13 +62,10 @@ public class customBean implements Serializable{
 	 
 
 
-	private List<customssettings> customSettingsListForThisUser;
-
-	@ManagedProperty(value = "#{customssettingsFacadeImpl}")
-	private customssettingsAppServiceImpl customssettingsFacade;
 	
 
 	private List<custom> customListForThisUser;
+	private List<docreciept> docReceiptListForThisUser;
 
 	@ManagedProperty(value = "#{customFacadeImpl}")
 	private customAppServiceImpl customFacade;
@@ -79,14 +80,17 @@ public class customBean implements Serializable{
 	private commoditiyAppServiceImpl commoditiyFacade;
 	
 
+	@ManagedProperty(value = "#{docrecieptFacadeImpl}")
+	private docrecieptAppServiceImpl docrecieptFacade;
+	
+
 	@ManagedProperty(value = "#{customtransportationFacadeImpl}")
 	private customtransportationAppServiceImpl customtransportationFacade;
 	
 	private user theUserOfThisAccount;
 	
 
-	private customssettings addedNewCustomSetting;
-	private customssettings selectedCustomSetting;
+	private docreciept selectedDocReceipt;
 	
 
 	private custom selectedCustomData;
@@ -132,7 +136,6 @@ public class customBean implements Serializable{
 		fillPorts();
 		fillModeTrans();
 		fillInbondTypes();
-		theUserOfThisAccount = loginBean.getTheUserOfThisAccount();
 		refresh();
 		
 		
@@ -178,96 +181,371 @@ public class customBean implements Serializable{
 
 
 	public void refresh(){
-		
-		customSettingsListForThisUser = customssettingsFacade.getAllByUserId(theUserOfThisAccount.getId());
+
+		theUserOfThisAccount = loginBean.getTheUserOfThisAccount();
 		customListForThisUser = customFacade.getAllByUserId(theUserOfThisAccount.getId());
 		
 		if(theUserOfThisAccount.getRole()==user.ROLE_MAIN) {
 			listOfConsignees = consigneeFacade.getAllByMainAccountIdOfParentShipper(theUserOfThisAccount.getId());
+			docReceiptListForThisUser=docrecieptFacade.getAllByMainId(theUserOfThisAccount.getId());
+		}else {
+			docReceiptListForThisUser=docrecieptFacade.getAllByUserId(theUserOfThisAccount.getId());
 		}
 		
 	}
 
 
 	
-	public void goToAddNewcustomsSettings() {
-		addedNewCustomSetting=new customssettings();
-		addedNewCustomSetting.setUserId(theUserOfThisAccount);
+	
+	
+	public void goToAddNewDocReceipt() {
+		selectedCustomData =new custom();
+		
+		selectedDocReceipt=new docreciept();
+		
+		
+		edaString = "";
+		usppiIdUsedForSelector = -1;
+		interConsigneeIdUsedForSelector = -1;
+		ulConsigneeIdUsedForSelector = -1;
+		frightForwardedIdUsedForSelector = -1;
+		
+		listOfCommodities = new ArrayList<commoditiy>();
+		listOfTransportations = new ArrayList<customtransportation>();
+		
+		
+		
+
+		addedNewCommoditiy =new commoditiy();
+
+		int numberOfCommodities = listOfCommodities.size();
+		addedNewCommoditiy.setIsLine("Y");
+		addedNewCommoditiy.setLineNum(numberOfCommodities+1);
+		addedNewCommoditiy.setDocReceiptId(selectedDocReceipt);
+		
+		
+		addedNewTransportations =new customtransportation();
+		
+		int numberOfTransportations = listOfTransportations.size();
+		addedNewTransportations.setLineNum(numberOfTransportations+1);
+		addedNewTransportations.setDocReceiptId(selectedDocReceipt);
+		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/customs/customSettings/addCustomSetting.jsf?faces-redirect=true");
+			   .getExternalContext().redirect("/pages/secured/admin/shipmentList/editShipment.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
 	}
 	
-	public void saveTheNewCustomSettings() {
+	
+public void selectDocReceipt(int id) {
+		
+		edaString = "";
+		usppiIdUsedForSelector = -1;
+		interConsigneeIdUsedForSelector = -1;
+		ulConsigneeIdUsedForSelector = -1;
+		frightForwardedIdUsedForSelector = -1;
+		customSettingsId = -1;
+		
+		selectedDocReceipt=docrecieptFacade.getById(id);
 		
 		
+		selectedCustomData = customFacade.getByDocReceiptId(id);
+		if(selectedCustomData==null) {
+			selectedCustomData = new custom();	
+		}
 		
-		customssettingsFacade.addcustomssettings(addedNewCustomSetting);
 		
-		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-				"			title: 'Success',\r\n" + 
-				"			text: 'Your Custom Shipment Saved.',\r\n" + 
-				"			type: 'success'\r\n" + 
-				"		});");
+		selectedCustomData.setScac(selectedDocReceipt.getScac());
+		selectedCustomData.setVn(selectedDocReceipt.getVn());
+		selectedCustomData.setBn(selectedDocReceipt.getBn());
+		selectedCustomData.setSrn(selectedDocReceipt.getSrn());
+		selectedCustomData.setSoldEnRoute(selectedDocReceipt.getSoldEnRoute());
+		selectedCustomData.setConsigneeType(selectedDocReceipt.getConsigneeType());
+		
 
+		selectedCustomData.setSt(selectedDocReceipt.getPortOfExportState());
+		selectedCustomData.setPou(selectedDocReceipt.getPortOfDestination());
+		selectedCustomData.setCod(selectedDocReceipt.getCountryOfDestination());
+		selectedCustomData.setIbt(selectedDocReceipt.getIbt());
+		selectedCustomData.setRt(selectedDocReceipt.getRt());
+		selectedCustomData.setRcc(selectedDocReceipt.getRcc());
+		selectedCustomData.setHaz(selectedDocReceipt.getHaz());
+		selectedCustomData.setMot(selectedDocReceipt.getMot());
 		
+		
+		edaString = getStringFromCalendar(selectedDocReceipt.getDate());
+		
+		
+		if(selectedDocReceipt.getUsppiId()!=null) {
+			usppiIdUsedForSelector = selectedDocReceipt.getUsppiId().getId();
+		}
+		
+		if(selectedDocReceipt.getIntermConsignee()!=null) {
+			interConsigneeIdUsedForSelector = selectedDocReceipt.getIntermConsignee().getId();
+		}
+		
+		if(selectedDocReceipt.getUltiConsignee()!=null) {
+			ulConsigneeIdUsedForSelector = selectedDocReceipt.getUltiConsignee().getId();
+		}
+		
+		if(selectedDocReceipt.getFreightForwarderId()!=null) {
+			frightForwardedIdUsedForSelector = selectedDocReceipt.getFreightForwarderId().getId();
+		}
+		
+		
+		
+		 
+		
+		
+
+		listOfCommodities = commoditiyFacade.getAllByDocReceiptId(id);
+		listOfTransportations = customtransportationFacade.getAllByDocReceiptId(id);
+		
+		
+
+		addedNewCommoditiy =new commoditiy();
+		addedNewTransportations =new customtransportation();
+		
+
+		if(listOfCommodities==null) {
+			listOfCommodities = new ArrayList<commoditiy>();
+		}else {
+			if(listOfCommodities.get(0).getCustomId()!=null) {
+
+				if(listOfCommodities.get(0).getCustomId()!=null) {
+				addedNewCommoditiy.setCustomId(listOfCommodities.get(0).getCustomId());
+				}
+			}
+		}
+		
+		if(listOfTransportations==null) {
+			listOfTransportations = new ArrayList<customtransportation>();
+		}else {
+			if(listOfTransportations.get(0).getCustomId()!=null) {
+				if(listOfTransportations.get(0).getCustomId()!=null) {
+					
+				addedNewTransportations.setCustomId(listOfTransportations.get(0).getCustomId());
+				}
+			}
+		}
+		
+		
+		int numberOfCommodities = listOfCommodities.size();
+		addedNewCommoditiy.setIsLine("Y");
+		addedNewCommoditiy.setLineNum(numberOfCommodities+1);
+		addedNewCommoditiy.setDocReceiptId(selectedDocReceipt);
+		
+		
+		addedNewTransportations =new customtransportation();
+		addedNewTransportations.setDocReceiptId(selectedDocReceipt);
+
+		int numberOfTransportations = listOfTransportations.size();
+		addedNewTransportations.setLineNum(numberOfTransportations+1);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/customs/customSettings/customSettingsList.jsf?faces-redirect=true");
+			   .getExternalContext().redirect("/pages/secured/admin/shipmentList/editShipment.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+public void updateTheSelectedDocReceiptData() {
+
 	
 
-	public void updateTheSelectedCustomSettings() {
+	consignee ultimConsignee = consigneeFacade.getById(ulConsigneeIdUsedForSelector);
+	consignee usppi = consigneeFacade.getById(usppiIdUsedForSelector);
+	consignee interConsignee = consigneeFacade.getById(interConsigneeIdUsedForSelector);
+	consignee frightForConsignee = consigneeFacade.getById(frightForwardedIdUsedForSelector);
+	
 
-		customssettingsFacade.addcustomssettings(selectedCustomSetting);
-		
-		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-				"			title: 'Success',\r\n" + 
-				"			text: 'Your Custom Shipment Updated.',\r\n" + 
-				"			type: 'success'\r\n" + 
-				"		});");
+	selectedCustomData.setFreightForwardedId(frightForConsignee);
+	selectedCustomData.setInterConsigneeId(interConsignee);
+	selectedCustomData.setUsppiId(usppi);
+	selectedCustomData.setUlConsigneeId(ultimConsignee);
+	selectedCustomData.setUserId(theUserOfThisAccount);
+	selectedCustomData.setEda(setCalendarFromString(edaString));
+	
+	
+	selectedDocReceipt.setDate(setCalendarFromString(edaString));
 
+	selectedDocReceipt.setFreightForwarderId(frightForConsignee);
+	selectedDocReceipt.setUltiConsignee(ultimConsignee);
+	selectedDocReceipt.setIntermConsignee(interConsignee);
+	selectedDocReceipt.setUsppiId(usppi);
+
+	selectedDocReceipt.setUserId(theUserOfThisAccount);
+	selectedDocReceipt.setMainId(theUserOfThisAccount.getMainUserId());
+	
+
+	selectedDocReceipt.setScac(selectedCustomData.getScac());
+	selectedDocReceipt.setVn(selectedCustomData.getVn());
+	selectedDocReceipt.setBn(selectedCustomData.getBn());
+	selectedDocReceipt.setSrn(selectedCustomData.getSrn());
+	selectedDocReceipt.setSoldEnRoute(selectedCustomData.getSoldEnRoute());
+	selectedDocReceipt.setConsigneeType(selectedCustomData.getConsigneeType());
+
+	selectedDocReceipt.setPortOfExportState(selectedCustomData.getSt());
+	selectedDocReceipt.setPortOfDestination(selectedCustomData.getPou());
+	selectedDocReceipt.setCountryOfDestination(selectedCustomData.getCod());
+	selectedDocReceipt.setIbt(selectedCustomData.getIbt());
+	selectedDocReceipt.setRt(selectedCustomData.getRt());
+	selectedDocReceipt.setRcc(selectedCustomData.getRcc());
+	selectedDocReceipt.setHaz(selectedCustomData.getHaz());
+	selectedDocReceipt.setMot(selectedCustomData.getMot());
+	
+	
+	docrecieptFacade.adddocreciept(selectedDocReceipt);
+	selectedCustomData.setDoReceiptId(selectedDocReceipt);
+	
+	for(int i=0;i<listOfCommodities.size();i++) {
+		listOfCommodities.get(i).setDocReceiptId(selectedDocReceipt);
 		
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/customs/customSettings/customSettingsList.jsf?faces-redirect=true");
+		commoditiyFacade.addcommoditiy(listOfCommodities.get(i));
+	}
+	
+	for(int i=0;i<listOfTransportations.size();i++) {
+		listOfTransportations.get(i).setDocReceiptId(selectedDocReceipt);
+		
+		customtransportationFacade.addcustomtransportation(listOfTransportations.get(i));
+	}
+	
+	PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+			"			title: 'Success',\r\n" + 
+			"			text: 'Your DocReceipt done.',\r\n" + 
+			"			type: 'success'\r\n" + 
+			"		});");
+
+	
+	try {
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/admin/shipmentList/docReceiptList.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+
+
+public void submitTheSelectedDocReceiptData() {
+
+	consignee ultimConsignee = consigneeFacade.getById(ulConsigneeIdUsedForSelector);
+	consignee usppi = consigneeFacade.getById(usppiIdUsedForSelector);
+	consignee interConsignee = consigneeFacade.getById(interConsigneeIdUsedForSelector);
+	consignee frightForConsignee = consigneeFacade.getById(frightForwardedIdUsedForSelector);
+	
+
+	selectedCustomData.setFreightForwardedId(frightForConsignee);
+	selectedCustomData.setInterConsigneeId(interConsignee);
+	selectedCustomData.setUsppiId(usppi);
+	selectedCustomData.setUlConsigneeId(ultimConsignee);
+	selectedCustomData.setUserId(theUserOfThisAccount);
+	selectedCustomData.setEda(setCalendarFromString(edaString));
+	
+	
+	selectedDocReceipt.setDate(setCalendarFromString(edaString));
+
+	selectedDocReceipt.setFreightForwarderId(frightForConsignee);
+	selectedDocReceipt.setUltiConsignee(ultimConsignee);
+	selectedDocReceipt.setIntermConsignee(interConsignee);
+	selectedDocReceipt.setUsppiId(usppi);
+
+	selectedDocReceipt.setUserId(theUserOfThisAccount);
+	selectedDocReceipt.setMainId(theUserOfThisAccount.getMainUserId());
+	
+
+	selectedDocReceipt.setScac(selectedCustomData.getScac());
+	selectedDocReceipt.setVn(selectedCustomData.getVn());
+	selectedDocReceipt.setBn(selectedCustomData.getBn());
+	selectedDocReceipt.setSrn(selectedCustomData.getSrn());
+	selectedDocReceipt.setSoldEnRoute(selectedCustomData.getSoldEnRoute());
+	selectedDocReceipt.setConsigneeType(selectedCustomData.getConsigneeType());
+
+	selectedDocReceipt.setPortOfExportState(selectedCustomData.getSt());
+	selectedDocReceipt.setPortOfDestination(selectedCustomData.getPou());
+	selectedDocReceipt.setCountryOfDestination(selectedCustomData.getCod());
+	selectedDocReceipt.setIbt(selectedCustomData.getIbt());
+	selectedDocReceipt.setRt(selectedCustomData.getRt());
+	selectedDocReceipt.setRcc(selectedCustomData.getRcc());
+	selectedDocReceipt.setHaz(selectedCustomData.getHaz());
+	selectedDocReceipt.setMot(selectedCustomData.getMot());
+	
+	
+	docrecieptFacade.adddocreciept(selectedDocReceipt);
+	selectedCustomData.setDoReceiptId(selectedDocReceipt);
+	customFacade.addcustom(selectedCustomData);
+	
+	for(int i=0;i<listOfCommodities.size();i++) {
+		listOfCommodities.get(i).setDocReceiptId(selectedDocReceipt);
+		listOfCommodities.get(i).setCustomId(selectedCustomData);
+		commoditiyFacade.addcommoditiy(listOfCommodities.get(i));
+	}
+	
+	for(int i=0;i<listOfTransportations.size();i++) {
+		listOfTransportations.get(i).setDocReceiptId(selectedDocReceipt);
+
+		listOfTransportations.get(i).setCustomId(selectedCustomData);
+		customtransportationFacade.addcustomtransportation(listOfTransportations.get(i));
+	}
+	
+	PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+			"			title: 'Success',\r\n" + 
+			"			text: 'Your DocReceipt done.',\r\n" + 
+			"			type: 'success'\r\n" + 
+			"		});");
+
+	try {
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/admin/customs/customRequest/editCustom.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
+
+public void generateFile(){
+	 HSSFWorkbook workbook = new HSSFWorkbook();
+	    HSSFSheet sheet = workbook.createSheet();
+	    
+	    ReportFileGeneration reportFileGeneration=new ReportFileGeneration(this,loginBean,selectedDocReceipt,workbook, sheet);
+	    
+	    reportFileGeneration.generateReport();
+
+	    FacesContext facesContext = FacesContext.getCurrentInstance();
+	    ExternalContext externalContext = facesContext.getExternalContext();
+	    externalContext.setResponseContentType("application/vnd.ms-excel");
+	    externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"my.xls\"");
+
+	    try {
+			workbook.write(externalContext.getResponseOutputStream());
+			System.out.println("Done");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println(e.toString());
 		}
-	}
-	
+	    facesContext.responseComplete();
+}
 
-	public void selectcustomsSettings(int id) {
-		
-		selectedCustomSetting = customssettingsFacade.getById(id);
-
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/customs/customSettings/editCustomSetting.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
 	public void addCarToCommodities() {
 		car selectedCarToBeAddedInInvoice= carFacade.getById(selectedCarIdToBeAddedInCommodities);
-		addedNewCommoditiy.setIt_15("Y");
-		addedNewCommoditiy.setIt_17(selectedCarToBeAddedInInvoice.getUuid());
+		addedNewCommoditiy.setIt_15("Y");//yes flag for car
+		addedNewCommoditiy.setIt_17(selectedCarToBeAddedInInvoice.getUuid());//uuid -->vin
+		addedNewCommoditiy.setIt_7(String.valueOf(selectedCarToBeAddedInInvoice.getWeight()));//weight
+		addedNewCommoditiy.setIt_4("1");//Quantity
+		addedNewCommoditiy.setIt_2(String.valueOf(selectedCarToBeAddedInInvoice.getValueOfGood()));//price
+		
+		
 		
 
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs:addedNewCommodiy3");
 		
 	}
 	
@@ -281,10 +559,8 @@ public class customBean implements Serializable{
 		consignee interConsignee = consigneeFacade.getById(interConsigneeIdUsedForSelector);
 		consignee frightForConsignee = consigneeFacade.getById(frightForwardedIdUsedForSelector);
 		
-		customssettings customSetting = customssettingsFacade.getById(customSettingsId);
 		
 		selectedCustomData.setEda(setCalendarFromString(edaString));
-		selectedCustomData.setCustomsSettingsId(customSetting);
 		selectedCustomData.setFreightForwardedId(frightForConsignee);
 		selectedCustomData.setUlConsigneeId(ultimConsignee);
 		selectedCustomData.setInterConsigneeId(interConsignee);
@@ -344,11 +620,38 @@ public class customBean implements Serializable{
 	}	
 	
 	
+	public void cancelDocReceipt() {
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/admin/shipmentList/docReceiptList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
+	
+	
 	public void addTheNewcustomTransportation() {
 		listOfTransportations.add(addedNewTransportations);
 
 		addedNewTransportations =new customtransportation();
 		addedNewTransportations.setCustomId(selectedCustomData);
+		addedNewTransportations.setLineNum(listOfTransportations.size()+1);
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your Transportation has been added.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs2");
+	}
+	
+	public void addTheNewcustomTransportationDocReceipt() {
+		listOfTransportations.add(addedNewTransportations);
+
+		addedNewTransportations =new customtransportation();
+		addedNewTransportations.setDocReceiptId(selectedDocReceipt);
 		addedNewTransportations.setLineNum(listOfTransportations.size()+1);
 		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -374,7 +677,26 @@ public class customBean implements Serializable{
 				"			type: 'success'\r\n" + 
 				"		});");
 
-		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs:addedNewCommodiy3");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs:commodities");
+	}
+	
+	
+	public void addTheNewCommodityForDocReceipt() {
+		listOfCommodities.add(addedNewCommoditiy);
+
+		addedNewCommoditiy =new commoditiy();
+		addedNewCommoditiy.setDocReceiptId(selectedDocReceipt);
+		addedNewCommoditiy.setLineNum(listOfCommodities.size()+1);
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your Commodity has been added.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs:addedNewCommodiy3");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tabs:commodities");
 	}
 	
 	public void goToAddNewCustomData() {
@@ -450,11 +772,6 @@ public class customBean implements Serializable{
 			frightForwardedIdUsedForSelector = selectedCustomData.getFreightForwardedId().getId();
 		}
 		
-		if(selectedCustomData.getCustomsSettingsId()!=null) {
-			customSettingsId = selectedCustomData.getCustomsSettingsId().getId();
-		}
-		
-		 
 		
 		
 
@@ -501,10 +818,8 @@ public class customBean implements Serializable{
 		consignee interConsignee = consigneeFacade.getById(interConsigneeIdUsedForSelector);
 		consignee frightForConsignee = consigneeFacade.getById(frightForwardedIdUsedForSelector);
 		
-		customssettings customSetting = customssettingsFacade.getById(customSettingsId);
 		
 		selectedCustomData.setEda(setCalendarFromString(edaString));
-		selectedCustomData.setCustomsSettingsId(customSetting);
 		selectedCustomData.setFreightForwardedId(frightForConsignee);
 		selectedCustomData.setUlConsigneeId(ultimConsignee);
 		selectedCustomData.setInterConsigneeId(interConsignee);
@@ -529,7 +844,39 @@ public class customBean implements Serializable{
 		PrimeFaces.current().executeScript("doRefreshAndSubmit();");
 	}
 	
-	
+	public void submitDataOfFormDocReceipt() {
+
+		consignee ultimConsignee = consigneeFacade.getById(ulConsigneeIdUsedForSelector);
+		consignee usppi = consigneeFacade.getById(usppiIdUsedForSelector);
+		consignee interConsignee = consigneeFacade.getById(interConsigneeIdUsedForSelector);
+		consignee frightForConsignee = consigneeFacade.getById(frightForwardedIdUsedForSelector);
+		
+		
+		
+		selectedCustomData.setEda(setCalendarFromString(edaString));
+		selectedCustomData.setFreightForwardedId(frightForConsignee);
+		selectedCustomData.setUlConsigneeId(ultimConsignee);
+		selectedCustomData.setInterConsigneeId(interConsignee);
+		selectedCustomData.setUsppiId(usppi);
+		
+		selectedCustomData.setUserId(theUserOfThisAccount);
+		
+		customFacade.addcustom(selectedCustomData);
+		
+		
+		
+		for(int i=0;i<listOfCommodities.size();i++) {
+			listOfCommodities.get(i).setCustomId(selectedCustomData);
+			commoditiyFacade.addcommoditiy(listOfCommodities.get(i));
+		}
+		
+		for(int i=0;i<listOfTransportations.size();i++) {
+			listOfTransportations.get(i).setCustomId(selectedCustomData);
+			customtransportationFacade.addcustomtransportation(listOfTransportations.get(i));
+		}
+
+		PrimeFaces.current().executeScript("doRefreshAndSubmit();");
+	}
 	
 	public String getTimeDateFormat(Calendar date) {
 		String dateTimeFormat = getStringFormatCalendar(date);
@@ -625,6 +972,16 @@ public class customBean implements Serializable{
 	}
 
 
+	public List<docreciept> getDocReceiptListForThisUser() {
+		return docReceiptListForThisUser;
+	}
+
+
+	public void setDocReceiptListForThisUser(List<docreciept> docReceiptListForThisUser) {
+		this.docReceiptListForThisUser = docReceiptListForThisUser;
+	}
+
+
 	public void setCommoditiyFacade(commoditiyAppServiceImpl commoditiyFacade) {
 		this.commoditiyFacade = commoditiyFacade;
 	}
@@ -690,14 +1047,7 @@ public class customBean implements Serializable{
 	}
 
 
-	public customssettings getAddedNewCustomSetting() {
-		return addedNewCustomSetting;
-	}
 
-
-	public void setAddedNewCustomSetting(customssettings addedNewCustomSetting) {
-		this.addedNewCustomSetting = addedNewCustomSetting;
-	}
 
 
 	public void setLoginBean(main.com.carService.loginNeeds.loginBean loginBean) {
@@ -705,24 +1055,7 @@ public class customBean implements Serializable{
 	}
 
 
-	public List<customssettings> getCustomSettingsListForThisUser() {
-		return customSettingsListForThisUser;
-	}
 
-
-	public void setCustomSettingsListForThisUser(List<customssettings> customSettingsListForThisUser) {
-		this.customSettingsListForThisUser = customSettingsListForThisUser;
-	}
-
-
-	public customssettingsAppServiceImpl getCustomssettingsFacade() {
-		return customssettingsFacade;
-	}
-
-
-	public void setCustomssettingsFacade(customssettingsAppServiceImpl customssettingsFacade) {
-		this.customssettingsFacade = customssettingsFacade;
-	}
 
 
 	public user getTheUserOfThisAccount() {
@@ -740,15 +1073,7 @@ public class customBean implements Serializable{
 	}
 
 
-	public customssettings getSelectedCustomSetting() {
-		return selectedCustomSetting;
-	}
 
-
-	public void setSelectedCustomSetting(customssettings selectedCustomSetting) {
-		this.selectedCustomSetting = selectedCustomSetting;
-	}
-	
 	
 
 public Map<Integer, String> getPorts() {
@@ -781,6 +1106,46 @@ public Map<Integer, String> getModeTrans() {
 
 
 
+
+
+public docrecieptAppServiceImpl getDocrecieptFacade() {
+		return docrecieptFacade;
+	}
+
+
+	public void setDocrecieptFacade(docrecieptAppServiceImpl docrecieptFacade) {
+		this.docrecieptFacade = docrecieptFacade;
+	}
+
+
+	public docreciept getSelectedDocReceipt() {
+		return selectedDocReceipt;
+	}
+
+
+	public void setSelectedDocReceipt(docreciept selectedDocReceipt) {
+		this.selectedDocReceipt = selectedDocReceipt;
+	}
+
+
+public carAppServiceImpl getCarFacade() {
+		return carFacade;
+	}
+
+
+	public void setCarFacade(carAppServiceImpl carFacade) {
+		this.carFacade = carFacade;
+	}
+
+
+	public Integer getSelectedCarIdToBeAddedInCommodities() {
+		return selectedCarIdToBeAddedInCommodities;
+	}
+
+
+	public void setSelectedCarIdToBeAddedInCommodities(Integer selectedCarIdToBeAddedInCommodities) {
+		this.selectedCarIdToBeAddedInCommodities = selectedCarIdToBeAddedInCommodities;
+	}
 
 
 public commoditiy getAddedNewCommoditiy() {

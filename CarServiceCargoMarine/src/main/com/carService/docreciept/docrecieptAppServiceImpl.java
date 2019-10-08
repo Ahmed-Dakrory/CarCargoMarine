@@ -1,7 +1,7 @@
 /**
  * 
  */
-package main.com.carService.customCommodity;
+package main.com.carService.docreciept;
 
 
 
@@ -16,17 +16,17 @@ import org.springframework.stereotype.Service;
  * @author Dakrory
  *
  */
-@Service("commoditiyFacadeImpl")
-public class commoditiyAppServiceImpl implements IcommoditiyAppService{
+@Service("docrecieptFacadeImpl")
+public class docrecieptAppServiceImpl implements IdocrecieptAppService{
 
 	@Autowired
-	commoditiyRepository commoditiyDataRepository;
+	docrecieptRepository docrecieptDataRepository;
 	
 	
 	@Override
-	public List<commoditiy> getAll() {
+	public List<docreciept> getAll() {
 		try{
-			List<commoditiy> course=commoditiyDataRepository.getAll();
+			List<docreciept> course=docrecieptDataRepository.getAll();
 			
 			return course;
 			}
@@ -40,9 +40,9 @@ public class commoditiyAppServiceImpl implements IcommoditiyAppService{
 	
 
 	@Override
-	public commoditiy addcommoditiy(commoditiy data) {
+	public docreciept adddocreciept(docreciept data) {
 		try{
-			commoditiy data2=commoditiyDataRepository.addcommoditiy(data);
+			docreciept data2=docrecieptDataRepository.adddocreciept(data);
 			return data2;
 			}
 			catch(Exception ex)
@@ -54,10 +54,10 @@ public class commoditiyAppServiceImpl implements IcommoditiyAppService{
 
 
 	@Override
-	public boolean delete(commoditiy data)throws Exception {
+	public boolean delete(docreciept data)throws Exception {
 		// TODO Auto-generated method stub
 		try{
-			commoditiyDataRepository.delete(data);
+			docrecieptDataRepository.delete(data);
 			return true;
 			}
 			catch(Exception ex)
@@ -67,10 +67,10 @@ public class commoditiyAppServiceImpl implements IcommoditiyAppService{
 	}
 
 	@Override
-	public commoditiy getById(int id) {
+	public docreciept getById(int id) {
 		// TODO Auto-generated method stub
 		try{
-			commoditiy so=commoditiyDataRepository.getById(id);
+			docreciept so=docrecieptDataRepository.getById(id);
 			
 			return so;
 			}
@@ -89,9 +89,9 @@ public class commoditiyAppServiceImpl implements IcommoditiyAppService{
 
 
 	@Override
-	public List<commoditiy> getAllByCustomId(int id) {
+	public List<docreciept> getAllByUserId(int userId) {
 		try{
-			List<commoditiy> course=commoditiyDataRepository.getAllByCustomId(id);
+			List<docreciept> course=docrecieptDataRepository.getAllByUserId(userId);
 			
 			return course;
 			}
@@ -105,9 +105,9 @@ public class commoditiyAppServiceImpl implements IcommoditiyAppService{
 
 
 	@Override
-	public List<commoditiy> getAllByDocReceiptId(int id) {
+	public List<docreciept> getAllByMainId(int mainId) {
 		try{
-			List<commoditiy> course=commoditiyDataRepository.getAllByDocReceiptId(id);
+			List<docreciept> course=docrecieptDataRepository.getAllByMainId(mainId);
 			
 			return course;
 			}

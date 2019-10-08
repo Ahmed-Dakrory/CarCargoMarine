@@ -103,6 +103,22 @@ public class customtransportationAppServiceImpl implements Icustomtransportation
 	}
 
 
+
+	@Override
+	public List<customtransportation> getAllByDocReceiptId(int id) {
+		try{
+			List<customtransportation> course=customtransportationDataRepository.getAllByDocReceiptId(id);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
 	
 	
 	

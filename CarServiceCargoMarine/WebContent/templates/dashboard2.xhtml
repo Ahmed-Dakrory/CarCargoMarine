@@ -344,7 +344,7 @@ margin-right: 0!important;
 												
 												<li style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
 													<a href="/pages/secured/consignee/consigneeList.jsf?faces-redirect=true">
-														 Consignee List
+														 Agencies List
 													</a>
 												</li>
 												
@@ -438,16 +438,7 @@ margin-right: 0!important;
 												<i class="fa fa-child" aria-hidden="true"></i>
 												<span>Customs</span>
 											</a>
-											
-											<ul class="nav nav-children">
-												<li style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
-													<a href="/pages/secured/admin/customs/customSettings/customSettingsList.jsf?faces-redirect=true">
-														 Customs Shipment List
-													</a>
-												</li>
-												
-												
-											</ul>
+										
 											
 											<ul class="nav nav-children">
 												<li style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
@@ -460,7 +451,12 @@ margin-right: 0!important;
 											</ul>
 											
 										</li>
-										
+										<li class="nav-active" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
+											<a href="/pages/secured/admin/shipmentList/docReceiptList.jsf?faces-redirect=true">
+												<i class="fa fa-external-link" aria-hidden="true"></i>
+												<span>Shipment List</span>
+											</a>
+										</li>
 										
 									</ul>
 								</nav>

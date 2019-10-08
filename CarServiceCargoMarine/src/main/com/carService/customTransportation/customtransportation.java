@@ -13,6 +13,8 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import main.com.carService.custom.custom;
+import main.com.carService.docreciept.docreciept;
+
 
 
 
@@ -36,6 +38,11 @@ import main.com.carService.custom.custom;
 	,
 	@NamedQuery(name="customtransportation.getAllByCustomId",
 	query = "from customtransportation d where d.customId.id = :id and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="customtransportation.getAllByDocReceiptId",
+	query = "from customtransportation d where d.docReceiptId.id = :id and d.deleted = false"
 			)
 	
 	
@@ -72,6 +79,9 @@ public class customtransportation {
 	private boolean deleted;
 
 
+	@ManyToOne
+	@JoinColumn(name = "docReceiptId")
+	private docreciept docReceiptId;
 	
 	
 	public Integer getLineNum() {
@@ -133,6 +143,16 @@ public class customtransportation {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+
+	public docreciept getDocReceiptId() {
+		return docReceiptId;
+	}
+
+
+	public void setDocReceiptId(docreciept docReceiptId) {
+		this.docReceiptId = docReceiptId;
 	}
 
 	

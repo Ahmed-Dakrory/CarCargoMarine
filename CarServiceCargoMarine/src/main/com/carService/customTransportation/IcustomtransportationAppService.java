@@ -14,6 +14,7 @@ public interface IcustomtransportationAppService {
 
 	public List<customtransportation> getAll();
 	public List<customtransportation> getAllByCustomId(int id);
+	public List<customtransportation> getAllByDocReceiptId(int id);
 	public customtransportation addcustomtransportation(customtransportation data);
 	public customtransportation getById(int id);
 	public boolean delete(customtransportation data)throws Exception;

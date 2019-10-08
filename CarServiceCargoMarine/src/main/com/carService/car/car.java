@@ -303,6 +303,17 @@ public class car {
 	@Column(name = "commentToSend")
 	private String commentToSend;
 	
+	
+
+	@Column(name = "valueOfGood")
+	private Integer valueOfGood;
+	
+	
+
+	@Column(name = "weight")
+	private Integer weight;
+	
+	
 	public static int STATE_WARE_HOUSE_1=0;
 	public static int STATE_WARE_HOUSE_2=1;
 	public static int STATE_WARE_HOUSE_3=2;
@@ -1462,6 +1473,42 @@ public class car {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+
+
+
+
+
+	public Integer getValueOfGood() {
+		return valueOfGood;
+	}
+
+
+
+
+
+
+	public void setValueOfGood(Integer valueOfGood) {
+		this.valueOfGood = valueOfGood;
+	}
+
+
+
+
+
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+
+
+
+
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
 	}
 
 

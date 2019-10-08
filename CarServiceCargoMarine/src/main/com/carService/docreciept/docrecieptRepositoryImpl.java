@@ -1,7 +1,7 @@
 /**
  * 
  */
-package main.com.carService.customssettings;
+package main.com.carService.docreciept;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class customssettingsRepositoryImpl implements customssettingsRepository{
+public class docrecieptRepositoryImpl implements docrecieptRepository{
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -29,7 +29,7 @@ public class customssettingsRepositoryImpl implements customssettingsRepository{
 	
 
 	@Override
-	public customssettings addcustomssettings(customssettings data) {
+	public docreciept adddocreciept(docreciept data) {
 		try{
 			
 			session = sessionFactory.openSession();
@@ -48,11 +48,11 @@ public class customssettingsRepositoryImpl implements customssettingsRepository{
 	}
 
 	@Override
-	public List<customssettings> getAll() {
-				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("customssettings.getAll");
+	public List<docreciept> getAll() {
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("docreciept.getAll");
 
 				 @SuppressWarnings("unchecked")
-				List<customssettings> results=query.list();
+				List<docreciept> results=query.list();
 				 if(results.size()!=0){
 					 return results;
 				 }else{
@@ -62,7 +62,7 @@ public class customssettingsRepositoryImpl implements customssettingsRepository{
 
 	
 	@Override
-	public boolean delete(customssettings data)throws Exception {
+	public boolean delete(docreciept data)throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			session = sessionFactory.openSession();
@@ -77,12 +77,12 @@ public class customssettingsRepositoryImpl implements customssettingsRepository{
 	}
 
 	@Override
-	public customssettings getById(int id) {
+	public docreciept getById(int id) {
 		// TODO Auto-generated method stub
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("customssettings.getById").setInteger("id",id);
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("docreciept.getById").setInteger("id",id);
 
 		 @SuppressWarnings("unchecked")
-		List<customssettings> results=query.list();
+		List<docreciept> results=query.list();
 		 if(results.size()!=0){
 			 return results.get(0);
 		 }else{
@@ -92,11 +92,24 @@ public class customssettingsRepositoryImpl implements customssettingsRepository{
 
 
 	@Override
-	public List<customssettings> getAllByUserId(int userId) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("customssettings.getAllByUserId").setInteger("id",userId);
+	public List<docreciept> getAllByUserId(int userId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("docreciept.getAllByUserId").setInteger("id",userId);
 
 		 @SuppressWarnings("unchecked")
-		 List<customssettings> results=query.list();
+		 List<docreciept> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<docreciept> getAllByMainId(int mainId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("docreciept.getAllByMainId").setInteger("id",mainId);
+
+		 @SuppressWarnings("unchecked")
+		 List<docreciept> results=query.list();
 		 if(results.size()!=0){
 			 return results;
 		 }else{

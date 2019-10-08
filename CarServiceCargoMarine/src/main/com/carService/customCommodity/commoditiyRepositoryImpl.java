@@ -104,6 +104,19 @@ public class commoditiyRepositoryImpl implements commoditiyRepository{
 		 }
 	}
 
+	@Override
+	public List<commoditiy> getAllByDocReceiptId(int id) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("commoditiy.getAllByDocReceiptId").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		 List<commoditiy> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
 	
 
 

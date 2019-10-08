@@ -103,6 +103,23 @@ public class customAppServiceImpl implements IcustomAppService{
 	}
 
 
+
+	@Override
+	public custom getByDocReceiptId(int id) {
+		// TODO Auto-generated method stub
+		try{
+			custom so=customDataRepository.getByDocReceiptId(id);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
 	
 	
 	

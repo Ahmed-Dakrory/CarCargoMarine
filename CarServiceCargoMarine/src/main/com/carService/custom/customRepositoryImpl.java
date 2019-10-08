@@ -104,6 +104,20 @@ public class customRepositoryImpl implements customRepository{
 		 }
 	}
 
+	@Override
+	public custom getByDocReceiptId(int id) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("custom.getByDocReceiptId").setInteger("id",id);
+
+				 @SuppressWarnings("unchecked")
+				List<custom> results=query.list();
+				 if(results.size()!=0){
+					 return results.get(0);
+				 }else{
+					 return null;
+				 }
+	}
+
 	
 
 

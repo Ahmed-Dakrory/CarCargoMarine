@@ -13,6 +13,8 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import main.com.carService.custom.custom;
+import main.com.carService.docreciept.docreciept;
+
 
 
 
@@ -36,6 +38,11 @@ import main.com.carService.custom.custom;
 	,
 	@NamedQuery(name="commoditiy.getAllByCustomId",
 	query = "from commoditiy d where d.customId.id = :id and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="commoditiy.getAllByDocReceiptId",
+	query = "from commoditiy d where d.docReceiptId.id = :id and d.deleted = false"
 			)
 	
 	
@@ -153,10 +160,15 @@ public class commoditiy {
 	@JoinColumn(name = "customId")
 	private custom customId;
 	
+	@ManyToOne
+	@JoinColumn(name = "docReceiptId")
+	private docreciept docReceiptId;
+	
 
 	@Column(name = "deleted")
 	private boolean deleted;
 
+	
 
 	public Integer getId() {
 		return id;
@@ -457,6 +469,16 @@ public class commoditiy {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+
+	public docreciept getDocReceiptId() {
+		return docReceiptId;
+	}
+
+
+	public void setDocReceiptId(docreciept docReceiptId) {
+		this.docReceiptId = docReceiptId;
 	}
 
 
