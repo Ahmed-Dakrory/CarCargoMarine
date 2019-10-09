@@ -693,7 +693,7 @@ body .ui-datatable .ui-datatable-data > tr > td {
                                                     			 <h:form>
                                                                                     <p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"  value="#{customBean.selectedCarIdToBeAddedInCommodities}" class="tbltxt" style="width:230px;height: 32px;border-top-width: thin;border-right-width: thin;margin-top: 8%;padding: 2%;">
 																							
-	 																					<f:selectItems value="#{shipperBean.carsForthisAccount}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
+	 																					<f:selectItems value="#{customBean.carsForthisAccountCustoms}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
 
 																					</p:selectOneMenu>
 																					

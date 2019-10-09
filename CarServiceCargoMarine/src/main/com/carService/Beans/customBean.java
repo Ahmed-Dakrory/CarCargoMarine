@@ -120,7 +120,8 @@ public class customBean implements Serializable{
 	private List<customtransportation> listOfTransportations;
 	private customtransportation addedNewTransportations;
 	
-	
+
+	private List<car> carsForthisAccountCustoms;
 
 	@ManagedProperty(value = "#{carFacadeImpl}")
 	private carAppServiceImpl carFacade;
@@ -188,8 +189,12 @@ public class customBean implements Serializable{
 		if(theUserOfThisAccount.getRole()==user.ROLE_MAIN) {
 			listOfConsignees = consigneeFacade.getAllByMainAccountIdOfParentShipper(theUserOfThisAccount.getId());
 			docReceiptListForThisUser=docrecieptFacade.getAllByMainId(theUserOfThisAccount.getId());
+			carsForthisAccountCustoms=carFacade.getAllForMainUser(theUserOfThisAccount.getId());
 		}else {
 			docReceiptListForThisUser=docrecieptFacade.getAllByUserId(theUserOfThisAccount.getId());
+			if(theUserOfThisAccount.getRole()==user.ROLE_SHIPPER) {
+			carsForthisAccountCustoms=carFacade.getAllForShipper(theUserOfThisAccount.getId());
+			}
 		}
 		
 	}
@@ -1057,6 +1062,16 @@ public void generateFile(){
 
 
 
+
+
+	public List<car> getCarsForthisAccountCustoms() {
+		return carsForthisAccountCustoms;
+	}
+
+
+	public void setCarsForthisAccountCustoms(List<car> carsForthisAccountCustoms) {
+		this.carsForthisAccountCustoms = carsForthisAccountCustoms;
+	}
 
 
 	public user getTheUserOfThisAccount() {
