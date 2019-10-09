@@ -514,7 +514,7 @@ public void generateFile(){
 	 HSSFWorkbook workbook = new HSSFWorkbook();
 	    HSSFSheet sheet = workbook.createSheet();
 	    
-	    ReportFileGeneration reportFileGeneration=new ReportFileGeneration(this,loginBean,selectedDocReceipt,workbook, sheet);
+	    ReportFileGeneration reportFileGeneration=new ReportFileGeneration(this,listOfCommodities,loginBean,selectedDocReceipt,workbook, sheet);
 	    
 	    reportFileGeneration.generateReport();
 
@@ -541,6 +541,7 @@ public void generateFile(){
 		addedNewCommoditiy.setIt_7(String.valueOf(selectedCarToBeAddedInInvoice.getWeight()));//weight
 		addedNewCommoditiy.setIt_4("1");//Quantity
 		addedNewCommoditiy.setIt_2(String.valueOf(selectedCarToBeAddedInInvoice.getValueOfGood()));//price
+		addedNewCommoditiy.setDescription(selectedCarToBeAddedInInvoice.getYear()+" "+selectedCarToBeAddedInInvoice.getMake()+" "+selectedCarToBeAddedInInvoice.getModel());//price
 		
 		
 		

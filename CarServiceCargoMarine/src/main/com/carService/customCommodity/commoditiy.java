@@ -155,6 +155,10 @@ public class commoditiy {
 	@Column(name = "odtc_7")
 	private String odtc_7;
 	
+	
+	@Column(name = "description")
+	private String description;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "customId")
@@ -479,6 +483,16 @@ public class commoditiy {
 
 	public void setDocReceiptId(docreciept docReceiptId) {
 		this.docReceiptId = docReceiptId;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 
