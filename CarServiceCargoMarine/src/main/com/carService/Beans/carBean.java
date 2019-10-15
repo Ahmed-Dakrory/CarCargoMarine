@@ -638,7 +638,9 @@ public class carBean implements Serializable{
 	//Save the New Car with the shipper Account
 		public void saveNewCarDatashipper() {
 			
-			
+			addNewCar.setCommentToSend("");
+			addNewCar.setContainerLink("");
+			addNewCar.setEmailToSendComment("");
 			boolean isValid=checkValidForCar(addNewCar);
 			boolean checkVendor=checkVendorIsExist(addNewCar.getVendorId());
 			if(isValid&&checkVendor) {
