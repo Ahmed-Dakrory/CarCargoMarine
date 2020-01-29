@@ -194,10 +194,10 @@
                                                                                                 </td>
                                                                                                 <td class="tbltxt" width="130">
                                                                                                     <div style="margin-left: 6px">
-                                                                                                        DVL:</div>
+                                                                                                        Title Number:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtDVL" value="#{carBean.dvlDate}" type="text" class="timePicker" id="ctl00_BodyHolder_txtDVL" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtTitleNumber" value="#{carBean.selectedCar.titleNumber}" type="text" class="" id="ctl00_BodyHolder_txtTitleNumber" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 
                                                                                                 </td>
                                                                                                 <td>
@@ -5335,12 +5335,28 @@
                                                                                                     <div style="margin-left: 6px">
                                                                                                         Release :</div>
                                                                                                 </td>
-                                                                                                <td>
-                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtBookingNumber" type="text" value="#{carBean.selectedCar.releaseOption}" id="ctl00_BodyHolder_txtBookingNumber" style="font-size:11px;height:19px;width:20px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
+                                                                                                <td width="700">
+                                                                                                <h:panelGroup id="groupRelease">
+                                                                                                    <h:selectBooleanCheckbox  name="ctl00$BodyHolder$txtBookingNumber" type="text" value="#{carBean.selectedCar.releaseOption}" id="ctl00_BodyHolder_txtBookingNumber" style="font-size:11px;height:19px;width:20px;" >
+                                                                                                    <f:ajax render="groupRelease"/>
+                                                                                                    </h:selectBooleanCheckbox>
+                                                                                                    <h:panelGroup rendered="#{carBean.selectedCar.releaseOption}">
+                                                                                                    <span style="margin-left:17px;">
+                                                                                                        Type of Release :
+                                                                                                        </span>
+                                                                                                      <h:selectOneMenu  value="#{carBean.selectedCar.stateOut}" name="ctl00$BodyHolder$ddlstateOut" id="stateOutId" style="font-size:11px;height:19px;width:200px;">
+																										<f:selectItem itemValue="-1" itemLabel="Not Released"/>
+																										<f:selectItem itemValue="1" itemLabel="RELEASE TO CUSTOMER"/>
+																										<f:selectItem itemValue="2" itemLabel="RELEASE RORO"/>
+																										<f:selectItem itemValue="3" itemLabel="RELEASE Container"/>
+																									</h:selectOneMenu>
+																									<span style="margin-left:17px;">
+                                                                                                        Release Date :
+                                                                                                        </span>
+                                                                                                       <h:inputText name="ctl00DateRelease" type="text" value="#{carBean.releaseDate}" class="timePicker" id="ctl00DateRelease" style="font-size:11px;height:19px;width:200px;" />
+                             
+                                                                                                   </h:panelGroup>
+																									</h:panelGroup>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr height="2">
@@ -6156,28 +6172,6 @@
            
             <script>
 				
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtDVL').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtDVL').val(datetext);
-				    }
-				});
-				});
             
             $(function() {
 				$('#aspnetForm\\:ctl00_BodyHolder_txtETD').datepicker({
@@ -6345,7 +6339,30 @@
 				    }
 				});
 				});
-					
+ 
+            
+            $(function() {
+				$('#aspnetForm\\:ctl00DateRelease').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00DateRelease').val(datetext);
+				    }
+				});
+				});
             
 	        $(document).ready(function() {
 	        	  $(window).keydown(function(event){

@@ -125,7 +125,7 @@ public class carBean implements Serializable{
 	
 
 	private  String cargoRecievedDate;
-	private  String dvlDate;
+	private  String releaseDate;
 	private  String stRecievedDate;
 	private  String etdDate;
 	private  String etaDate;
@@ -185,7 +185,7 @@ public class carBean implements Serializable{
 		pdfs_deleted=new ArrayList<String>();
 		cargoRecievedDate="";
 		titleRecievedSelected=0;
-		dvlDate="";
+		releaseDate="";
 		stRecievedDate="";
 		etdDate="";
 		etaDate="";
@@ -214,7 +214,7 @@ public class carBean implements Serializable{
 		pdfs_deleted=new ArrayList<String>();
 		cargoRecievedDate="";
 		titleRecievedSelected=0;
-		dvlDate="";
+		releaseDate="";
 		stRecievedDate="";
 		etdDate="";
 		etaDate="";
@@ -244,7 +244,7 @@ public class carBean implements Serializable{
 		pdfs_deleted=new ArrayList<String>();
 		cargoRecievedDate="";
 		titleRecievedSelected=0;
-		dvlDate="";
+		releaseDate="";
 		stRecievedDate="";
 		etdDate="";
 		etaDate="";
@@ -728,7 +728,7 @@ public class carBean implements Serializable{
 			}
 			
 			cargoRecievedDate=getStringFromCalendar(selectedCar.getCargoRecieved());
-			dvlDate=getStringFromCalendar(selectedCar.getDvl());
+			releaseDate=getStringFromCalendar(selectedCar.getReleaseDate());
 			stRecievedDate=getStringFromCalendar(selectedCar.getStRecieved());
 			etdDate=getStringFromCalendar(selectedCar.getEtd());
 			etaDate=getStringFromCalendar(selectedCar.getEta());
@@ -788,7 +788,7 @@ public class carBean implements Serializable{
 			}
 			
 			cargoRecievedDate=getStringFromCalendar(selectedCar.getCargoRecieved());
-			dvlDate=getStringFromCalendar(selectedCar.getDvl());
+			releaseDate=getStringFromCalendar(selectedCar.getReleaseDate());
 			stRecievedDate=getStringFromCalendar(selectedCar.getStRecieved());
 			etdDate=getStringFromCalendar(selectedCar.getEtd());
 			etaDate=getStringFromCalendar(selectedCar.getEta());
@@ -1092,7 +1092,7 @@ public void refreshSelectedCarVendor() {
 		addNewCar.setTitleRecieved(titleRecievedSelected);
 		
 		addNewCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
-		addNewCar.setDvl(setCalendarFromString(dvlDate));
+		addNewCar.setReleaseDate(setCalendarFromString(releaseDate));
 		addNewCar.setStRecieved(setCalendarFromString(stRecievedDate));
 		addNewCar.setEtd(setCalendarFromString(etdDate));
 		addNewCar.setEta(setCalendarFromString(etaDate));
@@ -1467,7 +1467,7 @@ public void refreshSelectedCarVendor() {
 		selectedCar.setTitleRecieved(titleRecievedSelected);
 		
 		selectedCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
-		selectedCar.setDvl(setCalendarFromString(dvlDate));
+		selectedCar.setReleaseDate(setCalendarFromString(releaseDate));
 		selectedCar.setStRecieved(setCalendarFromString(stRecievedDate));
 		selectedCar.setEtd(setCalendarFromString(etdDate));
 		selectedCar.setEta(setCalendarFromString(etaDate));
@@ -1904,12 +1904,13 @@ public void deleteCar() {
 		this.titleRecievedSelected = titleRecievedSelected;
 	}
 
-	public String getDvlDate() {
-		return dvlDate;
+	
+	public String getReleaseDate() {
+		return releaseDate;
 	}
 
-	public void setDvlDate(String dvlDate) {
-		this.dvlDate = dvlDate;
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 	public String getStRecievedDate() {

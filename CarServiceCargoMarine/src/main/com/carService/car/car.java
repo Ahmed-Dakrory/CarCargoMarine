@@ -244,6 +244,15 @@ public class car {
 	@Column(name = "containerLink")
 	private String containerLink;
 	
+	
+	@Column(name = "stateOut")
+	private Integer stateOut;
+	
+
+	@Column(name = "releaseDate")
+	private Calendar releaseDate;
+	
+	
 	@Column(name = "seal")
 	private String seal;
 	
@@ -256,8 +265,8 @@ public class car {
 	@Column(name = "titleRecieved")
 	private Integer titleRecieved;
 	
-	@Column(name = "dvl")
-	private Calendar dvl;
+	@Column(name = "titleNumber")
+	private String titleNumber;
 	
 	@Column(name = "stRecieved")
 	private Calendar stRecieved;
@@ -407,6 +416,29 @@ public class car {
 	}
 
 
+	
+	
+	
+	public static Integer RELEASE_TO_CUSTOMER=1;
+	public static Integer RELEASE_RORO=2;
+	public static Integer RELEASE_Container=3;
+	
+	public String getOutState() {
+		String title="";
+		
+		if(stateOut==RELEASE_TO_CUSTOMER) {
+			title="RELEASE TO CUSTOMER";
+		}else if(stateOut==RELEASE_RORO) {
+			title="RELEASE RORO";
+		}else if(stateOut==RELEASE_Container) {
+			title="RELEASE Container";
+		}else{
+			title="No Released";
+		}
+		return title;
+	}
+
+
 
 
 
@@ -449,6 +481,33 @@ public class car {
 	}
 
 
+
+
+
+
+
+
+	
+	public Integer getStateOut() {
+		return stateOut;
+	}
+
+	public void setStateOut(Integer stateOut) {
+		this.stateOut = stateOut;
+	}
+
+	public Calendar getReleaseDate() {
+		return releaseDate;
+	}
+
+
+
+
+
+
+	public void setReleaseDate(Calendar releaseDate) {
+		this.releaseDate = releaseDate;
+	}
 
 
 
@@ -697,8 +756,10 @@ public class car {
 
 
 
-	public Calendar getDvl() {
-		return dvl;
+
+
+	public String getTitleNumber() {
+		return titleNumber;
 	}
 
 
@@ -706,13 +767,9 @@ public class car {
 
 
 
-
-
-	public void setDvl(Calendar dvl) {
-		this.dvl = dvl;
+	public void setTitleNumber(String titleNumber) {
+		this.titleNumber = titleNumber;
 	}
-
-
 
 
 
