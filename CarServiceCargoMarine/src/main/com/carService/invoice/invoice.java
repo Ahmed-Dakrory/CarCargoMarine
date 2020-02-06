@@ -15,6 +15,7 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import main.com.carService.loginNeeds.user;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_details;
 
 
 
@@ -74,6 +75,10 @@ public class invoice {
 	@JoinColumn(name = "userIdCustomer")
 	private user userIdCustomer;
 	
+	@ManyToOne
+	@JoinColumn(name = "transactionId")
+	private moneybox_transaction_details transactionId;
+	
 
 	@Column(name = "bankName")
 	private String bankName;
@@ -90,7 +95,10 @@ public class invoice {
 	private String bankAccountNumber;
 	
 	@Column(name = "transferFees")
-	private Integer transferFees;
+	private float transferFees;
+	
+	@Column(name = "wireFees")
+	private float wireFees;
 	
 	@Column(name = "description_of_charges")
 	private String description_of_charges;
@@ -98,6 +106,17 @@ public class invoice {
 
 	@Column(name = "deleted")
 	private boolean deleted;
+
+	
+
+	@Column(name = "payedOrNot")
+	private boolean payedOrNot;
+	
+
+	
+
+	@Column(name = "role")
+	private int role;
 	
 	
 	
@@ -191,13 +210,26 @@ public class invoice {
 	}
 
 
-	public Integer getTransferFees() {
+	
+
+
+	public float getTransferFees() {
 		return transferFees;
 	}
 
 
-	public void setTransferFees(Integer transferFees) {
+	public void setTransferFees(float transferFees) {
 		this.transferFees = transferFees;
+	}
+
+
+	public float getWireFees() {
+		return wireFees;
+	}
+
+
+	public void setWireFees(float wireFees) {
+		this.wireFees = wireFees;
 	}
 
 
@@ -209,9 +241,39 @@ public class invoice {
 	public void setDescription_of_charges(String description_of_charges) {
 		this.description_of_charges = description_of_charges;
 	}
+
+
+	public boolean isPayedOrNot() {
+		return payedOrNot;
+	}
+
+
+	public void setPayedOrNot(boolean payedOrNot) {
+		this.payedOrNot = payedOrNot;
+	}
+
+
+	public int getRole() {
+		return role;
+	}
+
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
+
+	public moneybox_transaction_details getTransactionId() {
+		return transactionId;
+	}
+
+
+	public void setTransactionId(moneybox_transaction_details transactionId) {
+		this.transactionId = transactionId;
+	}
 	
 	
 	
-	
+
 	
 }

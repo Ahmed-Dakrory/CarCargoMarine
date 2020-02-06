@@ -13,7 +13,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -26,6 +28,8 @@ import main.com.carService.invoice.invoiceDTO;
 import main.com.carService.invoiceCars.invoiceCar;
 import main.com.carService.invoiceCars.invoiceCarAppServiceImpl;
 import main.com.carService.loginNeeds.user;
+import main.com.carService.moneyBox.moneybox;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_details;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.tools.Constants;
@@ -101,6 +105,191 @@ public class shipperBean implements Serializable{
 		invoiceData=new invoice();
 	}
 	
+	public void getTheInvoiceData(int invoiceId) {
+		invoiceData = invoiceFacade.getById(invoiceId);
+		
+
+		shipperForInvoice=shipperFacade.getByUserId(invoiceData.getUserIdCustomer().getId());
+		carsForthisAccount=new ArrayList<car>();
+		
+		List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperForInvoice.getId());
+		List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperForInvoice.getId());
+		List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperForInvoice.getId());
+
+		if(wareHouseMain!=null)
+			carsForthisAccount.addAll(wareHouseMain);
+			
+		if(dryCargoMain!=null)
+			carsForthisAccount.addAll(dryCargoMain);
+			
+		if(transitMain!=null)
+			carsForthisAccount.addAll(transitMain);
+			
+		
+		List<invoiceCar> listOfCarsInvoices = invoiceCarFacade.getAllByinvoiceId(invoiceId);
+		carsForInvoice = new ArrayList<car>();
+		for(int i = 0;i<listOfCarsInvoices.size();i++) {
+			carsForInvoice.add(carFacade.getById(listOfCarsInvoices.get(i).getCarId().getId()));
+		}
+		
+		
+
+		try {
+
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceEdit.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void updateTheInvoice() {
+		System.out.println("Ahmed: Data");
+		invoice lastInvoice = invoiceFacade.getById(invoiceData.getId());
+		List<invoiceCar> lastInvoiceCars = invoiceCarFacade.getAllByinvoiceId(invoiceData.getId());
+
+		System.out.println("Ahmed: Data2");
+		for(int i = 0;i<lastInvoiceCars.size();i++) {
+			
+			try {
+				System.out.println("Ahmed: "+lastInvoiceCars.get(i).getCarId().getId());
+				invoiceCarFacade.delete(lastInvoiceCars.get(i));
+			} catch (Exception e) {
+				System.out.println("Error: ");
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Problem While update!',\r\n" + 
+						"			text: 'Please try Again!',\r\n" + 
+						"			type: 'error',\r\n" + 
+						"			left:\"1%\"\r\n" + 
+						"		});");
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//Modify the MoneyBox
+		if(lastInvoice.isPayedOrNot()) {
+			//Modify the moneyBox
+			resetTheTotalAmountOFMoneyBoxs(lastInvoice);
+
+		}
+		
+		
+		//add the invoice and the car list
+		
+		
+		invoiceData.setDate(Calendar.getInstance());
+
+		System.out.println("Ahmed:4 Data");
+		invoiceFacade.addinvoice(invoiceData);
+		carFeesInvoice=(float) 0;
+		System.out.println("AhmedMohamed:"+ String.valueOf(carsForInvoice.size()));
+		for(int i=0;i<carsForInvoice.size();i++) {
+			invoiceCar carinvoice=new invoiceCar();
+			carinvoice.setCarId(carsForInvoice.get(i));
+			carinvoice.setInvoiceId(invoiceData);
+			
+			invoiceCarFacade.addinvoiceCar(carinvoice);
+			float landCost=carsForInvoice.get(i).getLandcost();
+			float Seacost=carsForInvoice.get(i).getSeacost();
+			float Commision=carsForInvoice.get(i).getCommision();
+			float Fees=carsForInvoice.get(i).getFees();
+					
+			float totalForCar=(float) (landCost+Seacost
+					+Commision+Fees);
+			
+			carFeesInvoice+=totalForCar;
+		}
+		moneybox mBofThisShipper = loginBean.getMoneyBoxDataFacede().getByUserId(shipperForInvoice.getUserId().getId());
+		moneybox mBofMainAccount = loginBean.getMoneyBoxDataFacede().getByUserId(loginBean.getTheMainUserOfThisAccount().getId());
+		
+		moneybox_transaction_details M_B_T = new moneybox_transaction_details();
+		
+		M_B_T.setTypeOfTransaction(moneybox_transaction_details.depositeTypes.Payment.getType());
+		M_B_T.setAmountBefore(mBofMainAccount.getAvailableMoney());
+		
+		float amount_Of_This_Invoice = invoiceData.getWireFees()+carFeesInvoice+(invoiceData.getTransferFees()/100*carFeesInvoice);
+		
+		M_B_T.setAmount(amount_Of_This_Invoice);
+		M_B_T.setDate(new Date());
+		M_B_T.setMoneyBoxId(mBofThisShipper);
+		
+		
+		if(invoiceData.isPayedOrNot()) {
+			loginBean.getMoneybox_transaction_detailsDataFacede().addmoneybox_transaction_details(M_B_T);
+			mBofThisShipper.setTotalUsed(mBofThisShipper.getTotalUsed()+amount_Of_This_Invoice);
+			mBofThisShipper.setAvailableMoney(mBofThisShipper.getAvailableMoney()-amount_Of_This_Invoice);
+			 
+			
+			mBofMainAccount.setAvailableMoney(mBofMainAccount.getAvailableMoney()+amount_Of_This_Invoice);
+			loginBean.getMoneyBoxDataFacede().addmoneybox(mBofMainAccount);
+			loginBean.getMoneyBoxDataFacede().addmoneybox(mBofThisShipper);
+			
+			
+			invoiceData.setTransactionId(M_B_T);
+			invoiceFacade.addinvoice(invoiceData);
+			
+		}
+		
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoice.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void cancelEdit() {
+		System.out.println("Cancel");
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void resetTheTotalAmountOFMoneyBoxs(invoice lastInvoice) {
+		
+		moneybox mBofMainAccount = loginBean.getMoneyBoxDataFacede().getByUserId(loginBean.getTheMainUserOfThisAccount().getId());
+		Integer idTrans= invoiceData.getTransactionId().getId();
+		
+		if(idTrans !=null) {
+			moneybox_transaction_details M_B_T = loginBean.getMoneybox_transaction_detailsDataFacede().getById(idTrans);
+			moneybox mBofThisShipper = loginBean.getMoneyBoxDataFacede().getById(M_B_T.getMoneyBoxId().getId());
+			float amountToReturn = M_B_T.getAmount();
+			
+			mBofMainAccount.setAvailableMoney(mBofMainAccount.getAvailableMoney() - amountToReturn);
+			
+			mBofThisShipper.setAvailableMoney(mBofThisShipper.getAvailableMoney()+ amountToReturn);
+			mBofThisShipper.setTotalUsed(mBofThisShipper.getTotalUsed()-amountToReturn);
+
+			loginBean.getMoneyBoxDataFacede().addmoneybox(mBofMainAccount);
+			loginBean.getMoneyBoxDataFacede().addmoneybox(mBofThisShipper);
+
+			try {
+				loginBean.getMoneybox_transaction_detailsDataFacede().delete(M_B_T);
+				invoiceData.setTransactionId(null);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Problem While update!',\r\n" + 
+						"			text: 'Please try Again!',\r\n" + 
+						"			type: 'error',\r\n" + 
+						"			left:\"1%\"\r\n" + 
+						"		});");
+				e.printStackTrace();
+			}		
+		}
+		
+		
+	}
+
 	public void getAllInvoicesBetweenDates() {
 		totalFees = 0;
 		Calendar lowDate = setCalendarFromString(dateLower);
@@ -143,12 +332,14 @@ public class shipperBean implements Serializable{
 				//This for the total Fees With Transfer
 
 				float trFees = 0;
-				if(allInvoicesForThisMainAccount.get(i).getTransferFees()!=null) {
 					trFees=allInvoicesForThisMainAccount.get(i).getTransferFees();
-				}
+					
+				
 				totalFees = totalFees + totalForCar + (totalForCar/100*trFees);
 			}
+			float wireFees = allInvoicesForThisMainAccount.get(i).getWireFees();
 			
+			totalFees = totalFees + wireFees;
 			invoiceDTO invoicedto =new invoiceDTO();
 			invoicedto.setCarsForInvoice(allCarsForThisInvoice);
 			invoicedto.setInvoice(allInvoicesForThisMainAccount.get(i));
@@ -220,22 +411,21 @@ public class shipperBean implements Serializable{
 		car selectedCarToBeAddedInInvoice= carFacade.getById(selectedCarIdToBeAddedInInvoice);
 		carsForInvoice.add(selectedCarToBeAddedInInvoice);
 
-		try {
-
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		    try {
+				ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	
 	public void deleteCarInInvoice(int indexInList) {
 		carsForInvoice.remove(indexInList);
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf?faces-redirect=true");
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    try {
+			ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -248,7 +438,7 @@ public class shipperBean implements Serializable{
 		invoiceData.setUserIdCustomer(shipperForInvoice.getUserId());
 		invoiceData.setUserIdIssuer(loginBean.getTheUserOfThisAccount());
 		invoiceData.setDate(Calendar.getInstance());
-		
+		invoiceData.setRole(user.ROLE_SHIPPER);
 		invoiceFacade.addinvoice(invoiceData);
 		carFeesInvoice=(float) 0;
 		for(int i=0;i<carsForInvoice.size();i++) {
@@ -267,7 +457,32 @@ public class shipperBean implements Serializable{
 			
 			carFeesInvoice+=totalForCar;
 		}
+		moneybox mBofThisShipper = loginBean.getMoneyBoxDataFacede().getByUserId(shipperForInvoice.getUserId().getId());
+		moneybox mBofMainAccount = loginBean.getMoneyBoxDataFacede().getByUserId(loginBean.getTheMainUserOfThisAccount().getId());
 		
+		moneybox_transaction_details M_B_T = new moneybox_transaction_details();
+		M_B_T.setTypeOfTransaction(moneybox_transaction_details.depositeTypes.Payment.getType());
+		M_B_T.setAmountBefore(mBofMainAccount.getAvailableMoney());
+		
+		float amount_Of_This_Invoice = invoiceData.getWireFees()+carFeesInvoice+(invoiceData.getTransferFees()/100*carFeesInvoice);
+		
+		M_B_T.setAmount(amount_Of_This_Invoice);
+		M_B_T.setDate(new Date());
+		M_B_T.setMoneyBoxId(mBofThisShipper);
+		
+		if(invoiceData.isPayedOrNot()) {
+			loginBean.getMoneybox_transaction_detailsDataFacede().addmoneybox_transaction_details(M_B_T);
+			mBofThisShipper.setTotalUsed(mBofThisShipper.getTotalUsed()+amount_Of_This_Invoice);
+			mBofThisShipper.setAvailableMoney(mBofThisShipper.getAvailableMoney()-amount_Of_This_Invoice);
+			 
+			
+			mBofMainAccount.setAvailableMoney(mBofMainAccount.getAvailableMoney()+amount_Of_This_Invoice);
+			loginBean.getMoneyBoxDataFacede().addmoneybox(mBofMainAccount);
+			loginBean.getMoneyBoxDataFacede().addmoneybox(mBofThisShipper);
+
+			invoiceData.setTransactionId(M_B_T);
+			invoiceFacade.addinvoice(invoiceData);
+		}
 		
 		
 		try {
@@ -311,7 +526,12 @@ public class shipperBean implements Serializable{
 		
 		invoiceData=new invoice();
 		shipperForInvoice=shipperFacade.getById(idShipper);
-		
+		moneybox mB= loginBean.getThisAccountMoneyBox();
+				
+		invoiceData.setBankAccountNumber(mB.getBankAccountNumber());
+		invoiceData.setBankAddress(mB.getBankAddress());
+		invoiceData.setBankName(mB.getBankName());
+		invoiceData.setBankTelephone(mB.getBankTelephone());
 		
 		carsForthisAccount=new ArrayList<car>();
 		
@@ -354,6 +574,10 @@ public class shipperBean implements Serializable{
 		
 		loginBean.getUserDataFacede().adduser(userNew);
 		
+		moneybox mB = new moneybox();
+		mB.setActive(true);
+		mB.setUserId(userNew);
+		loginBean.getMoneyBoxDataFacede().addmoneybox(mB);
 		addNewshipper.setParentId(loginBean.getTheUserOfThisAccount());
 		shipperFacade.addshipper(addNewshipper);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 

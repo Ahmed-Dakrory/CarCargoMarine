@@ -15,6 +15,7 @@ import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import main.com.carService.loginNeeds.user;
+import main.com.carService.moneyBox.moneybox;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.tools.Constants;
@@ -131,6 +132,12 @@ public class consigneeBean implements Serializable{
 		userNew.setMainUserId(loginBean.getTheMainUserOfThisAccount());
 		
 		loginBean.getUserDataFacede().adduser(userNew);
+		
+
+		moneybox mB = new moneybox();
+		mB.setActive(true);
+		mB.setUserId(userNew);
+		loginBean.getMoneyBoxDataFacede().addmoneybox(mB);
 		shipper shipperOfThisAccount=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
 		
 		addNewconsignee.setParentId(shipperOfThisAccount);

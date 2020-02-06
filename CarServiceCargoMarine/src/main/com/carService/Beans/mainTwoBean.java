@@ -18,6 +18,7 @@ import main.com.carService.car.carAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.mainTwo.mainTwoAppServiceImpl;
+import main.com.carService.moneyBox.moneybox;
 import main.com.carService.tools.Constants;
 
 
@@ -142,6 +143,11 @@ public class mainTwoBean implements Serializable{
 		
 		loginBean.getUserDataFacede().adduser(userNew);
 		
+
+		moneybox mB = new moneybox();
+		mB.setActive(true);
+		mB.setUserId(userNew);
+		loginBean.getMoneyBoxDataFacede().addmoneybox(mB);
 		addNewmainTwo.setParentId(loginBean.getTheUserOfThisAccount());
 		mainTwoFacade.addmainTwo(addNewmainTwo);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 

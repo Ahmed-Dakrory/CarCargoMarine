@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
+import main.com.carService.moneyBox.moneybox;
+import main.com.carService.moneyBox.moneyboxAppServiceImpl;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_detailsAppServiceImpl;
 import main.com.carService.security.AuthenticationService;
 
 
@@ -38,12 +41,21 @@ public class loginBean implements Serializable{
 	private Map<String, String> states;
 	@ManagedProperty(value = "#{userFacadeImpl}")
 	private userAppServiceImpl userDataFacede; 
+	
+	
+
+	@ManagedProperty(value = "#{moneyboxFacadeImpl}")
+	private moneyboxAppServiceImpl moneyBoxDataFacede; 
+	
+	@ManagedProperty(value = "#{moneybox_transaction_detailsFacadeImpl}")
+	private moneybox_transaction_detailsAppServiceImpl moneybox_transaction_detailsDataFacede; 
 	 
 
 	@ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationService authenticationService;
 	
 	private user theMainUserOfThisAccount;
+	private moneybox thisAccountMoneyBox;
 	@PostConstruct
 	public void init() {
 		isLoggedIn=false;
@@ -116,6 +128,7 @@ public class loginBean implements Serializable{
 
 			try {
 					theMainUserOfThisAccount = userDataFacede.getById(theUserOfThisAccount.getMainUserId().getId());
+					thisAccountMoneyBox = moneyBoxDataFacede.getByUserId(theMainUserOfThisAccount.getId());
 					FacesContext.getCurrentInstance()
 					   .getExternalContext().redirect("/pages/secured/userData/userProfile.jsf?faces-redirect=true");
 				
@@ -308,6 +321,23 @@ public void updateDataOfUser() {
 
 
 
+public moneyboxAppServiceImpl getMoneyBoxDataFacede() {
+		return moneyBoxDataFacede;
+	}
+
+	public void setMoneyBoxDataFacede(moneyboxAppServiceImpl moneyBoxDataFacede) {
+		this.moneyBoxDataFacede = moneyBoxDataFacede;
+	}
+
+	public moneybox_transaction_detailsAppServiceImpl getMoneybox_transaction_detailsDataFacede() {
+		return moneybox_transaction_detailsDataFacede;
+	}
+
+	public void setMoneybox_transaction_detailsDataFacede(
+			moneybox_transaction_detailsAppServiceImpl moneybox_transaction_detailsDataFacede) {
+		this.moneybox_transaction_detailsDataFacede = moneybox_transaction_detailsDataFacede;
+	}
+
 public Map<String, String> getCountrys() {
 		return countrys;
 	}
@@ -338,6 +368,14 @@ public Map<String, String> getStates() {
 	
 	
 
+
+public moneybox getThisAccountMoneyBox() {
+		return thisAccountMoneyBox;
+	}
+
+	public void setThisAccountMoneyBox(moneybox thisAccountMoneyBox) {
+		this.thisAccountMoneyBox = thisAccountMoneyBox;
+	}
 
 private void fillStates() {
 	// TODO Auto-generated method stub

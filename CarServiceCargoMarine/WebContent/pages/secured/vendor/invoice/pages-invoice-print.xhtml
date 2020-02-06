@@ -23,9 +23,14 @@
 		<div class="invoice">
 			<header class="clearfix">
 				<div class="row">
-				<div class="ib">
+				<div class="col-md-9" >
 												<img style="width: auto;height: auto;max-width: 435px;max-height: 81px;" src="/resources/images/logoBill.png" alt="icone" />
 											</div>
+											<div class="col-md-3" >
+										<p style="   font-size: 35px;font-family: sans-serif;font-weight: 700;text-align: center;margin-top: 8px;">
+											#{vendorBean.invoiceData.payedOrNot?"Paid":"Not PAID"}
+											</p>
+										</div>
 					<div class="col-xs-6 mt-md">
 						<h5 class=" mt-none mb-sm text-dark text-bold">INVOICE</h5>
 						<h6 class="h6 m-none text-dark text-bold"># #{vendorBean.invoiceData.id}</h6>
@@ -135,16 +140,20 @@
 											<table class="table h5 text-dark">
 												<tbody>
 													<tr class="b-top-none">
-														<td colspan="2">Total Car Shipping Cost Fees</td>
+														<td colspan="2">Total Car Shipping Cost</td>
 														<td class="text-left">$#{vendorBean.carFeesInvoice}</td>
 													</tr>
 													<tr>
 														<td colspan="2">Transfer Fees</td>
 														<td class="text-left">$#{vendorBean.invoiceData.transferFees/100*vendorBean.carFeesInvoice}</td>
 													</tr> 
+													<tr>
+														<td colspan="2">Wire Fees</td>
+														<td class="text-left">$#{vendorBean.invoiceData.wireFees}</td>
+													</tr> 
 													<tr class="h5">
 														<td colspan="2">Grand Total</td>
-														<td class="text-left">$#{vendorBean.carFeesInvoice+(vendorBean.invoiceData.transferFees/100*vendorBean.carFeesInvoice)}</td>
+														<td class="text-left">$#{vendorBean.invoiceData.wireFees+vendorBean.carFeesInvoice+(vendorBean.invoiceData.transferFees/100*vendorBean.carFeesInvoice)}</td>
 													</tr>
 												</tbody>
 											</table>

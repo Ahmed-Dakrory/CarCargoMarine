@@ -32,7 +32,6 @@
 }
 
 
-
 .arrivingSoon {
 	    -moz-box-shadow: inset 0px 1px 0px 0px #f5978e;
     -webkit-box-shadow: inset 0px 1px 0px 0px #f5978e;
@@ -85,29 +84,6 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 
 	
 }
-.billOfSale {
-	      -moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
-    box-shadow: inset 0px 1px 0px 0px #325765;
-    background: -moz-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
-    background: -o-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
-    background: -ms-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
-    background: linear-gradient(to bottom, #5245bd 4%, #1f6cbb 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa3a3', endColorstr='#ffa3a3',GradientType=0);
-    background-color: #4e2a2c;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    border: 1px solid #422aa5;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Arial;
-    width: 80px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 0px 1px 0px #3e46a7;
-}
 
 
 .noTitle {
@@ -158,6 +134,30 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
     font-size: 12px;
     font-weight: bold;
     text-shadow: 0px 1px 0px #2f6627;
+}
+
+.billOfSale {
+	      -moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
+    box-shadow: inset 0px 1px 0px 0px #325765;
+    background: -moz-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -o-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -ms-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: linear-gradient(to bottom, #5245bd 4%, #1f6cbb 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa3a3', endColorstr='#ffa3a3',GradientType=0);
+    background-color: #4e2a2c;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #422aa5;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 80px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0px 1px 0px #3e46a7;
 }
 
 
@@ -317,7 +317,6 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
     text-shadow: 0px 1px 0px #2f6627;
 }
 
-
 .paid{
 
     -moz-box-shadow: inset 0px 1px 0px 0px #bcc21b;
@@ -411,10 +410,10 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                             <tr height="23">
                                                                                 <td class="tbltxt">
                                                                                     <div style="margin-left: 6px">
-                                                                                        Vendor Name:</div>
+                                                                                        Shipper Name:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:outputText name="ctl00$BodyHolder$txtFirstName" type="text" id="ctl00_BodyHolder_txtFirstName" value="#{vendorBean.vendorForInvoice.userId.firstName} #{vendorBean.vendorForInvoice.userId.lastName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:outputText name="ctl00$BodyHolder$txtFirstName" type="text" id="ctl00_BodyHolder_txtFirstName" value="#{shipperBean.shipperForInvoice.userId.firstName} #{shipperBean.shipperForInvoice.userId.lastName}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr height="2">
@@ -428,7 +427,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                         * Bank Name:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl11_BodyHolder_txtLastName" value="#{vendorBean.invoiceData.bankName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl11_BodyHolder_txtLastName" value="#{shipperBean.invoiceData.bankName}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             
@@ -439,7 +438,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                         * Bank Address:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl00_BodyHolder_txtLastName" value="#{vendorBean.invoiceData.bankAddress}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl00_BodyHolder_txtLastName" value="#{shipperBean.invoiceData.bankAddress}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr height="2">
@@ -452,7 +451,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                         Bank Telephone:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtSalesRep" type="text" id="ctl00_BodyHolder_txtSalesRep"  value="#{vendorBean.invoiceData.bankTelephone}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtSalesRep" type="text" id="ctl00_BodyHolder_txtSalesRep"  value="#{shipperBean.invoiceData.bankTelephone}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr height="2">
@@ -466,27 +465,27 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                        * Bank Account Number:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtSalesRep" type="text" id="ctl11_BodyHolder_txtSalesRep"  value="#{vendorBean.invoiceData.bankAccountNumber}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtSalesRep" type="text" id="ctl11_BodyHolder_txtSalesRep"  value="#{shipperBean.invoiceData.bankAccountNumber}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             
-                                                                            <tr height="23">
+                                                                             <tr height="23">
                                                                                 <td class="tbltxt">
                                                                                     <div style="margin-left: 6px">
                                                                                         * Transfer fees:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtInvoice" type="text" id="ctl11_BodyHolder_txtInvoice" value="#{vendorBean.invoiceData.transferFees}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtInvoice" type="text" id="ctl11_BodyHolder_txtInvoice" value="#{shipperBean.invoiceData.transferFees}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             
-                                                                            <tr height="23">
+                                                                             <tr height="23">
                                                                                 <td class="tbltxt">
                                                                                     <div style="margin-left: 6px">
                                                                                         * Wire fees:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="wireFees" type="text" id="wireFees" value="#{vendorBean.invoiceData.wireFees}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText name="wireFees" type="text" id="wireFees" value="#{shipperBean.invoiceData.wireFees}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             
@@ -496,23 +495,24 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                         * is it Payed:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:selectBooleanCheckbox name="payedOrNot"  id="isItPayedOrNot" value="#{vendorBean.invoiceData.payedOrNot}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:selectBooleanCheckbox name="payedOrNot"  id="isItPayedOrNot" value="#{shipperBean.invoiceData.payedOrNot}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                              <tr height="15">
                                                                               
                                                                             </tr>
+                                                                            
                                                                              <tr height="23">
                                                                                 <td class="tbltxt" style=" vertical-align: initial;">
                                                                                     <div style="margin-left: 6px">
                                                                                         Description of Charges:</div>
                                                                                 </td>
                                                                                 <td >
-                                                                                    <p:inputTextarea autoResize="false" maxlength="510" counter="display2" counterTemplate="{0} characters remaining." name="ctl00$BodyHolder$txtInvoiceArea" type="text" id="ctl11_BodyHolder_txtInvoiceArea" value="#{vendorBean.invoiceData.description_of_charges}" style="font-size:11px;height:209px;width:500px;" />
+                                                                                    <p:inputTextarea autoResize="false" maxlength="510" counter="display2" counterTemplate="{0} characters remaining." name="ctl00$BodyHolder$txtInvoiceArea" type="text" id="ctl11_BodyHolder_txtInvoiceArea" value="#{shipperBean.invoiceData.description_of_charges}" style="font-size:11px;height:209px;width:500px;" />
                                                                              		<h:outputText class="dialogInputField" id="display2" /> 
                                                                                 </td>
                                                                             </tr>
-                                                                            
+                                                                             
                                                                             <tr height="23">
                                                                                 <td class="tbltxt">
                                                                                     <div style="margin-left: 6px">
@@ -542,14 +542,14 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                 </td>
                                                                                 <td>
                                                                                 <h:form>
-                                                                                    <p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"  name="ctl00$BodyHolder$ddlCountry"  value="#{vendorBean.selectedCarIdToBeAddedInInvoice}" id="ctl00_BodyHolder_ddlCountry" style="width:230px;border-top-width: thin;border-right-width: thin;">
+                                                                                    
+																					 <p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"  name="ctl00$BodyHolder$ddlCountry"  value="#{shipperBean.selectedCarIdToBeAddedInInvoice}" id="ctl00_BodyHolder_ddlCountry" style="width:230px;border-top-width: thin;border-right-width: thin;">
 																							
-	 																					<f:selectItems value="#{vendorBean.carsForthisAccount}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
+	 																					<f:selectItems value="#{shipperBean.carsForthisAccount}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
 
 																					</p:selectOneMenu>
 																					
-																					
-																					<p:commandButton action="#{vendorBean.addCarToInvoice()}" style="width: 29px;height: 31px;background: #ffffff;margin-left: 6px;padding: 9px;" value=""  class="fa fa-level-down"/>
+																					<p:commandButton action="#{shipperBean.addCarToInvoice()}" style="width: 29px;height: 31px;background: #ffffff;margin-left: 6px;padding: 9px;" value=""  class="fa fa-level-down"/>
                                                                                 </h:form>
                                                                                 </td>
                                                                                 
@@ -594,7 +594,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 									</thead>
 									<tbody>
 									
-									<ui:repeat var="data" varStatus="dataStatue" value="#{vendorBean.carsForInvoice}">
+									<ui:repeat var="data" varStatus="dataStatue" value="#{shipperBean.carsForInvoice}">
 										<tr class="gradeX">
 											<td>
 											<h:panelGroup rendered="#{(data.state==0)?'true':'false'}"  >
@@ -628,11 +628,11 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<h:panelGroup rendered="#{(data.state==7)?'true':'false'}"  >
 											<div  class="arrivingSoon">Arriving Soon</div>
 											</h:panelGroup>
-													
+												
 											<h:panelGroup rendered="#{(data.state==8)?'true':'false'}"  >
 											<div  class="sentForPayment">Sent For Payment</div>
 											</h:panelGroup>
-											
+														
 											</td>
 											<td>
 												#{data.uuid}
@@ -669,7 +669,6 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 												<div  class="lienOnTitle">In Lien</div>
 												</h:panelGroup>
 												
-												
 												<h:panelGroup rendered="#{(data.titleRecieved==5)?'true':'false'}">
 												<div  class="paid">Paid</div>
 												</h:panelGroup>
@@ -694,7 +693,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											
 											<td class="center hidden-phone">
 											
-												<p:commandButton action="#{vendorBean.deleteCarInInvoice(dataStatue.index)}" style="width: 25px; height: 25px;" class="fa fa-times" value=""/>
+												<p:commandButton action="#{shipperBean.deleteCarInInvoice(dataStatue.index)}" style="width: 25px; height: 25px;" class="fa fa-times" value=""/>
 												
 											</td>
 										</tr>
@@ -725,9 +724,9 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                             </tr>
                                                                             <tr height="23">
                                                                                 <td align="left" colspan="5">
-                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{vendorBean.saveInvoiceData()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
-                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{vendorBean.cancel()}" name="ctl00$BodyHolder$cmdCancel2" value="Cancel" id="ctl00_BodyHolder_cmdCancel2"  style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
-                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{vendorBean.cancel()}" name="ctl00$BodyHolder$cmdBackToList2" value="Back" id="ctl00_BodyHolder_cmdBackToList2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{shipperBean.updateTheInvoice()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{shipperBean.cancelEdit()}" name="ctl00$BodyHolder$cmdCancel2" value="Cancel" id="ctl00_BodyHolder_cmdCancel2"  style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{shipperBean.cancelEdit()}" name="ctl00$BodyHolder$cmdBackToList2" value="Back" id="ctl00_BodyHolder_cmdBackToList2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
                                                                                     &nbsp;&nbsp;&nbsp;
                                                                                 </td>
                                                                             </tr>

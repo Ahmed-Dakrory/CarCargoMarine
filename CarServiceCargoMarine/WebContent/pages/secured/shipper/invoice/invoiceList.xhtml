@@ -208,6 +208,7 @@ width: -webkit-fill-available;
 											<th class="hidden-phone">Invoice Date</th>
 											<th class="hidden-phone">Transfer Fees</th>
 											<th class="hidden-phone">Total Fees</th>
+											<th class="hidden-phone">Wire Fees</th>
 											<th class="hidden-phone">Total Price</th>
 										</tr>
 									</thead>
@@ -219,7 +220,8 @@ width: -webkit-fill-available;
 											<tr align="left" class="gradeX">
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-													#{var.invoice.id}
+													<h:commandLink value="#{var.invoice.id}" rendered="#{var.invoice.role == 1}" actionListener="#{shipperBean.getTheInvoiceData(var.invoice.id)}"/>
+													<h:commandLink value="#{var.invoice.id}" rendered="#{var.invoice.role == 2}" actionListener="#{vendorBean.getTheInvoiceData(var.invoice.id)}"/>
 												</td>
 												
 											
@@ -248,7 +250,11 @@ width: -webkit-fill-available;
 												</td>
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-													$#{var.totalPrice+(var.invoice.transferFees/100*var.totalPrice)}
+													$#{var.invoice.wireFees}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													$#{var.invoice.wireFees+var.totalPrice+(var.invoice.transferFees/100*var.totalPrice)}
 												</td>
 												
 												
