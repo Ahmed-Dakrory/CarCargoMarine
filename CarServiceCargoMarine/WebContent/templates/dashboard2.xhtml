@@ -416,21 +416,44 @@ margin-right: 0!important;
 											
 										</li>
 										
-										<li  style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
-											<a href="/pages/secured/shipper/invoice/invoiceList.jsf?faces-redirect=true">
+										<li class="nav-parent" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
+											<a>
 												<i class="fa fa-calendar-o" aria-hidden="true"></i>
 												<span>Accounting</span>
 											</a>
-											
+											<ul class="nav nav-children">
+												<li>
+													<a href="/pages/secured/shipper/invoice/invoiceList.jsf?faces-redirect=true">
+														 Invoices
+													</a>
+												</li>
+												<li>
+													<a href="/pages/secured/shipper/moneyBox/userOfBiding.jsf?faces-redirect=true">
+														MoneyBoxs
+													</a>
+												</li>
+												
+												
+											</ul>
 										</li>
 										
-										<li style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
-											<a href="/pages/secured/vendor/invoice/invoiceList.jsf?faces-redirect=true">
+										<li class="nav-parent" style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
+											<a>
 												<i class="fa fa-calendar-o" aria-hidden="true"></i>
 												<span>Accounting</span>
 											</a>
-											
+											<ul class="nav nav-children">
+												<li>
+													<a href="/pages/secured/vendor/invoice/invoiceList.jsf?faces-redirect=true">
+														 Invoices
+													</a>
+												</li>
+												
+												
+												
+											</ul>
 										</li>
+										
 										
 										
 										<li class="nav-parent" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">

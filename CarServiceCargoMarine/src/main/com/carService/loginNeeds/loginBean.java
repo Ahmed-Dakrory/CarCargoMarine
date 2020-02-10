@@ -3,6 +3,7 @@ package main.com.carService.loginNeeds;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.RowEditEvent;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import main.com.carService.moneyBox.moneybox;
@@ -56,6 +58,10 @@ public class loginBean implements Serializable{
 	
 	private user theMainUserOfThisAccount;
 	private moneybox thisAccountMoneyBox;
+
+	private List<moneybox> listOfAllUsersMoneyBox;
+	private List<moneybox> selectedlistOfAllUsersMoneyBox;
+	
 	@PostConstruct
 	public void init() {
 		isLoggedIn=false;
@@ -71,7 +77,13 @@ public class loginBean implements Serializable{
 		
 	}
 	
+	public void refreshTheDataMain() {
+
+		listOfAllUsersMoneyBox = moneyBoxDataFacede.getAll();
+	}
+	
 	public void refresh(){
+		
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
 				.getCurrentInstance()
 				.getExternalContext()
@@ -182,6 +194,20 @@ public void updateDataOfUser() {
 			}
 	}
 	
+public void onRowEdit(RowEditEvent event) {
+	 
+
+    moneybox mNew= ((moneybox) event.getObject());
+    
+    moneyBoxDataFacede.addmoneybox(mNew);
+    PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+			"			title: 'Success',\r\n" + 
+			"			text: 'Your data has been saved.',\r\n" + 
+			"			type: 'success'\r\n" + 
+			"		});");
+   
+ 
+}
 	
    
 	public void wrongPassword(){
@@ -321,6 +347,14 @@ public void updateDataOfUser() {
 
 
 
+public List<moneybox> getListOfAllUsersMoneyBox() {
+		return listOfAllUsersMoneyBox;
+	}
+
+	public void setListOfAllUsersMoneyBox(List<moneybox> listOfAllUsersMoneyBox) {
+		this.listOfAllUsersMoneyBox = listOfAllUsersMoneyBox;
+	}
+
 public moneyboxAppServiceImpl getMoneyBoxDataFacede() {
 		return moneyBoxDataFacede;
 	}
@@ -368,6 +402,14 @@ public Map<String, String> getStates() {
 	
 	
 
+
+public List<moneybox> getSelectedlistOfAllUsersMoneyBox() {
+		return selectedlistOfAllUsersMoneyBox;
+	}
+
+	public void setSelectedlistOfAllUsersMoneyBox(List<moneybox> selectedlistOfAllUsersMoneyBox) {
+		this.selectedlistOfAllUsersMoneyBox = selectedlistOfAllUsersMoneyBox;
+	}
 
 public moneybox getThisAccountMoneyBox() {
 		return thisAccountMoneyBox;
