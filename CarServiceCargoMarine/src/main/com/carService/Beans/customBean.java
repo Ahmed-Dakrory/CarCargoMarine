@@ -543,6 +543,7 @@ public void generateFile(){
 		car selectedCarToBeAddedInInvoice= carFacade.getById(selectedCarIdToBeAddedInCommodities);
 		addedNewCommoditiy.setIt_15("Y");//yes flag for car
 		addedNewCommoditiy.setIt_17(selectedCarToBeAddedInInvoice.getUuid());//uuid -->vin
+		addedNewCommoditiy.setIt_18(selectedCarToBeAddedInInvoice.getTitleNumber());//title number
 		addedNewCommoditiy.setIt_7(String.valueOf(selectedCarToBeAddedInInvoice.getWeight()));//weight
 		addedNewCommoditiy.setIt_4("1");//Quantity
 		addedNewCommoditiy.setIt_2(String.valueOf(selectedCarToBeAddedInInvoice.getValueOfGood()));//price

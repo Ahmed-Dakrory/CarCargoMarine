@@ -798,6 +798,16 @@ body .ui-datatable .ui-datatable-data > tr > td {
 													            	<h:inputText value="#{customBean.addedNewCommoditiy.it_17}" style="font-size: 14px;    height: 27px;    width: 309px;    border-radius: 6px;    padding-left: 1%;"/>
 												            	</h:panelGroup> 
 												            	
+												            	<h:panelGroup>
+													            	<div><span style="font-size: 19px; font-weight: 500;">Description</span></div>
+													            	<h:inputText value="#{customBean.addedNewCommoditiy.description}" style="font-size: 14px;    height: 27px;    width: 249px;    border-radius: 6px;    padding-left: 1%;"/>
+												            	</h:panelGroup> 
+												            	
+												            	<h:panelGroup>
+													            	<div><span style="font-size: 19px; font-weight: 500;">Title Number</span></div>
+													            	<h:inputText value="#{customBean.addedNewCommoditiy.it_18}" style="font-size: 14px;    height: 27px;    width: 309px;    border-radius: 6px;    padding-left: 1%;"/>
+												            	</h:panelGroup> 
+												            	
 												            	
 												            	<h:panelGroup>
 													           	    <p:commandButton action="#{customBean.addTheNewCommodity()}" class="btn btn-default" name="addNewCommodity" value="Save" id="addNewCommodity" style="font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
@@ -1002,6 +1012,7 @@ body .ui-datatable .ui-datatable-data > tr > td {
 <br></br>IT#{status.index+1}_9 <INPUT TYPE="TEXT" NAME="IT#{status.index+1}_9" VALUE="#{var.it_9}"/>
 <br></br>IT#{status.index+1}_12 <INPUT TYPE="TEXT" NAME="IT#{status.index+1}_12" VALUE="#{var.it_12}"/>
 <br></br>IT#{status.index+1}_13 <INPUT TYPE="TEXT" NAME="IT#{status.index+1}_13" VALUE="#{var.it_13}"/>
+<br></br>IT#{status.index+1}_18 <INPUT TYPE="TEXT" NAME="IT#{status.index+1}_18" VALUE="#{var.it_18}"/>
 <br></br>IT#{status.index+1}_21 <INPUT TYPE="TEXT" NAME="IT#{status.index+1}_21" VALUE="#{var.it_21}"/>
  </ui:repeat>
 

@@ -5535,8 +5535,31 @@
 																									<span style="margin-left:17px;">
                                                                                                         Release Date :
                                                                                                         </span>
-                                                                                                       <h:inputText name="ctl00DateRelease" type="text" value="#{carBean.releaseDate}" class="timePicker" id="ctl00DateRelease" style="font-size:11px;height:19px;width:200px;" />
-                             
+                                                                                                       <h:inputText type="text" value="#{carBean.releaseDate}" class="timePicker" id="ctl00DateRelease" style="font-size:11px;height:19px;width:200px;" />
+                             																	<script>
+                             																	  $(function() {
+                                                                                      				$('#aspnetForm\\:ctl00DateRelease').datepicker({
+                                                                                      				    dateFormat: 'yy-dd-mm',
+                                                                                      				    onSelect: function(datetext){
+
+                                                                                      				        var d = new Date(); // for now
+
+                                                                                      				        var h = d.getHours();
+                                                                                      				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+                                                                                      				        var m = d.getMinutes();
+                                                                                      				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+                                                                                      				        var s = d.getSeconds();
+                                                                                      				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+                                                                                      				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+                                                                                      				        $('#aspnetForm\\:ctl00DateRelease').val(datetext);
+                                                                                      				    }
+                                                                                      				});
+                                                                                      				});
+                             																	</script>
                                                                                                    </h:panelGroup>
 																									</h:panelGroup>
                                                                                                 </td>
