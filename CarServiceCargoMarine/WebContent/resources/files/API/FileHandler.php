@@ -153,6 +153,35 @@ class FileHandler
         return $temp;
     }
 	
+	 public function getImageFromUserId($userId)
+    {
+		
+		
+        $stmt = $this->con->prepare("SELECT image FROM user where id = ?");
+		
+        $stmt->bind_param("s", $userId);
+        $stmt->execute();
+		
+        $stmt->bind_result($image);
+
+        $temp = array();
+			
+        while ($stmt->fetch()) {
+
+            $temp['id'] = $userId;
+			if($image !=null){
+				$temp['image'] = base64_encode($image);
+			}else{
+				$temp['image'] = "";
+			}
+			
+        }
+
+		
+		
+        return $temp;
+    }
+	
 	 public function getReleatedData($userId,$role)
     {
 		

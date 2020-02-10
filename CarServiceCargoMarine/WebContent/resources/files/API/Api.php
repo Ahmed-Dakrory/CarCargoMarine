@@ -143,6 +143,15 @@ if (isset($_GET['apicall'])) {
             $response['data'] = $upload->getAllCarsForConsigneeAccount($_POST['consigneeId'],$_POST['page'],$_POST['N_items'],$_POST['type']);
 			}
             break;
+			
+			
+		case 'getImageFromUserId':
+			if (isset($_POST['userId']) && strlen($_POST['userId']) > 0 ){ 
+            $upload = new FileHandler();
+            $response['error'] = false;
+            $response['data'] = $upload->getImageFromUserId($_POST['userId']);
+			}
+            break;
     }
 }
  
