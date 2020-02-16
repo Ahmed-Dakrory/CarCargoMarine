@@ -513,12 +513,12 @@ class FileHandler
 		}
 		
 		if($dataIdCheck  > 0){
-			$stmt = $this->con->prepare("UPDATE car set mainId = (?),mainTwoId = (?),shipperId = (?),vendorId = (?),customerId = (?),consigneeId = (?),make = (?),model = (?),year = (?),bodyStyle = (?),engineType = (?),engineLiters = (?),assemlyCountry = (?),color = (?),seacost = (?),landcost = (?),state = (?),releaseOption = (?), stateOut = (?),releaseDate = (?),uuid = (?),description = (?),containerLink = (?),eta = (?),etd = (?),lastUpdate = (?) where id  = (?);");
+			$stmt = $this->con->prepare("UPDATE car set mainId = (?),mainTwoId = (?),shipperId = (?),vendorId = (?),customerId = (?),consigneeId = (?),make = (?),model = (?),year = (?),bodyStyle = (?),engineType = (?),engineLiters = (?),assemlyCountry = (?),color = (?),seacost = (?),landcost = (?),state = (?),releaseOption = (?), stateOut = (?),releaseDate = (?),uuid = (?),description = (?),containerLink = (?),eta = (?),etd = (?),lastUpdate = (?),mobileOrComp = 1 where id  = (?);");
 			$stmt->bind_param("iiiiiissssssssssiiisssssssi",$mainId,$mainTwoId,$shipperId,$vendorId,$customerId,$consigneeId,$make,$model,$year,$bodyStyle,$engineType,$engineLiters,$assemlyCountry,$color,$seacost,$landcost,$state,$releaseOption,$stateOut,$releaseDate,$uuid,$description,$containerLink,$eta,$etd,$lastUpdate,$dataIdCheck);
       
 			
 		}else{
-			$stmt = $this->con->prepare("INSERT INTO car (mainId,mainTwoId,shipperId,vendorId,customerId,consigneeId,make,model,year,bodyStyle,engineType,engineLiters,assemlyCountry,color,seacost,landcost,state,releaseOption,stateOut,releaseDate,uuid,description,containerLink,eta,etd,lastUpdate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+			$stmt = $this->con->prepare("INSERT INTO car (mainId,mainTwoId,shipperId,vendorId,customerId,consigneeId,make,model,year,bodyStyle,engineType,engineLiters,assemlyCountry,color,seacost,landcost,state,releaseOption,stateOut,releaseDate,uuid,description,containerLink,eta,etd,lastUpdate,mobileOrComp) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,1);");
 			$stmt->bind_param("iiiiiissssssssssiiisssssss",$mainId,$mainTwoId,$shipperId,$vendorId,$customerId,$consigneeId,$make,$model,$year,$bodyStyle,$engineType,$engineLiters,$assemlyCountry,$color,$seacost,$landcost,$state,$releaseOption,$stateOut,$releaseDate,$uuid,$description,$containerLink,$eta,$etd,$lastUpdate);
       
 		}

@@ -111,6 +111,7 @@ public class carBean implements Serializable{
 	
 	private int selectedCarState=0; 
 	private List<car> allCars;
+	private List<car> allSelectedCars;
 	private List<consignee> allconsignees;
 	private List<mainTwo> allMainTwo;
 	private List<shipper> allshipper;
@@ -2088,6 +2089,40 @@ public void deleteCar() {
 
 	public void setSelectedCarState(int selectedCarState) {
 		this.selectedCarState = selectedCarState;
+	}
+
+	
+	
+	public List<car> getAllSelectedCars() {
+		return allSelectedCars;
+	}
+
+	public void setAllSelectedCars(List<car> allSelectedCars) {
+		this.allSelectedCars = allSelectedCars;
+	}
+
+	public List<String> getImages_deleted() {
+		return images_deleted;
+	}
+
+	public void setImages_deleted(List<String> images_deleted) {
+		this.images_deleted = images_deleted;
+	}
+
+	public List<String> getDocs_deleted() {
+		return docs_deleted;
+	}
+
+	public void setDocs_deleted(List<String> docs_deleted) {
+		this.docs_deleted = docs_deleted;
+	}
+
+	public List<String> getPdfs_deleted() {
+		return pdfs_deleted;
+	}
+
+	public void setPdfs_deleted(List<String> pdfs_deleted) {
+		this.pdfs_deleted = pdfs_deleted;
 	}
 
 	public void fillMap() {

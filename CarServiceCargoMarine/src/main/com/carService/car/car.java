@@ -379,11 +379,17 @@ public class car {
 
 	public static int TYPE_Vehicle = 0;
 	public static int TYPE_DRY_Cargo = 0;
-	
+
 	@Column(name = "type")
 	private Integer type;
-
 	
+
+	@Column(name = "mobileOrComp")
+	private Integer mobileOrComp;
+
+
+	public static int Type_Comp = 0;
+	public static int Type_Mobile = 1;
 
 	public static String stateString[]= {"Warehouse (Title uploaded, VIR uploaded, Load Request NO)",
 										 "Warehouse ( VIR and Title uploaded, Load Request YES)",
@@ -1566,6 +1572,24 @@ public class car {
 
 	public void setWeight(Integer weight) {
 		this.weight = weight;
+	}
+
+
+
+
+
+
+	public Integer getMobileOrComp() {
+		return mobileOrComp;
+	}
+
+
+
+
+
+
+	public void setMobileOrComp(Integer mobileOrComp) {
+		this.mobileOrComp = mobileOrComp;
 	}
 
 

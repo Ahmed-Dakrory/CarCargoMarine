@@ -68,6 +68,14 @@ body .ui-button {
     content: "\f046";
     font-family: FontAwesome;
 }
+
+.classNegative{
+background: red  !important ;
+}
+
+.classNormal{
+
+}
 	</style>
         <h:form name="aspnetForm" id="aspnetForm">
 
@@ -156,7 +164,7 @@ body .ui-button {
                  rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  rowsPerPageTemplate="10,50,100,200,500,1000"  editable="true"
-                 rowKey="#{row.id}"
+                 rowKey="#{row.id}" rowStyleClass="#{row.availableMoney &lt; 0?'classNegative':'classNormal'}"
                  emptyMessage="No users found with given criteria" filteredValue="#{loginBean.selectedlistOfAllUsersMoneyBox}" >
  
         <f:facet name="header">
