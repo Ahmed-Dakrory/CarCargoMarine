@@ -539,7 +539,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
         
         
 		
-		<p:column headerText="State" style="overflow: hidden;height: 15px;width: 112.087px; font-size: 11px;   text-align: center;"  id="state" sortBy="#{data.state}" filterBy="#{data.state}" filterMatchMode="equals">
+		<p:column headerText="State" style="overflow: hidden;height: 15px;width: 112.087px; font-size: 11px;   text-align: center;"  id="state" sortBy="#{data.state}" filterBy="#{data.state}" >
 									
 											<h:panelGroup rendered="#{(data.state==0)?'true':'false'}"  >
 											<div  class="documentCheck">Documents</div>
@@ -601,7 +601,9 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span>
 		</p:column>
 		
-		
+		<p:column headerText="Follower" style="overflow: hidden;height: 15px; font-size: 11px; width: 36.0875px;  text-align: center;" id="mainTwo" sortBy="#{data.mainTwoId.userId.firstName}" filterBy="#{data.mainTwoId.userId.firstName}" >
+											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.mainTwoId.userId.firstName}</span>
+		</p:column>
 		
 		<p:column headerText="Shipper" style="overflow: hidden;height: 15px; font-size: 11px;width: 67.0875px;  text-align: center;"  id="Shipper" sortBy="#{data.shipperId.userId.firstName}" filterBy="#{data.shipperId.userId.firstName}" >
 											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.shipperId.userId.firstName}</span>
@@ -615,15 +617,10 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 		
 		
 		
-		<p:column headerText="Release" filterMatchMode="contains"  style="overflow: hidden;height: 15px; font-size: 11px;width: 41.0875px; text-align: center;"  id="Release" sortBy="#{data.releaseOption}" filterBy="#{data.releaseOption}" >
-								<f:facet name="filter">
-                    <p:selectOneMenu   onchange="PF('dataTable').filter()"
-                                     label="Release">
-                                    
-                        <f:selectItem itemLabel="Release" itemValue="true"/>
-                        <f:selectItem itemLabel="Not Released" itemValue="false"/>
-                    </p:selectOneMenu >
-                </f:facet>
+		
+		
+		<p:column headerText="Release"   style="overflow: hidden;height: 15px; font-size: 11px;width: 41.0875px; text-align: center;"  id="Release" sortBy="#{data.releaseOption}" filterBy="#{data.releaseOption}" >
+							
 											<span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/#{data.releaseOption?'check_on.gif':'check_off.gif'}"></img></span>
 		</p:column>
 		
@@ -649,7 +646,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 		</p:column>
 		
 		
-		<p:column headerText="Cargo Received" style="overflow: hidden;height: 15px;width: 63.0875px; font-size: 11px;  text-align: center;" id="CargoReceived" sortBy="#{carBean.getFormatedDate(data.cargoRecieved)}" filterBy="#{carBean.getFormatedDate(data.cargoRecieved)}" >
+		<p:column headerText="Cargo Received" style="overflow: hidden;height: 15px;width: 63.0875px; font-size: 11px;  text-align: center;" id="CargoReceived" sortBy="#{data.cargoRecieved}" filterBy="#{carBean.getFormatedDate(data.cargoRecieved)}" >
 											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.cargoRecieved)}</span>
 		</p:column>
 		
@@ -693,11 +690,11 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 					<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheDestination(data.destination)}</span>
 		</p:column>
 		
-		 <p:column headerText="ETD" style="overflow: hidden;height: 15px; font-size: 11px;width: 60.0875px;   text-align: center;" id="ETD" sortBy="#{carBean.getFormatedDate(data.etd)}" filterBy="#{carBean.getFormatedDate(data.etd)}" >
+		 <p:column headerText="ETD" style="overflow: hidden;height: 15px; font-size: 11px;width: 60.0875px;   text-align: center;" id="ETD" sortBy="#{data.etd}" filterBy="#{carBean.getFormatedDate(data.etd)}" >
 										<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.etd)}</span>
 		</p:column>
 		
-		 <p:column headerText="ETA" style="overflow: hidden;height: 15px; font-size: 11px; width: 59.0875px;  text-align: center;background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};" id="ETA" sortBy="#{carBean.getFormatedDate(data.eta)}" filterBy="#{carBean.getFormatedDate(data.eta)}" >
+		 <p:column headerText="ETA" style="overflow: hidden;height: 15px; font-size: 11px; width: 59.0875px;  text-align: center;background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};" id="ETA" sortBy="#{data.eta}" filterBy="#{carBean.getFormatedDate(data.eta)}" >
 					<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span>
 		</p:column>
 		
