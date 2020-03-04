@@ -5254,7 +5254,7 @@
                     <h:selectOneMenu value="#{carBean.consigneeId}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$ddlConsigneeCompanyName" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$BodyHolder$ucConsigneeViewVehicle$ddlConsigneeCompanyName\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_BodyHolder_ucConsigneeViewVehicle_ddlConsigneeCompanyName" style="font-size:11px;width:250px;">
 						<f:ajax listener="#{carBean.selectConsignee()}"/>
 						<f:selectItem itemValue="-1" itemLabel="-SELECT-"/>
-						<f:selectItems value="#{carBean.allconsignees}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.firstName} #{var.userId.lastName}"/>
+						<f:selectItems value="#{carBean.allconsignees}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.company}"/>
 					</h:selectOneMenu>
                     
                 </td>
