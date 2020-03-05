@@ -20,8 +20,22 @@
 	<ui:define name="content">
 	
 		
-    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
-    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" />
+	
+	
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+		
 	
     	<style>
     	button, input, optgroup, select, textarea {
@@ -32,7 +46,51 @@
     	</style>
     	
     	<style>
+		
+		.datatableinputSearch{
+		height: 16px;
+    width: 100%;
+    font-size: 11px;
+    text-align: center;
+		}
+		
+		table.dataTable thead .sorting {
+    background-image: none;
+}
+	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+	vertical-align: middle;
+    border: 1px solid #dddddd;
+    font-size: 11px;
+    text-align: center;
+    font-family: sans-serif;
 	
+	}
+	
+	table.dataTable {
+    /* width: 100%; */
+    /* margin: 0 auto; */
+    clear: both;
+    border-collapse: collapse;
+    /* border-spacing: 0; */
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 3px 5px;
+}
+div.dt-button-collection {
+          max-height: 319px;
+    overflow: auto;
+	
+	}
+table.dataTable thead th, table.dataTable thead td {
+    padding: 3px 5px;
+    border-bottom: 1px solid #111;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: initial;
+    text-align: left;
+}
 
 body .ui-button {
     background-color: #007ad9;
@@ -497,50 +555,45 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                             <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
                                             <!-- Client DataGrid-->
                                             <section class="panel">
-                                            
-                                            	
-							 <p:dataTable id="dataTable" var="data" value="#{carBean.allCars}" widgetVar="dataTable" 
-                 rows="50" paginator="true" resizableColumns="true" 
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="10,50,100,200,500,1000" 
-                 rowKey="#{data.id}" 
-                 emptyMessage="No users found with given criteria" filteredValue="#{carBean.allSelectedCars}" >
-                 
-                 
-                    <f:facet name="header">
-            <p:outputPanel>
-            <div class="container" style="margin: 0;    width: 100%;">
-	            <div class="row">
-	            	<div class="col-md-2" style="text-align: left;">
-	            		<h:outputText value="Search all fields:" />
-	            		<p:inputText id="globalFilter" onkeyup="PF('dataTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-	            	</div>
-	            	<div class="col-md-1" style="text-align: left;">
-	            	<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="pi pi-align-justify" />
-       		 	<p:columnToggler datasource="dataTable" trigger="toggler" />
-	            	
-	            	</div> 
-	            	
-	            	
-	            	<div class="col-md-4" style="text-align: right;">
-	            		
-	            	</div>
-	            	<div class="col-md-1" style="text-align: left;">
-	            		
-	            	</div>
-	            </div>
-            </div>
-                
-				
-            </p:outputPanel>
-        </f:facet>
-        
-        
-        
-        
-		
-		<p:column headerText="State" style="overflow: hidden;height: 15px;width: 112.087px; font-size: 11px;   text-align: center;"  id="state" sortBy="#{data.state}" filterBy="#{data.state}" >
-									
+                                            <table id="example" class="table table-bordered table-striped mb-none" style="width:100%">
+									<thead>
+										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
+											<th>State</th>
+											<th>UID</th>
+											<th>Car_Type</th>
+											<th class="hidden-phone">Year</th>
+											<th class="hidden-phone">Shipper</th>
+											<th class="hidden-phone">Vendor</th>
+											<th class="hidden-phone">Follower</th>
+											<th class="hidden-phone">Release</th>
+											<th class="hidden-phone">Container#</th>
+											<th class="hidden-phone">No. Days</th>
+											<th class="hidden-phone">Inland Status</th>
+											<th class="hidden-phone">Cargo Received</th>
+											<th class="hidden-phone">Title Received</th>
+											<th class="hidden-phone">Origin</th>
+											<th class="hidden-phone">Destination</th>
+											<th class="hidden-phone">ETD</th>
+											<th class="hidden-phone">ETA</th>
+											<th class="hidden-phone">Consignee</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Land Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Sea Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Fees Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Commision Cost</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Price</th>
+											<th class="hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};">Total Cost</th>
+
+											<th class="hidden-phone">Image</th>
+											<th class="hidden-phone">Docs</th>
+											<th class="hidden-phone">Mobile or Comp</th>
+
+										</tr>
+									</thead>
+        <tbody>
+									<ui:repeat var="data" value="#{carBean.allCars}">
+										<tr class="gradeX">
+											<td style="overflow: hidden;height: 15px;width: 112.087px; font-size: 11px;   text-align: center;">
+											
 											<h:panelGroup rendered="#{(data.state==0)?'true':'false'}"  >
 											<div  class="documentCheck">Documents</div>
 											</h:panelGroup>
@@ -576,11 +629,12 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<h:panelGroup rendered="#{(data.state==8)?'true':'false'}"  >
 											<div  class="sentForPayment">Sent For Payment</div>
 											</h:panelGroup>
-		</p:column>
-                 
-                 
-              <p:column headerText="UID" style="overflow: hidden;height: 15px;width: 117.087px;font-size: 11px;   text-align: center;" id="UID" sortBy="#{data.uuid}" filterBy="#{data.uuid}">
-										<h:form>
+
+											</td>
+											
+											<td style="overflow: hidden;height: 15px;width: 117.087px;font-size: 11px;   text-align: center;">
+											
+													<h:form>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForMain(data.id)}"/>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==5?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForMainTwo(data.id)}"/>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==1?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForShipper(data.id)}"/>
@@ -588,71 +642,29 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==3?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForCustomerOrConsignee(data.id)}"/>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==4?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForCustomerOrConsignee(data.id)}"/>
 												</h:form>
-		</p:column>
-		
-		
-		<p:column headerText="Car_Type" class="classStyle center hidden-phone" style="width: 95.0875px; "  id="Car_Type" sortBy="#{data.make}" filterBy="#{data.make}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.make} #{data.model}</span>
-		</p:column>
-		
-		
-		
-		<p:column headerText="Year" style="overflow: hidden;height: 15px; font-size: 11px;width: 23.0875px;  text-align: center;"  id="Year" sortBy="#{data.year}" filterBy="#{data.year}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span>
-		</p:column>
-		
-		<p:column headerText="Follower" style="overflow: hidden;height: 15px; font-size: 11px; width: 36.0875px;  text-align: center;" id="mainTwo" sortBy="#{data.mainTwoId.userId.firstName}" filterBy="#{data.mainTwoId.userId.firstName}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.mainTwoId.userId.firstName}</span>
-		</p:column>
-		
-		<p:column headerText="Shipper" style="overflow: hidden;height: 15px; font-size: 11px;width: 67.0875px;  text-align: center;"  id="Shipper" sortBy="#{data.shipperId.userId.firstName}" filterBy="#{data.shipperId.userId.firstName}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.shipperId.userId.firstName}</span>
-		</p:column>
-		
-		
-		
-		<p:column headerText="Vendor" style="overflow: hidden;height: 15px; font-size: 11px; width: 36.0875px;  text-align: center;" id="Vendor" sortBy="#{data.vendorId.userId.firstName}" filterBy="#{data.vendorId.userId.firstName}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.vendorId.userId.firstName}</span>
-		</p:column>
-		
-		
-		
-		
-		
-		<p:column headerText="Release"   style="overflow: hidden;height: 15px; font-size: 11px;width: 41.0875px; text-align: center;"  id="Release" sortBy="#{data.releaseOption}" filterBy="#{data.releaseOption}" >
-							
-											<span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/#{data.releaseOption?'check_on.gif':'check_off.gif'}"></img></span>
-		</p:column>
-		
-		
-		
-		<p:column headerText="Container#" style="overflow: hidden;height: 15px; font-size: 11px; width: 72.0875px;text-align: center;" id="Container" sortBy="#{data.container}" filterBy="#{data.container}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;"><a  style="color: #371cc3;" onclick="openThisSite('#{data.containerLink}');">#{data.container}</a></span>
+											</td>
+											
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.make} #{data.model}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.shipperId.userId.firstName}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.vendorId.userId.firstName}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.mainTwoId.userId.firstName}</span></td>
+
+
+											<td class="center hidden-phone" style="display:table-cell;"><span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/#{data.releaseOption?'check_on.gif':'check_off.gif'}"></img></span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;"><a  style="color: #371cc3;" onclick="openThisSite('#{data.containerLink}');">#{data.container}</a></span></td>
+											
 											<script>
 											function openThisSite(url){
 												window.open(url,'_blank');
 											}
 											</script>
-		</p:column>
-		
-		
-		<p:column headerText="No. Days" style="overflow: hidden;height: 15px; font-size: 11px; width: 29.0875px; text-align: center;"  id="NoDays" sortBy="#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}" filterBy="#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</span>
-		</p:column>
-		
-		
-		<p:column headerText="Inland Status" style="overflow: hidden;height: 15px;width: 46.0875px; font-size: 11px;  text-align: center;background:#{carBean.isLandStatuesDiffMoreThan15Day(data.storageStartDate,data.storageEndDate,data.inlandStatus)?'#ffe271':'none'};"  id="InlandStatus" sortBy="#{data.releaseOption}" filterBy="#{data.releaseOption}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.inlandStatus}</span>
-		</p:column>
-		
-		
-		<p:column headerText="Cargo Received" style="overflow: hidden;height: 15px;width: 63.0875px; font-size: 11px;  text-align: center;" id="CargoReceived" sortBy="#{data.cargoRecieved}" filterBy="#{carBean.getFormatedDate(data.cargoRecieved)}" >
-											<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.cargoRecieved)}</span>
-		</p:column>
-		
-		
-		<p:column headerText="Title Received" style="overflow: hidden;height: 15px; font-size: 11px;width: 80.0875px;  text-align: center;"  id="TitleReceived" sortBy="#{data.titleRecieved}" filterBy="#{data.titleRecieved}" >
-											<h:panelGroup rendered="#{(data.titleRecieved==0)?'true':'false'}">
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</span></td>
+											<td class="center hidden-phone" style="background:#{carBean.isLandStatuesDiffMoreThan15Day(data.storageStartDate,data.storageEndDate,data.inlandStatus)?'#ffe271':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.inlandStatus}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.cargoRecieved)}</span></td>
+											<td class="center hidden-phone" style="vertical-align: middle;">
+
+												<h:panelGroup rendered="#{(data.titleRecieved==0)?'true':'false'}">
 												<div  class="noTitle">Missing</div>
 												</h:panelGroup>
 												
@@ -679,70 +691,77 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 												<h:panelGroup rendered="#{(data.titleRecieved==6)?'true':'false'}">
 												<div  class="billOfSale">Bill Of Sale</div>
 												</h:panelGroup>
-		</p:column>
-               
-               <p:column headerText="Origin" style="overflow: hidden;height: 15px; font-size: 11px;width: 32.0875px;   text-align: center;" id="Origin" sortBy="#{carBean.getTheOrigin(data.origin)}" filterBy="#{carBean.getTheOrigin(data.origin)}" >
-										<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheOrigin(data.origin)}</span>
-		</p:column>
-		
-		
-		 <p:column headerText="Destination" style="overflow: hidden;height: 15px; font-size: 11px;width: 84.0875px;  text-align: center;" id="Destination" sortBy="#{carBean.getTheDestination(data.destination)}" filterBy="#{carBean.getTheDestination(data.destination)}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheDestination(data.destination)}</span>
-		</p:column>
-		
-		 <p:column headerText="ETD" style="overflow: hidden;height: 15px; font-size: 11px;width: 60.0875px;   text-align: center;" id="ETD" sortBy="#{data.etd}" filterBy="#{carBean.getFormatedDate(data.etd)}" >
-										<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.etd)}</span>
-		</p:column>
-		
-		 <p:column headerText="ETA" style="overflow: hidden;height: 15px; font-size: 11px; width: 59.0875px;  text-align: center;background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};" id="ETA" sortBy="#{data.eta}" filterBy="#{carBean.getFormatedDate(data.eta)}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span>
-		</p:column>
-		
-		 <p:column headerText="Consignee" style="overflow: hidden;height: 15px; font-size: 11px; width: 55.0875px;   text-align: center;" id="Consignee" sortBy="#{data.consigneeId.userId.firstName}" filterBy="#{data.consigneeId.userId.firstName}" >
-										<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.consigneeId.userId.firstName}</span>
-		</p:column>
-		
-		 <p:column headerText="Land Cost" rendered="#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'true':'false'}" style="overflow: hidden;height: 15px; font-size: 11px;  width: 27.0875px;text-align: center;" id="LandCost" sortBy="#{data.landcost}" filterBy="#{data.landcost}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.landcost}</span>
-		</p:column>
-		
-		
-		 <p:column headerText="Sea Cost" rendered="#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'true':'false'}" style="overflow: hidden;height: 15px; font-size: 11px; width: 29.0875px;  text-align: center;" id="SeaCost" sortBy="#{data.seacost}" filterBy="#{data.seacost}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.seacost}</span>
-		</p:column>
-		
-		
-		 <p:column headerText="Fees" rendered="#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'true':'false'}" style="overflow: hidden;height: 15px; font-size: 11px; width: 25.0875px; text-align: center;" id="feesCost" sortBy="#{data.fees}" filterBy="#{data.fees}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.fees}</span>
-		</p:column>
-		
-		
-		 <p:column headerText="Commision" rendered="#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'true':'false'}" style="overflow: hidden;height: 15px; font-size: 11px; width: 60.0875px; text-align: center;" id="Commision" sortBy="#{data.commision}" filterBy="#{data.commision}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision}</span>
-		</p:column>
-		
-		
-		 <p:column headerText="Price" rendered="#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'true':'false'}" style="overflow: hidden;height: 15px; font-size: 11px; width: 29.0875px;  text-align: center;" id="Price" sortBy="#{data.valueOfGood}" filterBy="#{data.valueOfGood}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.valueOfGood}</span>
-		</p:column>
-		
-		
-		 <p:column headerText="Total Cost" rendered="#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'true':'false'}" style="overflow: hidden;height: 15px; font-size: 11px;  width: 29.0875px;  text-align: center;" id="TotalCost" sortBy="#{data.commision+data.fees+data.seacost+data.landcost}" filterBy="#{data.commision+data.fees+data.seacost+data.landcost}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost}</span>
-		</p:column>
-		
-			 <p:column headerText="Image" style="overflow: hidden;height: 15px; font-size: 11px; width: 32.0875px;  text-align: center;" id="Image" sortBy="#{data.photoExist}" filterBy="#{data.photoExist}" >
-										<img style="display:#{data.photoExist==true?'block':'none'} ;     box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d; border-radius: 15%;   width: 25px;" src = "/resources/images/img/no-photo.jpg"/>
-		</p:column>
-		
-			 <p:column headerText="Docs" style="overflow: hidden;height: 15px; font-size: 11px;   width: 32.0875px;  text-align: center;" id="Docs" sortBy="#{data.docExist}" filterBy="#{data.docExist}" >
-										<img style="display:#{data.docExist==true?'block':'none'} ;     width: 25px;" src = "/resources/images/public/img/membership-choice-step/membership-choice__premier-step-1.png"/>
-		</p:column>
-		 <p:column headerText="Mobile Or Computer"  style="overflow: hidden;height: 15px; font-size: 11px;  width: 55.0875px;  text-align: center;" id="mobOrComb" sortBy="#{data.mobileOrComp==1?'Mobile':'Computer'}" filterBy="#{data.mobileOrComp==1?'Mobile':'Computer'}" >
-					<span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.mobileOrComp==1?'Mobile':'Computer'}</span>
-		</p:column>
-		
-                 </p:dataTable>
+												</td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheOrigin(data.origin)}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheDestination(data.destination)}</span>
+											</td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.etd)}</span></td>
+
+											<td class="center hidden-phone" style="background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.consigneeId.userId.firstName}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.landcost}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.seacost}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.fees}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.valueOfGood}</span></td>
+											<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==0 || loginBean.theUserOfThisAccount.role==1 )?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost+data.valueOfGood}</span></td>
+											<td class="center hidden-phone"><img style="display:#{data.photoExist==true?'block':'none'} ;     box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d; border-radius: 15%;   width: 25px;" src = "/resources/images/img/no-photo.jpg"/></td>
+											<td class="center hidden-phone"><img style="display:#{data.docExist==true?'block':'none'} ;     width: 25px;" src = "/resources/images/public/img/membership-choice-step/membership-choice__premier-step-1.png"/></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.mobileOrComp==0?'Computer':'Mobile'}</span></td>
+										</tr>
+									</ui:repeat>
+
+
+									</tbody>
+												
+												
+											
+											
+    </table>
+	
+	<script>
+
+	$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="datatableinputSearch" placeholder=".." />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+		dom: 'Bfrtip',
+		"bPaginate": true,
+    "bLengthChange": true,
+    "bFilter": true,
+    "bInfo": true,
+	lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+    "bAutoWidth": false,
+        colReorder: true,
+        buttons: [
+            'colvis', 'pageLength', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+
+
+	</script>
+                                            	
+							
 						</section>
                                        
                                         </td>
