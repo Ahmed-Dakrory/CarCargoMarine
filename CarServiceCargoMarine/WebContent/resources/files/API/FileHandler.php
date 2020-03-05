@@ -23,7 +23,23 @@ class FileHandler
     public function saveFile($file, $extension, $carId,$type)
     {
 		
+		if($extension == "pdf"){
+			 $name = round(microtime(true) * 1000) . '.' . 'pdf';
+        $filedest = UPLOAD_PATH_PDF . $name;
+        move_uploaded_file($file, $filedest);
+		//$this->changeImageSize($file,$filedest);
 		
+		
+        $url = $server_ip = gethostbyname(gethostname());
+        $stmt = $this->con->prepare("INSERT INTO carimage (carId, url, type) VALUES (?, ?, ?)");
+		
+        $stmt->bind_param("isi", $carId, $name,$type);
+		
+        if ($stmt->execute())
+            return true;
+		
+		
+		}else{
         $name = round(microtime(true) * 1000) . '.' . 'jpeg';
         $filedest = UPLOAD_PATH . $name;
         //move_uploaded_file($file, $filedest);
@@ -34,8 +50,11 @@ class FileHandler
         $stmt = $this->con->prepare("INSERT INTO carimage (carId, url, type) VALUES (?, ?, ?)");
 		
         $stmt->bind_param("isi", $carId, $name,$type);
+		
         if ($stmt->execute())
             return true;
+		
+		}
         return false;
     }
 
@@ -378,6 +397,30 @@ class FileHandler
         $data = array();
 		
 		$stmt = $this->con->prepare("SELECT url FROM carimage where carId=? and type = 1 and deleted = 0");
+		
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+		
+        $stmt->bind_result($url);
+
+        $AllDocs = array();
+
+        while ($stmt->fetch()) {
+            $docs = array();
+            $docs['url'] = $url;
+            $docs['type'] = 1;
+            array_push($AllDocs, $docs);
+        }
+		return $AllDocs;
+	}
+	
+	
+	public function getCarPdf($id)
+    {
+		
+        $data = array();
+		
+		$stmt = $this->con->prepare("SELECT url FROM carimage where carId=? and type = 2 and deleted = 0");
 		
         $stmt->bind_param("s", $id);
         $stmt->execute();

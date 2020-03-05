@@ -12,3 +12,4 @@ define('DB_PASS', 'outreach_test0');
 define('DB_NAME', 'carsystem');
  
 define('UPLOAD_PATH', '/usr/local/apache-tomcat9/images/');
+define('UPLOAD_PATH_PDF', '/usr/local/apache-tomcat9/pdfs/');

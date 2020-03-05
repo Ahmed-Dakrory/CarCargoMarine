@@ -56,6 +56,7 @@ if (isset($_GET['apicall'])) {
             $response['error'] = false;
             $response['images'] = $upload->getCarImages($_POST['id']);
             $response['docs'] = $upload->getCarDoc($_POST['id']);
+            $response['pdfs'] = $upload->getCarPdf($_POST['id']);
             $response['data'] = $upload->getCarData($_POST['id']);
 			}
             break;
@@ -90,6 +91,7 @@ if (isset($_GET['apicall'])) {
             
 			$response['images'] = $upload->getCarImages($response['data']['id']);
             $response['docs'] = $upload->getCarDoc($response['data']['id']);
+            $response['pdfs'] = $upload->getCarPdf($response['data']['id']);
 			}
             break;
 			
