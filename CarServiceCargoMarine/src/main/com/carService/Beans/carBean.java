@@ -643,8 +643,9 @@ public class carBean implements Serializable{
 			addNewCar.setContainerLink("");
 			addNewCar.setEmailToSendComment("");
 			boolean isValid=checkValidForCar(addNewCar);
-			boolean checkVendor=checkVendorIsExist(addNewCar.getVendorId());
-			if(isValid&&checkVendor) {
+			//boolean checkVendor=checkVendorIsExist(addNewCar.getVendorId());
+			//if(isValid&&checkVendor) {
+			if(isValid) {
 				boolean checkCar = checkCarIsExist(addNewCar.getUuid());
 				
 				if(checkCar) {
@@ -877,8 +878,9 @@ public void updateCarForShipper() {
 		
 		boolean isValid=checkValidForCar(selectedCar);
 
-		boolean checkVendor=checkVendorIsExist(selectedCar.getVendorId());
-		if(isValid&&checkVendor) {
+		//boolean checkVendor=checkVendorIsExist(selectedCar.getVendorId());
+		//if(isValid&&checkVendor) {
+		if(isValid) {
 			
 		consignee consigneeNew=consigneeFacade.getById(consigneeId);
 		selectedCar.setConsigneeId(consigneeNew);

@@ -71,7 +71,7 @@
                                                             </td>
                                                             <td class="tbltxt" style="height: 23px;">
                                                                 <h:selectOneMenu value="#{carBean.selectedCar.customerId.id}" name="ctl00$BodyHolder$ddlVendorVehicle" id="ctl00_BodyHolder_ddlVendorVehicle" class="tbltxt" style="width:250px;">
-																	<f:selectItem itemValue="-1" itemLabel="-SELECT-"/>
+																	<f:selectItem itemValue="#{null}" itemLabel="-SELECT-"/>
 																	<f:selectItems value="#{carBean.allcustomer}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.firstName} #{var.userId.lastName}"/>
 																</h:selectOneMenu>
                                                             </td>
@@ -5209,7 +5209,7 @@
                 <td >
                     <h:selectOneMenu disabled="true" value="#{carBean.consigneeId}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$ddlConsigneeCompanyName" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$BodyHolder$ucConsigneeViewVehicle$ddlConsigneeCompanyName\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_BodyHolder_ucConsigneeViewVehicle_ddlConsigneeCompanyName" style="font-size:11px;width:250px;">
 						<f:ajax listener="#{carBean.selectConsignee()}"/>
-						<f:selectItem itemValue="-1" itemLabel="-SELECT-"/>
+						<f:selectItem itemValue="#{null}" itemLabel="-SELECT-"/>
 						<f:selectItems value="#{carBean.allconsignees}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.company}"/>
 					</h:selectOneMenu>
                     

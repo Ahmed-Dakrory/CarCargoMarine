@@ -4,6 +4,7 @@ package main.com.carService.car;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -188,19 +189,19 @@ public class car {
 	@JoinColumn(name = "mainId")
 	private user mainId;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = shipper.class, cascade=CascadeType.ALL)
 	@JoinColumn(name = "shipperId")
 	private shipper shipperId;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = vendor.class, cascade=CascadeType.ALL)
 	@JoinColumn(name = "vendorId")
 	private vendor vendorId;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = customer.class, cascade=CascadeType.ALL)
 	@JoinColumn(name = "customerId")
 	private customer customerId;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = mainTwo.class, cascade=CascadeType.ALL)
 	@JoinColumn(name = "mainTwoId")
 	private mainTwo mainTwoId;
 	
