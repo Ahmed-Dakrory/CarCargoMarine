@@ -87,7 +87,7 @@
                                                             <td class="tbltxt" style="height: 23px;">
                                                                 <h:selectOneMenu value="#{carBean.addNewCar.vendorId.id}" name="ctl00$BodyHolder$ddlVendorVehicle" id="ctl00_BodyHolder_ddlVendorVehicle" class="tbltxt" style="width:250px;">
 																	<f:selectItem itemValue="#{null}" itemLabel="-SELECT-"/>
-																	<f:selectItems value="#{carBean.allvendor}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.firstName} #{var.userId.lastName}"/>
+																	<f:selectItems value="#{carBean.allvendor}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.company}"/>
 																</h:selectOneMenu>
                                                             </td>
                                                         </tr>

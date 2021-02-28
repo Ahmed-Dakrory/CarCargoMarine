@@ -325,7 +325,7 @@
                                                                                                 <td width="200">
                                                                                                     <h:selectOneMenu value="#{carBean.shipperSelectedId}" name="ctl00$BodyHolder$ddlVendors" id="ctl00_BodyHolder_ddlVendors" style="font-size:11px;width:200px;">
 																										<f:selectItem itemValue="#{null}" itemLabel="-SELECT-"/>
-																										<f:selectItems value="#{carBean.allshipper}" var="var" itemLabel="#{var.userId.firstName} #{var.userId.lastName}" itemValue="#{var.id}"/>
+																										<f:selectItems value="#{carBean.allshipper}" var="var" itemLabel="#{var.userId.company}" itemValue="#{var.id}"/>
 																									</h:selectOneMenu>
                                                                                                     
                                                                                                 </td>
@@ -343,7 +343,7 @@
                                                                                                 <td width="200">
                                                                                                     <h:selectOneMenu value="#{carBean.vendorSelectedId}"  name="ctl00$BodyHolder$ddlVendor"  id="ctl00_BodyHolder_ddlVendor" style="font-size:11px;width:200px;">
 																										<f:selectItem itemValue="#{null}" itemLabel="-SELECT-"/>
-																										<f:selectItems value="#{carBean.allvendor}" var="var" itemLabel="#{var.userId.firstName} #{var.userId.lastName}" itemValue="#{var.id}"/>
+																										<f:selectItems value="#{carBean.allvendor}" var="var" itemLabel="#{var.userId.company}" itemValue="#{var.id}"/>
 																									</h:selectOneMenu>
                                                                                                     
                                                                                                 </td>
@@ -355,7 +355,7 @@
                                                                                                 <td width="200">
                                                                                                     <h:selectOneMenu value="#{carBean.mainTwoSelectedId}" name="ctl00$BodyHolder$ddlMainTwo" id="ctl00_BodyHolder_ddlMainTwo" style="font-size:11px;width:200px;">
 																										<f:selectItem itemValue="#{null}" itemLabel="-SELECT-"/>
-																										<f:selectItems value="#{carBean.allMainTwo}" var="var" itemLabel="#{var.userId.firstName} #{var.userId.lastName}" itemValue="#{var.id}"/>
+																										<f:selectItems value="#{carBean.allMainTwo}" var="var" itemLabel="#{var.userId.company}" itemValue="#{var.id}"/>
 																									</h:selectOneMenu>
                                                                                                     
                                                                                                 </td>
