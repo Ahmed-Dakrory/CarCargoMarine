@@ -875,12 +875,14 @@ public class carBean implements Serializable{
 	}
 
 public void updateCarForShipper() {
-		
+
 		boolean isValid=checkValidForCar(selectedCar);
 
 		//boolean checkVendor=checkVendorIsExist(selectedCar.getVendorId());
 		//if(isValid&&checkVendor) {
 		if(isValid) {
+			vendor itemV= vendorFacade.getById(selectedCar.getVendorId().getId());	
+			selectedCar.setVendorId(itemV);
 			
 		consignee consigneeNew=consigneeFacade.getById(consigneeId);
 		selectedCar.setConsigneeId(consigneeNew);
@@ -1009,6 +1011,8 @@ public void refreshSelectedCarVendor() {
 		boolean isValid=checkValidForCar(selectedCar);
 		if(isValid) {
 			
+			customer itemCus= customerFacade.getById(selectedCar.getCustomerId().getId());	
+			selectedCar.setCustomerId(itemCus);
 		carFacade.addcar(selectedCar);
 		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
