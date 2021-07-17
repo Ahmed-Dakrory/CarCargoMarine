@@ -19,6 +19,7 @@
 			</ui:define>
 
 	<ui:define name="content">
+		
 		<style>
 					.ui-fileupload-choose {
 						    position: relative;
@@ -53,6 +54,47 @@
     right: 17px;
 }
 					</style>
+					
+					
+					 	<style>
+					    	
+ 	.ui-fileupload-content .ui-progressbar .ui-progressbar-value {
+    background: gray;
+    height: 100%;
+}
+
+.ui-fileupload-content .ui-progressbar {
+    width: 200px;
+    height: 20px;
+    margin: 0;
+    top: 5px;
+    border-style: solid;
+    border-radius: 4px;
+    border-width: 1px;
+}
+
+
+    input, select {
+    font-family: arial;
+    height: 29px!important;
+    padding: 1px 1px 1px 9px;
+    margin: 2px;
+    border-radius: 5px;
+    font-size: 15px!important;
+    font-family: calibri;
+}
+
+td {
+    /* font-weight: 400; */
+    font-size: 15px;
+    font-family: calibri;
+}
+
+.tbltxt {
+    font: 16px 'calibri';
+    color: #000;
+}
+    	</style>
 	
     <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/jquerysctipttop.css']}" />
     <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/email.multiple.css']}" />
