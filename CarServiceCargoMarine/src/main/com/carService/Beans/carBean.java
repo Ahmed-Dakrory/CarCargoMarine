@@ -1454,6 +1454,25 @@ public void refreshSelectedCarVendor() {
 		return fileName;
 	      
 	}
+	
+	public void previewImageMain(FileUploadEvent event) {
+		byte[] image =event.getFile().getContents();
+		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
+		selectedCar.setMainUrl(fileName);
+		selectedCar.setPhotoExist(true);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelMain");
+	}
+	
+	
+	public void addImageMain(FileUploadEvent event) {
+		byte[] image =event.getFile().getContents();
+		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
+		addNewCar.setMainUrl(fileName);
+		addNewCar.setPhotoExist(true);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelMain");
+	}
+	
+	
 	public void previewImage(FileUploadEvent event) {
 		byte[] image =event.getFile().getContents();
 		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");

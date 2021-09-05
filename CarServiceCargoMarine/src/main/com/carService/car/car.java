@@ -214,6 +214,8 @@ public class car {
 	@Column(name = "model")
 	private String model;
 	
+	@Column(name = "mainUrl")
+	private String mainUrl;
 
 	@Column(name = "assemlyCountry")
 	private String assemlyCountry;
@@ -1591,6 +1593,24 @@ public class car {
 
 	public void setMobileOrComp(Integer mobileOrComp) {
 		this.mobileOrComp = mobileOrComp;
+	}
+
+
+
+
+
+
+	public String getMainUrl() {
+		return mainUrl;
+	}
+
+
+
+
+
+
+	public void setMainUrl(String mainUrl) {
+		this.mainUrl = mainUrl;
 	}
 
 
